@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34024.191
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VUtor", "VUtor\VUtor.csproj", "{D68A8AB7-C95D-492D-8918-7C96A3361D3C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VUtor", "VUtor\VUtor.csproj", "{8A59CD88-6B45-4E77-95FD-359A1D4A410B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D68A8AB7-C95D-492D-8918-7C96A3361D3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D68A8AB7-C95D-492D-8918-7C96A3361D3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D68A8AB7-C95D-492D-8918-7C96A3361D3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D68A8AB7-C95D-492D-8918-7C96A3361D3C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A59CD88-6B45-4E77-95FD-359A1D4A410B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A59CD88-6B45-4E77-95FD-359A1D4A410B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A59CD88-6B45-4E77-95FD-359A1D4A410B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A59CD88-6B45-4E77-95FD-359A1D4A410B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {10AD58C4-359B-45BC-B9E6-45B2B2DABC7A}
+		SolutionGuid = {35658E75-3356-4D41-A12A-7A4F1523E3D8}
 	EndGlobalSection
 EndGlobal
