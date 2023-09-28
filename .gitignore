@@ -1,0 +1,10 @@
+**/bin/Debug/
+**/bin/Release/
+**/obj/Debug/
+**/obj/Release/
+.vs/
+VUtor/.vs/
+
+VUtor/VUtor/obj/
+
+VUtor/VUtor/bin/
