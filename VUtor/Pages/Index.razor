@@ -1,0 +1,43 @@
+﻿@page "/"
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Components.Authorization
+@inject UserManager<IdentityUser> UserManager
+@inject SignInManager<IdentityUser> SignInManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+<PageTitle>Index</PageTitle>
+
+<h1>@message</h1>
+
+@code {
+    private string message;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        if (user.Identity.IsAuthenticated)
+        {
+            var identityUser = await UserManager.GetUserAsync(user);
+
+            if (await UserManager.IsInRoleAsync(identityUser, "Admin"))
+            {
+                message = "Hi, Admin";
+            }
+            else if (await UserManager.IsInRoleAsync(identityUser, "User"))
+            {
+                message = "Hi, User";
+            }
+            else
+            {
+                message = "Hi, not assigned a role";
+            }
+        }
+        else
+        {
+            message = "Hi, not logged in";
+        }
+    }
+}
+
