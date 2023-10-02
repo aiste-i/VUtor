@@ -9,129 +9,137 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = VUtor
 build_property.RootNamespace = VUtor
-build_property.ProjectDir = C:\Users\aiste\OneDrive\Documents\GitHub\VUtor\
+build_property.ProjectDir = C:\Users\aiste\OneDrive\Desktop\psi-web\VUtor\VUtor\
 build_property.RazorLangVersion = 7.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\aiste\OneDrive\Documents\GitHub\VUtor
+build_property.MSBuildProjectDirectory = C:\Users\aiste\OneDrive\Desktop\psi-web\VUtor\VUtor
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/aiste/OneDrive/Documents/GitHub/VUtor/App.razor]
+[C:/Users/aiste/OneDrive/Desktop/psi-web/VUtor/VUtor/App.razor]
 build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/aiste/OneDrive/Documents/GitHub/VUtor/Pages/Counter.razor]
+[C:/Users/aiste/OneDrive/Desktop/psi-web/VUtor/VUtor/Pages/Counter.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ291bnRlci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/aiste/OneDrive/Documents/GitHub/VUtor/Pages/FetchData.razor]
+[C:/Users/aiste/OneDrive/Desktop/psi-web/VUtor/VUtor/Pages/FetchData.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRmV0Y2hEYXRhLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/aiste/OneDrive/Documents/GitHub/VUtor/Pages/Index.razor]
+[C:/Users/aiste/OneDrive/Desktop/psi-web/VUtor/VUtor/Pages/Index.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXgucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/aiste/OneDrive/Documents/GitHub/VUtor/Shared/LoginDisplay.razor]
+[C:/Users/aiste/OneDrive/Desktop/psi-web/VUtor/VUtor/Shared/LoginDisplay.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXExvZ2luRGlzcGxheS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/aiste/OneDrive/Documents/GitHub/VUtor/Shared/SurveyPrompt.razor]
+[C:/Users/aiste/OneDrive/Desktop/psi-web/VUtor/VUtor/Shared/SurveyPrompt.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFN1cnZleVByb21wdC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/aiste/OneDrive/Documents/GitHub/VUtor/VUtor/App.razor]
+[C:/Users/aiste/OneDrive/Desktop/psi-web/VUtor/VUtor/VUtor/App.razor]
 build_metadata.AdditionalFiles.TargetPath = VlV0b3JcQXBwLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/aiste/OneDrive/Documents/GitHub/VUtor/VUtor/Pages/Counter.razor]
+[C:/Users/aiste/OneDrive/Desktop/psi-web/VUtor/VUtor/VUtor/Pages/Counter.razor]
 build_metadata.AdditionalFiles.TargetPath = VlV0b3JcUGFnZXNcQ291bnRlci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/aiste/OneDrive/Documents/GitHub/VUtor/VUtor/Pages/FetchData.razor]
+[C:/Users/aiste/OneDrive/Desktop/psi-web/VUtor/VUtor/VUtor/Pages/FetchData.razor]
 build_metadata.AdditionalFiles.TargetPath = VlV0b3JcUGFnZXNcRmV0Y2hEYXRhLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/aiste/OneDrive/Documents/GitHub/VUtor/VUtor/Pages/Index.razor]
+[C:/Users/aiste/OneDrive/Desktop/psi-web/VUtor/VUtor/VUtor/Pages/Index.razor]
 build_metadata.AdditionalFiles.TargetPath = VlV0b3JcUGFnZXNcSW5kZXgucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/aiste/OneDrive/Documents/GitHub/VUtor/VUtor/Shared/LoginDisplay.razor]
+[C:/Users/aiste/OneDrive/Desktop/psi-web/VUtor/VUtor/VUtor/Shared/LoginDisplay.razor]
 build_metadata.AdditionalFiles.TargetPath = VlV0b3JcU2hhcmVkXExvZ2luRGlzcGxheS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/aiste/OneDrive/Documents/GitHub/VUtor/VUtor/Shared/SurveyPrompt.razor]
+[C:/Users/aiste/OneDrive/Desktop/psi-web/VUtor/VUtor/VUtor/Shared/SurveyPrompt.razor]
 build_metadata.AdditionalFiles.TargetPath = VlV0b3JcU2hhcmVkXFN1cnZleVByb21wdC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/aiste/OneDrive/Documents/GitHub/VUtor/VUtor/_Imports.razor]
+[C:/Users/aiste/OneDrive/Desktop/psi-web/VUtor/VUtor/VUtor/_Imports.razor]
 build_metadata.AdditionalFiles.TargetPath = VlV0b3JcX0ltcG9ydHMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/aiste/OneDrive/Documents/GitHub/VUtor/_Imports.razor]
+[C:/Users/aiste/OneDrive/Desktop/psi-web/VUtor/VUtor/_Imports.razor]
 build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/aiste/OneDrive/Documents/GitHub/VUtor/Shared/MainLayout.razor]
+[C:/Users/aiste/OneDrive/Desktop/psi-web/VUtor/VUtor/Shared/MainLayout.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE1haW5MYXlvdXQucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = b-8hyod69ikx
 
-[C:/Users/aiste/OneDrive/Documents/GitHub/VUtor/Shared/NavMenu.razor]
+[C:/Users/aiste/OneDrive/Desktop/psi-web/VUtor/VUtor/Shared/NavMenu.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE5hdk1lbnUucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = b-lez05xduuu
 
-[C:/Users/aiste/OneDrive/Documents/GitHub/VUtor/VUtor/Shared/MainLayout.razor]
+[C:/Users/aiste/OneDrive/Desktop/psi-web/VUtor/VUtor/VUtor/Shared/MainLayout.razor]
 build_metadata.AdditionalFiles.TargetPath = VlV0b3JcU2hhcmVkXE1haW5MYXlvdXQucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = b-655f330agx
 
-[C:/Users/aiste/OneDrive/Documents/GitHub/VUtor/VUtor/Shared/NavMenu.razor]
+[C:/Users/aiste/OneDrive/Desktop/psi-web/VUtor/VUtor/VUtor/Shared/NavMenu.razor]
 build_metadata.AdditionalFiles.TargetPath = VlV0b3JcU2hhcmVkXE5hdk1lbnUucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = b-8fhdurlvi4
 
-[C:/Users/aiste/OneDrive/Documents/GitHub/VUtor/Areas/Identity/Pages/Account/LogOut.cshtml]
+[C:/Users/aiste/OneDrive/Desktop/psi-web/VUtor/VUtor/Areas/Identity/Pages/Account/LogOut.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxMb2dPdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/aiste/OneDrive/Documents/GitHub/VUtor/Areas/Identity/Pages/Shared/_LoginPartial.cshtml]
+[C:/Users/aiste/OneDrive/Desktop/psi-web/VUtor/VUtor/Areas/Identity/Pages/Shared/_LoginPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcU2hhcmVkXF9Mb2dpblBhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/aiste/OneDrive/Documents/GitHub/VUtor/Pages/Error.cshtml]
+[C:/Users/aiste/OneDrive/Desktop/psi-web/VUtor/VUtor/Pages/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/aiste/OneDrive/Documents/GitHub/VUtor/Pages/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/aiste/OneDrive/Desktop/psi-web/VUtor/VUtor/Pages/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/aiste/OneDrive/Documents/GitHub/VUtor/Pages/_Host.cshtml]
+[C:/Users/aiste/OneDrive/Desktop/psi-web/VUtor/VUtor/Pages/_Host.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX0hvc3QuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/aiste/OneDrive/Documents/GitHub/VUtor/Pages/_ViewImports.cshtml]
+[C:/Users/aiste/OneDrive/Desktop/psi-web/VUtor/VUtor/Pages/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/aiste/OneDrive/Documents/GitHub/VUtor/VUtor/Areas/Identity/Pages/Account/LogOut.cshtml]
+[C:/Users/aiste/OneDrive/Desktop/psi-web/VUtor/VUtor/VUtor/Areas/Identity/Pages/Account/LogOut.cshtml]
 build_metadata.AdditionalFiles.TargetPath = VlV0b3JcQXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxMb2dPdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/aiste/OneDrive/Documents/GitHub/VUtor/VUtor/Areas/Identity/Pages/Register.cshtml]
+[C:/Users/aiste/OneDrive/Desktop/psi-web/VUtor/VUtor/VUtor/Areas/Identity/Pages/Register.cshtml]
 build_metadata.AdditionalFiles.TargetPath = VlV0b3JcQXJlYXNcSWRlbnRpdHlcUGFnZXNcUmVnaXN0ZXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/aiste/OneDrive/Documents/GitHub/VUtor/VUtor/Areas/Identity/Pages/Shared/_LoginPartial.cshtml]
+[C:/Users/aiste/OneDrive/Desktop/psi-web/VUtor/VUtor/VUtor/Areas/Identity/Pages/Shared/_LoginPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = VlV0b3JcQXJlYXNcSWRlbnRpdHlcUGFnZXNcU2hhcmVkXF9Mb2dpblBhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/aiste/OneDrive/Documents/GitHub/VUtor/VUtor/Pages/Error.cshtml]
+[C:/Users/aiste/OneDrive/Desktop/psi-web/VUtor/VUtor/VUtor/Pages/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = VlV0b3JcUGFnZXNcRXJyb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/aiste/OneDrive/Documents/GitHub/VUtor/VUtor/Pages/_Host.cshtml]
+[C:/Users/aiste/OneDrive/Desktop/psi-web/VUtor/VUtor/VUtor/Pages/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = VlV0b3JcUGFnZXNcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/aiste/OneDrive/Desktop/psi-web/VUtor/VUtor/VUtor/Pages/_Host.cshtml]
 build_metadata.AdditionalFiles.TargetPath = VlV0b3JcUGFnZXNcX0hvc3QuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/aiste/OneDrive/Documents/GitHub/VUtor/VUtor/Pages/_ValidationScriptsPartial.cshtml]
+[C:/Users/aiste/OneDrive/Desktop/psi-web/VUtor/VUtor/VUtor/Pages/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = VlV0b3JcUGFnZXNcX1ZhbGlkYXRpb25TY3JpcHRzUGFydGlhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/aiste/OneDrive/Desktop/psi-web/VUtor/VUtor/VUtor/Pages/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = VlV0b3JcUGFnZXNcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
