@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "rz5p4uaw7fO6021Pfp4/3VwKxxn1MFfW2iwjDDVQ70w=",
+  "Hash": "1PSOppDwjD/Vsp1s6H5P4pDfzfoqjntPw56tUJgrOPk=",
   "Source": "VUtor",
   "BasePath": "_content/VUtor",
   "Mode": "Default",
@@ -10,7 +10,7 @@
     {
       "Name": "VUtor\\wwwroot",
       "Source": "VUtor",
-      "ContentRoot": "C:\\Users\\aiste\\OneDrive\\Documents\\GitHub\\VUtor\\VUtor\\VUtor\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\aiste\\OneDrive\\Desktop\\psi-web\\VUtor\\VUtor\\wwwroot\\",
       "BasePath": "_content/VUtor",
       "Pattern": "**"
     }
@@ -1037,10 +1037,10 @@
       "OriginalItemSpec": "C:\\Users\\aiste\\.nuget\\packages\\microsoft.aspnetcore.identity.ui\\7.0.10\\staticwebassets\\V5\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
     },
     {
-      "Identity": "C:\\Users\\aiste\\OneDrive\\Documents\\GitHub\\VUtor\\VUtor\\VUtor\\obj\\Debug\\net7.0\\scopedcss\\bundle\\VUtor.styles.css",
+      "Identity": "C:\\Users\\aiste\\OneDrive\\Desktop\\psi-web\\VUtor\\VUtor\\obj\\Debug\\net7.0\\scopedcss\\bundle\\VUtor.styles.css",
       "SourceId": "VUtor",
       "SourceType": "Computed",
-      "ContentRoot": "C:\\Users\\aiste\\OneDrive\\Documents\\GitHub\\VUtor\\VUtor\\VUtor\\obj\\Debug\\net7.0\\scopedcss\\bundle\\",
+      "ContentRoot": "C:\\Users\\aiste\\OneDrive\\Desktop\\psi-web\\VUtor\\VUtor\\obj\\Debug\\net7.0\\scopedcss\\bundle\\",
       "BasePath": "_content/VUtor",
       "RelativePath": "VUtor.styles.css",
       "AssetKind": "All",
@@ -1051,13 +1051,13 @@
       "AssetTraitValue": "ApplicationBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\aiste\\OneDrive\\Documents\\GitHub\\VUtor\\VUtor\\VUtor\\obj\\Debug\\net7.0\\scopedcss\\bundle\\VUtor.styles.css"
+      "OriginalItemSpec": "C:\\Users\\aiste\\OneDrive\\Desktop\\psi-web\\VUtor\\VUtor\\obj\\Debug\\net7.0\\scopedcss\\bundle\\VUtor.styles.css"
     },
     {
-      "Identity": "C:\\Users\\aiste\\OneDrive\\Documents\\GitHub\\VUtor\\VUtor\\VUtor\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\VUtor.bundle.scp.css",
+      "Identity": "C:\\Users\\aiste\\OneDrive\\Desktop\\psi-web\\VUtor\\VUtor\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\VUtor.bundle.scp.css",
       "SourceId": "VUtor",
       "SourceType": "Computed",
-      "ContentRoot": "C:\\Users\\aiste\\OneDrive\\Documents\\GitHub\\VUtor\\VUtor\\VUtor\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\",
+      "ContentRoot": "C:\\Users\\aiste\\OneDrive\\Desktop\\psi-web\\VUtor\\VUtor\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\",
       "BasePath": "_content/VUtor",
       "RelativePath": "VUtor.bundle.scp.css",
       "AssetKind": "All",
@@ -1068,13 +1068,13 @@
       "AssetTraitValue": "ProjectBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\aiste\\OneDrive\\Documents\\GitHub\\VUtor\\VUtor\\VUtor\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\VUtor.bundle.scp.css"
+      "OriginalItemSpec": "C:\\Users\\aiste\\OneDrive\\Desktop\\psi-web\\VUtor\\VUtor\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\VUtor.bundle.scp.css"
     },
     {
-      "Identity": "C:\\Users\\aiste\\OneDrive\\Documents\\GitHub\\VUtor\\VUtor\\VUtor\\wwwroot\\css\\bootstrap\\bootstrap.min.css",
+      "Identity": "C:\\Users\\aiste\\OneDrive\\Desktop\\psi-web\\VUtor\\VUtor\\wwwroot\\css\\bootstrap\\bootstrap.min.css",
       "SourceId": "VUtor",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\aiste\\OneDrive\\Documents\\GitHub\\VUtor\\VUtor\\VUtor\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\aiste\\OneDrive\\Desktop\\psi-web\\VUtor\\VUtor\\wwwroot\\",
       "BasePath": "_content/VUtor",
       "RelativePath": "css/bootstrap/bootstrap.min.css",
       "AssetKind": "All",
@@ -1088,10 +1088,10 @@
       "OriginalItemSpec": "wwwroot\\css\\bootstrap\\bootstrap.min.css"
     },
     {
-      "Identity": "C:\\Users\\aiste\\OneDrive\\Documents\\GitHub\\VUtor\\VUtor\\VUtor\\wwwroot\\css\\bootstrap\\bootstrap.min.css.map",
+      "Identity": "C:\\Users\\aiste\\OneDrive\\Desktop\\psi-web\\VUtor\\VUtor\\wwwroot\\css\\bootstrap\\bootstrap.min.css.map",
       "SourceId": "VUtor",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\aiste\\OneDrive\\Documents\\GitHub\\VUtor\\VUtor\\VUtor\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\aiste\\OneDrive\\Desktop\\psi-web\\VUtor\\VUtor\\wwwroot\\",
       "BasePath": "_content/VUtor",
       "RelativePath": "css/bootstrap/bootstrap.min.css.map",
       "AssetKind": "All",
@@ -1105,10 +1105,10 @@
       "OriginalItemSpec": "wwwroot\\css\\bootstrap\\bootstrap.min.css.map"
     },
     {
-      "Identity": "C:\\Users\\aiste\\OneDrive\\Documents\\GitHub\\VUtor\\VUtor\\VUtor\\wwwroot\\css\\open-iconic\\font\\css\\open-iconic-bootstrap.min.css",
+      "Identity": "C:\\Users\\aiste\\OneDrive\\Desktop\\psi-web\\VUtor\\VUtor\\wwwroot\\css\\open-iconic\\font\\css\\open-iconic-bootstrap.min.css",
       "SourceId": "VUtor",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\aiste\\OneDrive\\Documents\\GitHub\\VUtor\\VUtor\\VUtor\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\aiste\\OneDrive\\Desktop\\psi-web\\VUtor\\VUtor\\wwwroot\\",
       "BasePath": "_content/VUtor",
       "RelativePath": "css/open-iconic/font/css/open-iconic-bootstrap.min.css",
       "AssetKind": "All",
@@ -1122,10 +1122,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\font\\css\\open-iconic-bootstrap.min.css"
     },
     {
-      "Identity": "C:\\Users\\aiste\\OneDrive\\Documents\\GitHub\\VUtor\\VUtor\\VUtor\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.eot",
+      "Identity": "C:\\Users\\aiste\\OneDrive\\Desktop\\psi-web\\VUtor\\VUtor\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.eot",
       "SourceId": "VUtor",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\aiste\\OneDrive\\Documents\\GitHub\\VUtor\\VUtor\\VUtor\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\aiste\\OneDrive\\Desktop\\psi-web\\VUtor\\VUtor\\wwwroot\\",
       "BasePath": "_content/VUtor",
       "RelativePath": "css/open-iconic/font/fonts/open-iconic.eot",
       "AssetKind": "All",
@@ -1139,10 +1139,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.eot"
     },
     {
-      "Identity": "C:\\Users\\aiste\\OneDrive\\Documents\\GitHub\\VUtor\\VUtor\\VUtor\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.otf",
+      "Identity": "C:\\Users\\aiste\\OneDrive\\Desktop\\psi-web\\VUtor\\VUtor\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.otf",
       "SourceId": "VUtor",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\aiste\\OneDrive\\Documents\\GitHub\\VUtor\\VUtor\\VUtor\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\aiste\\OneDrive\\Desktop\\psi-web\\VUtor\\VUtor\\wwwroot\\",
       "BasePath": "_content/VUtor",
       "RelativePath": "css/open-iconic/font/fonts/open-iconic.otf",
       "AssetKind": "All",
@@ -1156,10 +1156,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.otf"
     },
     {
-      "Identity": "C:\\Users\\aiste\\OneDrive\\Documents\\GitHub\\VUtor\\VUtor\\VUtor\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.svg",
+      "Identity": "C:\\Users\\aiste\\OneDrive\\Desktop\\psi-web\\VUtor\\VUtor\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.svg",
       "SourceId": "VUtor",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\aiste\\OneDrive\\Documents\\GitHub\\VUtor\\VUtor\\VUtor\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\aiste\\OneDrive\\Desktop\\psi-web\\VUtor\\VUtor\\wwwroot\\",
       "BasePath": "_content/VUtor",
       "RelativePath": "css/open-iconic/font/fonts/open-iconic.svg",
       "AssetKind": "All",
@@ -1173,10 +1173,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.svg"
     },
     {
-      "Identity": "C:\\Users\\aiste\\OneDrive\\Documents\\GitHub\\VUtor\\VUtor\\VUtor\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.ttf",
+      "Identity": "C:\\Users\\aiste\\OneDrive\\Desktop\\psi-web\\VUtor\\VUtor\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.ttf",
       "SourceId": "VUtor",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\aiste\\OneDrive\\Documents\\GitHub\\VUtor\\VUtor\\VUtor\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\aiste\\OneDrive\\Desktop\\psi-web\\VUtor\\VUtor\\wwwroot\\",
       "BasePath": "_content/VUtor",
       "RelativePath": "css/open-iconic/font/fonts/open-iconic.ttf",
       "AssetKind": "All",
@@ -1190,10 +1190,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.ttf"
     },
     {
-      "Identity": "C:\\Users\\aiste\\OneDrive\\Documents\\GitHub\\VUtor\\VUtor\\VUtor\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.woff",
+      "Identity": "C:\\Users\\aiste\\OneDrive\\Desktop\\psi-web\\VUtor\\VUtor\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.woff",
       "SourceId": "VUtor",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\aiste\\OneDrive\\Documents\\GitHub\\VUtor\\VUtor\\VUtor\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\aiste\\OneDrive\\Desktop\\psi-web\\VUtor\\VUtor\\wwwroot\\",
       "BasePath": "_content/VUtor",
       "RelativePath": "css/open-iconic/font/fonts/open-iconic.woff",
       "AssetKind": "All",
@@ -1207,10 +1207,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.woff"
     },
     {
-      "Identity": "C:\\Users\\aiste\\OneDrive\\Documents\\GitHub\\VUtor\\VUtor\\VUtor\\wwwroot\\css\\open-iconic\\FONT-LICENSE",
+      "Identity": "C:\\Users\\aiste\\OneDrive\\Desktop\\psi-web\\VUtor\\VUtor\\wwwroot\\css\\open-iconic\\FONT-LICENSE",
       "SourceId": "VUtor",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\aiste\\OneDrive\\Documents\\GitHub\\VUtor\\VUtor\\VUtor\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\aiste\\OneDrive\\Desktop\\psi-web\\VUtor\\VUtor\\wwwroot\\",
       "BasePath": "_content/VUtor",
       "RelativePath": "css/open-iconic/FONT-LICENSE",
       "AssetKind": "All",
@@ -1224,10 +1224,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\FONT-LICENSE"
     },
     {
-      "Identity": "C:\\Users\\aiste\\OneDrive\\Documents\\GitHub\\VUtor\\VUtor\\VUtor\\wwwroot\\css\\open-iconic\\ICON-LICENSE",
+      "Identity": "C:\\Users\\aiste\\OneDrive\\Desktop\\psi-web\\VUtor\\VUtor\\wwwroot\\css\\open-iconic\\ICON-LICENSE",
       "SourceId": "VUtor",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\aiste\\OneDrive\\Documents\\GitHub\\VUtor\\VUtor\\VUtor\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\aiste\\OneDrive\\Desktop\\psi-web\\VUtor\\VUtor\\wwwroot\\",
       "BasePath": "_content/VUtor",
       "RelativePath": "css/open-iconic/ICON-LICENSE",
       "AssetKind": "All",
@@ -1241,10 +1241,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\ICON-LICENSE"
     },
     {
-      "Identity": "C:\\Users\\aiste\\OneDrive\\Documents\\GitHub\\VUtor\\VUtor\\VUtor\\wwwroot\\css\\open-iconic\\README.md",
+      "Identity": "C:\\Users\\aiste\\OneDrive\\Desktop\\psi-web\\VUtor\\VUtor\\wwwroot\\css\\open-iconic\\README.md",
       "SourceId": "VUtor",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\aiste\\OneDrive\\Documents\\GitHub\\VUtor\\VUtor\\VUtor\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\aiste\\OneDrive\\Desktop\\psi-web\\VUtor\\VUtor\\wwwroot\\",
       "BasePath": "_content/VUtor",
       "RelativePath": "css/open-iconic/README.md",
       "AssetKind": "All",
@@ -1258,10 +1258,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\README.md"
     },
     {
-      "Identity": "C:\\Users\\aiste\\OneDrive\\Documents\\GitHub\\VUtor\\VUtor\\VUtor\\wwwroot\\css\\site.css",
+      "Identity": "C:\\Users\\aiste\\OneDrive\\Desktop\\psi-web\\VUtor\\VUtor\\wwwroot\\css\\site.css",
       "SourceId": "VUtor",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\aiste\\OneDrive\\Documents\\GitHub\\VUtor\\VUtor\\VUtor\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\aiste\\OneDrive\\Desktop\\psi-web\\VUtor\\VUtor\\wwwroot\\",
       "BasePath": "_content/VUtor",
       "RelativePath": "css/site.css",
       "AssetKind": "All",
@@ -1275,10 +1275,10 @@
       "OriginalItemSpec": "wwwroot\\css\\site.css"
     },
     {
-      "Identity": "C:\\Users\\aiste\\OneDrive\\Documents\\GitHub\\VUtor\\VUtor\\VUtor\\wwwroot\\favicon.png",
+      "Identity": "C:\\Users\\aiste\\OneDrive\\Desktop\\psi-web\\VUtor\\VUtor\\wwwroot\\favicon.png",
       "SourceId": "VUtor",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\aiste\\OneDrive\\Documents\\GitHub\\VUtor\\VUtor\\VUtor\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\aiste\\OneDrive\\Desktop\\psi-web\\VUtor\\VUtor\\wwwroot\\",
       "BasePath": "_content/VUtor",
       "RelativePath": "favicon.png",
       "AssetKind": "All",

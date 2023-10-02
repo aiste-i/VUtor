@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\aiste\\OneDrive\\Documents\\GitHub\\VUtor\\VUtor.csproj": {}
+    "C:\\Users\\aiste\\OneDrive\\Desktop\\psi-web\\VUtor\\VUtor\\VUtor.csproj": {}
   },
   "projects": {
-    "C:\\Users\\aiste\\OneDrive\\Documents\\GitHub\\VUtor\\VUtor.csproj": {
+    "C:\\Users\\aiste\\OneDrive\\Desktop\\psi-web\\VUtor\\VUtor\\VUtor.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\aiste\\OneDrive\\Documents\\GitHub\\VUtor\\VUtor.csproj",
+        "projectUniqueName": "C:\\Users\\aiste\\OneDrive\\Desktop\\psi-web\\VUtor\\VUtor\\VUtor.csproj",
         "projectName": "VUtor",
-        "projectPath": "C:\\Users\\aiste\\OneDrive\\Documents\\GitHub\\VUtor\\VUtor.csproj",
+        "projectPath": "C:\\Users\\aiste\\OneDrive\\Desktop\\psi-web\\VUtor\\VUtor\\VUtor.csproj",
         "packagesPath": "C:\\Users\\aiste\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\aiste\\OneDrive\\Documents\\GitHub\\VUtor\\obj\\",
+        "outputPath": "C:\\Users\\aiste\\OneDrive\\Desktop\\psi-web\\VUtor\\VUtor\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

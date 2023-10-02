@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ZGC2Hua6Y9LsGzGSgkG9If42CEECk7ho91Ksnjhn8Twma/cznCzJQ7cyvQgn2hCkmNedYk8vsjhqPnF+EbktUA==",
+  "dgSpecHash": "uajRqi/66ZKlSJuthyGvofIZplk17wIpkjGwbUY/M7CaR4BTPJiu/VmBiCdnibPBq0yloM/+R4UG6vC4L/wWmA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\aiste\\OneDrive\\Documents\\GitHub\\VUtor\\VUtor.csproj",
+  "projectFilePath": "C:\\Users\\aiste\\OneDrive\\Desktop\\psi-web\\VUtor\\VUtor\\VUtor.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\aiste\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\aiste\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
