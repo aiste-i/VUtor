@@ -1,4 +1,4 @@
-﻿namespace VUtor.Models
+﻿namespace VUtor.Entities
 {
     public class TopicEntity
     {
