@@ -4,12 +4,13 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.EntityFrameworkCore;
+using MySql.Data.MySqlClient;
 using VUtor.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+var connectionString = builder.Configuration.GetConnectionString("AzureSql") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
@@ -66,7 +67,7 @@ using (var scope = app.Services.CreateScope())
     string email = "admin@admin.com";
     string password = "Test.1";
 
-    if(await userManager.FindByEmailAsync(email) == null)
+    if (await userManager.FindByEmailAsync(email) == null)
     {
         var user = new IdentityUser();
         user.UserName = email;
