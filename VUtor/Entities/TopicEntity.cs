@@ -1,11 +1,13 @@
-﻿namespace VUtor.Entities
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace VUtor.Entities
 {
     public class TopicEntity
     {
-        public int TopicId { get; set; }
-        public string Title { get; set; }
-
-        public List<ProfileEntity> TeachingProfiles { get; set; }
-        public List<ProfileEntity> LearningProfiles { get; set; }
+        [Key]
+        public int Id { get; init; }
+        public required string Title { get; set; }
+        public ICollection<ProfileTopic>? TeachingProfiles { get; set; }
+        public ICollection<ProfileTopic>? LearningProfiles { get; set; }
     }
 }

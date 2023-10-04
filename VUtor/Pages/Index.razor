@@ -1,8 +1,9 @@
 ﻿@page "/"
 @using Microsoft.AspNetCore.Identity
 @using Microsoft.AspNetCore.Components.Authorization
-@inject UserManager<IdentityUser> UserManager
-@inject SignInManager<IdentityUser> SignInManager
+@using VUtor.Entities;
+@inject UserManager<ProfileEntity> UserManager
+@inject SignInManager<ProfileEntity> SignInManager
 @inject AuthenticationStateProvider AuthenticationStateProvider
 
 <PageTitle>Index</PageTitle>
