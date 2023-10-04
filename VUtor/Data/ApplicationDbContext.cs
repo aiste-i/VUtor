@@ -18,10 +18,8 @@ namespace VUtor.Data
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=tcp:vutor.database.windows.net,1433;Initial Catalog=VUtor;Encrypt=True;TrustServerCertificate=True;Connection Timeout=30;Authentication=Active Directory Default;", builder =>
-            {
-                builder.EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null);
-            });
+            optionsBuilder.UseSqlServer("Server=tcp:vutor.database.windows.net,1433;Initial Catalog=VUtor;Encrypt=True;TrustServerCertificate=True;Connection Timeout=30;Authentication=Active Directory Default;", 
+                options => options.EnableRetryOnFailure());
             base.OnConfiguring(optionsBuilder);
         }
 
