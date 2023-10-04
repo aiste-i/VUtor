@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Org.BouncyCastle.Bcpg.Sig;
 using VUtor.Entities;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace VUtor.Data
 {
@@ -26,6 +27,9 @@ namespace VUtor.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ProfileEntity>()
+                .Property(e => e.Id);
+
+            modelBuilder.Entity<ProfileEntity>()
                 .Property(e => e.Name)
                 .HasMaxLength(250);
 
@@ -33,22 +37,16 @@ namespace VUtor.Data
                 .Property(e => e.Surname)
                 .HasMaxLength(250);
 
-            modelBuilder.SharedTypeEntity<ProfileTopic>("ProfileTopicToLearn", builder =>
-            {
-                builder.ToTable("ProfileTopicToLearn");
-                builder.HasKey(e => new { e.ProfileId, e.TopicId });
-                builder.HasOne(e => e.Profile).WithMany(e => e.TopicsToLearn);
-                builder.HasOne(e => e.Topic).WithMany(e => e.LearningProfiles);
-            });
+            modelBuilder.Entity<ProfileEntity>()
+            .HasMany(p => p.TopicsToLearn)
+            .WithMany(t => t.LearningProfiles)
+            .UsingEntity(j => j.ToTable("ProfilesLearningTopics"));
 
-            modelBuilder.SharedTypeEntity<ProfileTopic>("ProfileTopicToTeach", builder =>
-            {
-                builder.ToTable("ProfileTopicToTeach");
-                builder.HasKey(e => new { e.ProfileId, e.TopicId });
-                builder.HasOne(e => e.Profile).WithMany(e => e.TopicsToTeach);
-                builder.HasOne(e => e.Topic).WithMany(e => e.TeachingProfiles);
-            });
-           
+            modelBuilder.Entity<ProfileEntity>()
+                        .HasMany(p => p.TopicsToTeach)
+                        .WithMany(t => t.TeachingProfiles)
+                        .UsingEntity(j => j.ToTable("ProfilesTeachingTopics"));
+
             base.OnModelCreating(modelBuilder);
 
         }
