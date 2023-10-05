@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VUtor.Data;
 
@@ -11,9 +12,11 @@ using VUtor.Data;
 namespace VUtor.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231003173626_CustomFields")]
+    partial class CustomFields
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -159,34 +162,46 @@ namespace VUtor.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("ProfileEntityTopicEntity", b =>
+            modelBuilder.Entity("ProfileTopicToLearn", b =>
                 {
-                    b.Property<string>("LearningProfilesId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("TopicsToLearnId")
+                    b.Property<int>("ProfileId")
                         .HasColumnType("int");
 
-                    b.HasKey("LearningProfilesId", "TopicsToLearnId");
+                    b.Property<int>("TopicId")
+                        .HasColumnType("int");
 
-                    b.HasIndex("TopicsToLearnId");
+                    b.Property<string>("ProfileId1")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
-                    b.ToTable("ProfilesLearningTopics", (string)null);
+                    b.HasKey("ProfileId", "TopicId");
+
+                    b.HasIndex("ProfileId1");
+
+                    b.HasIndex("TopicId");
+
+                    b.ToTable("ProfileTopicToLearn", (string)null);
                 });
 
-            modelBuilder.Entity("ProfileEntityTopicEntity1", b =>
+            modelBuilder.Entity("ProfileTopicToTeach", b =>
                 {
-                    b.Property<string>("TeachingProfilesId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("TopicsToTeachId")
+                    b.Property<int>("ProfileId")
                         .HasColumnType("int");
 
-                    b.HasKey("TeachingProfilesId", "TopicsToTeachId");
+                    b.Property<int>("TopicId")
+                        .HasColumnType("int");
 
-                    b.HasIndex("TopicsToTeachId");
+                    b.Property<string>("ProfileId1")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
-                    b.ToTable("ProfilesTeachingTopics", (string)null);
+                    b.HasKey("ProfileId", "TopicId");
+
+                    b.HasIndex("ProfileId1");
+
+                    b.HasIndex("TopicId");
+
+                    b.ToTable("ProfileTopicToTeach", (string)null);
                 });
 
             modelBuilder.Entity("VUtor.Entities.ProfileEntity", b =>
@@ -332,34 +347,56 @@ namespace VUtor.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ProfileEntityTopicEntity", b =>
+            modelBuilder.Entity("ProfileTopicToLearn", b =>
                 {
-                    b.HasOne("VUtor.Entities.ProfileEntity", null)
-                        .WithMany()
-                        .HasForeignKey("LearningProfilesId")
+                    b.HasOne("VUtor.Entities.ProfileEntity", "Profile")
+                        .WithMany("TopicsToLearn")
+                        .HasForeignKey("ProfileId1")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("VUtor.Entities.TopicEntity", null)
-                        .WithMany()
-                        .HasForeignKey("TopicsToLearnId")
+                    b.HasOne("VUtor.Entities.TopicEntity", "Topic")
+                        .WithMany("LearningProfiles")
+                        .HasForeignKey("TopicId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Profile");
+
+                    b.Navigation("Topic");
                 });
 
-            modelBuilder.Entity("ProfileEntityTopicEntity1", b =>
+            modelBuilder.Entity("ProfileTopicToTeach", b =>
                 {
-                    b.HasOne("VUtor.Entities.ProfileEntity", null)
-                        .WithMany()
-                        .HasForeignKey("TeachingProfilesId")
+                    b.HasOne("VUtor.Entities.ProfileEntity", "Profile")
+                        .WithMany("TopicsToTeach")
+                        .HasForeignKey("ProfileId1")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("VUtor.Entities.TopicEntity", null)
-                        .WithMany()
-                        .HasForeignKey("TopicsToTeachId")
+                    b.HasOne("VUtor.Entities.TopicEntity", "Topic")
+                        .WithMany("TeachingProfiles")
+                        .HasForeignKey("TopicId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Profile");
+
+                    b.Navigation("Topic");
+                });
+
+            modelBuilder.Entity("VUtor.Entities.ProfileEntity", b =>
+                {
+                    b.Navigation("TopicsToLearn");
+
+                    b.Navigation("TopicsToTeach");
+                });
+
+            modelBuilder.Entity("VUtor.Entities.TopicEntity", b =>
+                {
+                    b.Navigation("LearningProfiles");
+
+                    b.Navigation("TeachingProfiles");
                 });
 #pragma warning restore 612, 618
         }

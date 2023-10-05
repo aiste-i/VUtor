@@ -1,7 +1,8 @@
 ﻿@page
 @using Microsoft.AspNetCore.Identity
+@using VUtor.Entities;
 @attribute [IgnoreAntiforgeryToken]
-@inject SignInManager<IdentityUser> SignInManager
+@inject SignInManager<ProfileEntity> SignInManager
 @functions {
     public async Task<IActionResult> OnPost()
     {
