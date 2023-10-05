@@ -1,6 +1,10 @@
+<<<<<<< HEAD
 ﻿using Microsoft.AspNetCore.Identity;
 
 namespace VUtor.Entities
+=======
+﻿namespace VUtor.Entities
+>>>>>>> main
 {
     public class ProfileEntity : IdentityUser
     {
