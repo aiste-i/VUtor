@@ -12,7 +12,6 @@ namespace VUtor.Data
         public DbSet<TopicEntity> Topics { get; set; }
 
 
-
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
@@ -27,7 +26,8 @@ namespace VUtor.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ProfileEntity>()
-                .Property(e => e.Id);
+                .Property(e => e.Id)
+                .HasColumnType("Integer");
 
             modelBuilder.Entity<ProfileEntity>()
                 .Property(e => e.Name)
