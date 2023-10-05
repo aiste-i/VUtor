@@ -1,11 +1,7 @@
-<<<<<<< HEAD
 ﻿using System.ComponentModel.DataAnnotations;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace VUtor.Entities
-=======
-﻿namespace VUtor.Entities
->>>>>>> main
+
 {
     public class TopicEntity
     {
