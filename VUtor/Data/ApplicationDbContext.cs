@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Org.BouncyCastle.Bcpg.Sig;
 using VUtor.Entities;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace VUtor.Data
 {
@@ -26,8 +24,7 @@ namespace VUtor.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ProfileEntity>()
-                .Property(e => e.Id)
-                .HasColumnType("Integer");
+                .Property(e => e.Id);
 
             modelBuilder.Entity<ProfileEntity>()
                 .Property(e => e.Name)

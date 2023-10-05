@@ -1,4 +1,7 @@
-﻿@inject SignInManager<ProfileEntity> SignInManager
+﻿@using Microsoft.AspNetCore.Identity
+@using VUtor.Entities
+
+@inject SignInManager<ProfileEntity> SignInManager
 @{
     var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
 }
