@@ -1,25 +1,23 @@
-﻿@page
+@page
 @model LoginModel
 
 @{
-    ViewData["Title"] = "Log in";
+    ViewData["Title"] = "Welcome to VUtor";
 }
-
-<h1>@ViewData["Title"]</h1>
-<div class="row">
-    <div class="col-md-4">
+<div class="login_container">
+    <h1 class="login_welcome_h1">@ViewData["Title"]</h1>
         <section>
-            <form id="account" method="post">
-                <h2>Use a local account to log in.</h2>
-                <hr />
+        <form id="account" method="post" class="login_container">
                 <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
-                <div class="form-floating mb-3">
-                    <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
-                    <label asp-for="Input.Email" class="form-label">Email</label>
+                <div>
+                    <label class="specifications">Enter account email</label>
+                    <div class="form-floating mb-3">
+                    <input asp-for="Input.Email" class="round_corners long_tall" autocomplete="username" aria-required="true" />
                     <span asp-validation-for="Input.Email" class="text-danger"></span>
+                    </div>
                 </div>
                 <div>
-                    <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">Log in</button>
+                    <button id="login-submit" type="submit" class="round_corners login">Log in</button>
                 </div>
                 <div>
                     <p>
@@ -28,7 +26,6 @@
                 </div>
             </form>
         </section>
-    </div>
 </div>
 
 @section Scripts {
