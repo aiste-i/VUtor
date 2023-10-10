@@ -1,7 +1,8 @@
 ﻿@page "/"
 @using Microsoft.AspNetCore.Identity
 @using Microsoft.AspNetCore.Components.Authorization
-@using VUtor.Entities;
+@using DataAccessLibrary.Models
+
 @inject UserManager<ProfileEntity> UserManager
 @inject SignInManager<ProfileEntity> SignInManager
 @inject AuthenticationStateProvider AuthenticationStateProvider

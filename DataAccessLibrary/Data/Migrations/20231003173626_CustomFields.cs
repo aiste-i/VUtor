@@ -2,87 +2,42 @@
 
 #nullable disable
 
-namespace VUtor.Data.Migrations
+namespace DataAccessLibrary.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class ProfilesAndTopics : Migration
+    public partial class CustomFields : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "ProfileTopicToLearn");
+            migrationBuilder.AddColumn<string>(
+                name: "Name",
+                table: "AspNetUsers",
+                type: "nvarchar(250)",
+                maxLength: 250,
+                nullable: false,
+                defaultValue: "");
 
-            migrationBuilder.DropTable(
-                name: "ProfileTopicToTeach");
+            migrationBuilder.AddColumn<string>(
+                name: "Surname",
+                table: "AspNetUsers",
+                type: "nvarchar(250)",
+                maxLength: 250,
+                nullable: false,
+                defaultValue: "");
 
             migrationBuilder.CreateTable(
-                name: "ProfilesLearningTopics",
+                name: "Topics",
                 columns: table => new
                 {
-                    LearningProfilesId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    TopicsToLearnId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProfilesLearningTopics", x => new { x.LearningProfilesId, x.TopicsToLearnId });
-                    table.ForeignKey(
-                        name: "FK_ProfilesLearningTopics_AspNetUsers_LearningProfilesId",
-                        column: x => x.LearningProfilesId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ProfilesLearningTopics_Topics_TopicsToLearnId",
-                        column: x => x.TopicsToLearnId,
-                        principalTable: "Topics",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                    table.PrimaryKey("PK_Topics", x => x.Id);
                 });
-
-            migrationBuilder.CreateTable(
-                name: "ProfilesTeachingTopics",
-                columns: table => new
-                {
-                    TeachingProfilesId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    TopicsToTeachId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ProfilesTeachingTopics", x => new { x.TeachingProfilesId, x.TopicsToTeachId });
-                    table.ForeignKey(
-                        name: "FK_ProfilesTeachingTopics_AspNetUsers_TeachingProfilesId",
-                        column: x => x.TeachingProfilesId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ProfilesTeachingTopics_Topics_TopicsToTeachId",
-                        column: x => x.TopicsToTeachId,
-                        principalTable: "Topics",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ProfilesLearningTopics_TopicsToLearnId",
-                table: "ProfilesLearningTopics",
-                column: "TopicsToLearnId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ProfilesTeachingTopics_TopicsToTeachId",
-                table: "ProfilesTeachingTopics",
-                column: "TopicsToTeachId");
-        }
-
-        /// <inheritdoc />
-        protected override void Down(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.DropTable(
-                name: "ProfilesLearningTopics");
-
-            migrationBuilder.DropTable(
-                name: "ProfilesTeachingTopics");
 
             migrationBuilder.CreateTable(
                 name: "ProfileTopicToLearn",
@@ -153,6 +108,27 @@ namespace VUtor.Data.Migrations
                 name: "IX_ProfileTopicToTeach_TopicId",
                 table: "ProfileTopicToTeach",
                 column: "TopicId");
+        }
+
+        /// <inheritdoc />
+        protected override void Down(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.DropTable(
+                name: "ProfileTopicToLearn");
+
+            migrationBuilder.DropTable(
+                name: "ProfileTopicToTeach");
+
+            migrationBuilder.DropTable(
+                name: "Topics");
+
+            migrationBuilder.DropColumn(
+                name: "Name",
+                table: "AspNetUsers");
+
+            migrationBuilder.DropColumn(
+                name: "Surname",
+                table: "AspNetUsers");
         }
     }
 }

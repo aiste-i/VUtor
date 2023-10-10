@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace VUtor.Data.Migrations
+namespace DataAccessLibrary.Data.Migrations
 {
     /// <inheritdoc />
     public partial class Initial : Migration

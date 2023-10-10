@@ -1,10 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using DataAccessLibrary.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Org.BouncyCastle.Bcpg.Sig;
-using VUtor.Entities;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
-namespace VUtor.Data
+namespace DataAccessLibrary.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ProfileEntity>
     {
@@ -19,16 +17,20 @@ namespace VUtor.Data
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=tcp:vutor.database.windows.net,1433;Initial Catalog=VUtor;Encrypt=True;TrustServerCertificate=True;Connection Timeout=30;Authentication=Active Directory Default;", 
-                options => options.EnableRetryOnFailure());
+            optionsBuilder.UseSqlServer("Server=tcp:vutor.database.windows.net,1433;Initial Catalog=VUtor;Encrypt=True;TrustServerCertificate=True;Connection Timeout=30;Authentication=Active Directory Default;Pooling=True;", 
+                options => options.EnableRetryOnFailure().MaxBatchSize(100));
             base.OnConfiguring(optionsBuilder);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<ProfileEntity>()
-                .Property(e => e.Id);
+            modelBuilder.Entity<TopicEntity>()
+                .HasKey(e => e.Id);
 
+            modelBuilder.Entity<TopicEntity>()
+                .Property(e => e.Title)
+                .HasMaxLength(250);
+           
             modelBuilder.Entity<ProfileEntity>()
                 .Property(e => e.Name)
                 .HasMaxLength(250);
@@ -38,9 +40,17 @@ namespace VUtor.Data
                 .HasMaxLength(250);
 
             modelBuilder.Entity<ProfileEntity>()
-            .HasMany(p => p.TopicsToLearn)
-            .WithMany(t => t.LearningProfiles)
-            .UsingEntity(j => j.ToTable("ProfilesLearningTopics"));
+                .Property(e => e.CourseName)
+                .HasMaxLength(250);
+
+            modelBuilder.Entity<ProfileEntity>()
+                .Property(e => e.CourseYear)
+                .HasMaxLength(250);
+
+            modelBuilder.Entity<ProfileEntity>()
+                        .HasMany(p => p.TopicsToLearn)
+                        .WithMany(t => t.LearningProfiles)
+                        .UsingEntity(j => j.ToTable("ProfilesLearningTopics"));
 
             modelBuilder.Entity<ProfileEntity>()
                         .HasMany(p => p.TopicsToTeach)

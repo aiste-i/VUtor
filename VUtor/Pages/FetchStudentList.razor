@@ -1,0 +1,220 @@
+﻿@page "/fetchstudents"
+
+@using DataAccessLibrary.Data
+@using DataAccessLibrary.Models
+@using DataAccessLibrary
+
+@inject IProfileRepository _db
+
+<style>
+    .clear
+    {
+        background-color: #f44336;
+    }
+</style>
+
+<PageTitle>Student List</PageTitle>
+
+<h1>Student List</h1>
+
+<h4>Insert new user:</h4>
+
+<EditForm Model="@newUser" OnValidSubmit="@InsertUser">
+    <div>
+        <label>
+            Name*:
+            <InputText name="Name" @bind-Value="newUser.Name" />
+        </label>
+        <label>
+            Surname*:
+            <InputText name="Surname" @bind-Value="newUser.Surname" />
+        </label>
+    </div>
+    <div>
+        <label for="courseName">
+            Select course name:
+            <InputSelect name="courseName" @bind-Value="newUser.CourseName">
+                <option value="0">None</option>
+                <option value="1">PSI</option>
+                <option value="2">ISI</option>
+                <option value="3">VDA</option>
+                <option value="4">MMT</option>
+                <option value="5">IT</option>
+                <option value="6">FDM</option>
+                <option value="7">DM</option>
+            </InputSelect>
+        </label>
+        <label for="courseYear">
+            Select acaddemic year:
+            <InputSelect name="courseYear" @bind-Value="newUser.CourseYear">
+                <option value="0">None</option>
+                <option value="1">I</option>
+                <option value="2">II</option>
+                <option value="3">III</option>
+                <option value="4">IV</option>
+            </InputSelect>
+        </label>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</EditForm>
+
+<p>@message</p>
+
+<EditForm Model="@Users" OnValidSubmit="@FilterList">
+    <div>
+        <label for="nameFilter">
+            Filter by name:
+            <InputText name="nameFilter" @bind-Value="nameFilter" />
+        </label>
+
+        <label for="surnameFilter">
+            Filter by surname:
+            <InputText name="surnameFilter" @bind-Value="surnameFilter" />
+        </label>
+    </div>
+
+    <div>
+        <label for="courseName">
+            Select course name:
+            <InputSelect name="courseName" @bind-Value="courseFilter">
+                <option value="0">None</option>
+                <option value="1">PSI</option>
+                <option value="2">ISI</option>
+                <option value="3">VDA</option>
+                <option value="4">MMT</option>
+                <option value="5">IT</option>
+                <option value="6">FDM</option>
+                <option value="7">DM</option>
+            </InputSelect>
+        </label>
+        <label for="courseYear">
+            Select acaddemic year:
+            <InputSelect name="courseYear" @bind-Value="yearFilter">
+                <option value="0">None</option>
+                <option value="1">I</option>
+                <option value="2">II</option>
+                <option value="3">III</option>
+                <option value="4">IV</option>
+            </InputSelect>
+        </label>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Filter</button>
+    <button type="button" class="btn btn-primary clear" onclick="@RefetchData">Clear filters</button>
+</EditForm>
+
+
+@if (Users == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Surname</th>
+                <th>Course</th>
+                <th>Academic year</th>
+                <th>Topics to teach</th>
+                <th>Topics to learn</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in UsersDisplay)
+            {
+                <tr>
+                    <td>@user.Name</td>
+                    <td>@user.Surname</td>
+                    <td>@DisplayCourse(user)</td>
+                    <td>@DisplayYear(user)</td>
+                    <td>
+                        <ul>
+                            @foreach(var topic in user.TopicsToLearn)
+                            {
+                                <li>@topic.Title</li>
+                            }
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            @foreach (var topic in user.TopicsToTeach)
+                            {
+                                <li>@topic.Title</li>
+                            }
+                        </ul>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<ProfileEntity> Users = new List<ProfileEntity>();
+    private List<ProfileEntity> UsersDisplay = new List<ProfileEntity>();
+    private ProfileEntity newUser = new ProfileEntity();
+    private string message;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Users = await _db.GetProfiles();
+        UsersDisplay = Users;
+    }
+
+    private async Task InsertUser()
+    {
+        if(string.IsNullOrEmpty(newUser.Name) || string.IsNullOrEmpty(newUser.Surname))
+        {
+            message = "Error! Both fields must be filled.";
+        }
+        else
+        {
+            ProfileEntity user = new ProfileEntity
+                {
+                    Name = newUser.Name,
+                    Surname = newUser.Surname,
+                };
+
+            await _db.AddStudent(newUser);
+
+            Users.Add(user);
+            await RefetchData();
+
+            newUser = new ProfileEntity();
+
+            message = "User added successfully!";
+        }
+    }
+
+    private string? nameFilter;
+    private string? surnameFilter;
+    private int courseFilter;
+    private int yearFilter;
+
+    private async Task FilterList()
+    {
+        UsersDisplay = await _db.GetProfilesByFilterAsync(nameFilter, surnameFilter, courseFilter, yearFilter);
+    }
+
+    private string DisplayCourse(ProfileEntity user)
+    {
+        var courseValue = (CourseName)user.CourseName;
+
+        return courseValue.ToString();
+    }
+
+    private string DisplayYear(ProfileEntity user)
+    {
+        var yearValue = (CourseYear)user.CourseYear;
+
+        return yearValue.ToString();
+    }
+
+    private async Task RefetchData()
+    {
+        UsersDisplay = Users;
+    }
+}

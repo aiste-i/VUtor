@@ -1,8 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using System;
 
-namespace VUtor.Data.Migrations
+namespace DataAccessLibrary.Data.Migrations
 {
     public partial class CreateIdentitySchema : Migration
     {

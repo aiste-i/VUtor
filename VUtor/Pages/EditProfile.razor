@@ -1,0 +1,58 @@
+@page "/editprofile"
+@inject IJSRuntime  JSRuntime;
+
+<PageTitle>Edit Profile</PageTitle>
+
+<h1>Edit Profile</h1>
+
+<form action="/url" method="GET">
+    <label>
+        Enter first name:
+        <input type="text" name="first_name" maxlength="30" />
+    </label>
+    <label>
+        Enter last name:
+        <input type="text" name="last_name" maxlength="30" />
+    </label>
+    <label>
+        Enter course name:
+        <input type="text" name="course_name" maxlength="30" />
+     <label for="academic_year">Select acaddemic year:</label>
+        <select name="academic_year" id="academic_year">
+            <option value="bachelor1">Bachelor 1st year</option>
+            <option value="bachelor2">Bachelor 2nd year</option>
+            <option value="bachelor3">Bachelor 3rd yearl</option>
+            <option value="bachelor4">Bachelor 4th year</option>
+            <option value="masters1">Masters 1st year</option>
+            <option value="masters2">Masters 2nd year</option>
+        </select>
+    </label>
+    <div >
+        <img class="round_img" src="/Images/user.jpg" alt="Default user image">
+    </div>
+
+    <label> Select a subject you with to learn:
+        <input type="radio" id="matematine_logika" name="mokytis" value="Matematinë logika">
+        <label for="matematine_logika">Matematinë logika</label><br>
+        <input type="radio" id="psi" name="mokytis" value="PSI">
+        <label for="psi">PSI</label><br>
+        <input type="radio" id="funkcinis_programavimas" name="mokytis" value="Funkcinis programavimas">
+        <label for="funkcinis_programavimas">Funkcinis programavimas</label>
+    </label>
+
+    <br />
+    <label> Select a subject you are willing to teach:
+        <input type="radio" id="matematine_logika" name="mokyti" value="Matematinë logika">
+        <label for="matematine_logika">Matematinë logika</label><br>
+        <input type="radio" id="psi" name="mokyti" value="PSI">
+        <label for="psi">PSI</label><br>
+        <input type="radio" id="funkcinis_programavimas" name="mokyti" value="Funkcinis programavimas">
+        <label for="funkcinis_programavimas">Funkcinis programavimas</label>
+    </label>
+
+    <br />
+
+    <button type="submit">Edit profile</button>
+    <button type="reset">Delete profile</button>
+
+</form>

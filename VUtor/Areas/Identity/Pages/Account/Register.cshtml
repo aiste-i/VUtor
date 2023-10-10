@@ -1,4 +1,5 @@
 ﻿@page
+@using Microsoft.AspNetCore.Mvc.Rendering
 @model RegisterModel
 @{
     ViewData["Title"] = "Register";
@@ -21,6 +22,55 @@
                 <label asp-for="Input.Surname"></label>
                 <input asp-for="Input.Surname" class="form-control" />
                 <span asp-validation-for="Input.Surname" class="text-danger"></span>
+            </div>
+            <div class="form-floating">
+                <label asp-for="Input.CourseName"></label>
+                @foreach (var value in Enum.GetValues(typeof(CourseName)))
+                {
+                    <div>
+                        <input type="radio"
+                               asp-for="Input.CourseName"
+                               value="@value" />
+                        @value.ToString()
+                    </div>
+                }
+                <span asp-validation-for="Input.CourseName" class="text-danger"></span>
+            </div>
+            <div class="form-floating">
+                <label asp-for="Input.CourseYear"></label>
+                @foreach (var value in Enum.GetValues(typeof(CourseYear)))
+                {
+                    <div>
+                        <input type="radio"
+                               asp-for="Input.CourseYear"
+                               value="@value" />
+                        @value.ToString()
+                    </div>
+                }
+            </div>
+            <div class="form-floating">
+                <label asp-for="Input.TopicToLearn"></label>
+                @foreach (var topic in Model.TopicList)
+                {
+                    <div>
+                        <input type="radio"
+                               asp-for="Input.TopicToLearn"
+                               value="@topic" />
+                        @topic.Title
+                    </div>
+                }
+            </div>
+            <div class="form-floating">
+                <label asp-for="Input.TopicToTeach"></label>
+                @foreach (var topic in Model.TopicList)
+                {
+                    <div>
+                        <input type="radio"
+                               asp-for="Input.TopicToTeach"
+                               value="@topic"/>
+                        @topic.Title
+                    </div>
+                }
             </div>
             <div class="form-floating mb-3">
                 <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />

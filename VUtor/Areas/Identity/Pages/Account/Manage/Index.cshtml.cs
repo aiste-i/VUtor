@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using VUtor.Entities;
+using DataAccessLibrary.Models;
 
 namespace VUtor.Areas.Identity.Pages.Account.Manage
 {

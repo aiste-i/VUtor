@@ -5,11 +5,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Text.Encodings.Web;
-using System.Threading;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -17,8 +12,10 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using VUtor.Entities;
+using DataAccessLibrary.Data;
+using DataAccessLibrary.Models;
 
 namespace VUtor.Areas.Identity.Pages.Account
 {
@@ -26,6 +23,7 @@ namespace VUtor.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<ProfileEntity> _signInManager;
         private readonly UserManager<ProfileEntity> _userManager;
+        private readonly ApplicationDbContext _context;
         private readonly IUserStore<ProfileEntity> _userStore;
         private readonly IUserEmailStore<ProfileEntity> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
@@ -35,6 +33,7 @@ namespace VUtor.Areas.Identity.Pages.Account
             UserManager<ProfileEntity> userManager,
             IUserStore<ProfileEntity> userStore,
             SignInManager<ProfileEntity> signInManager,
+            ApplicationDbContext context,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender)
         {
@@ -42,6 +41,7 @@ namespace VUtor.Areas.Identity.Pages.Account
             _userStore = userStore;
             _emailStore = GetEmailStore();
             _signInManager = signInManager;
+            _context = context;
             _logger = logger;
             _emailSender = emailSender;
         }
@@ -85,7 +85,21 @@ namespace VUtor.Areas.Identity.Pages.Account
             [DataType(DataType.Text)]
             [Display(Name = "Surname")]
             public string Surname { get; set; }
-            
+
+            [Required]
+            [Display(Name = "Course Name")]
+            public int CourseName { get; set; }
+
+            [Required]
+            [Display(Name = "Course Year")]
+            public int CourseYear { get; set; }
+
+            [Display(Name = "Topic To Learn")]
+            public TopicEntity TopicToLearn { get; set; }
+
+            [Display(Name = "Topic To Teach")]
+            public TopicEntity TopicToTeach { get; set; }
+
             [Required]
             [EmailAddress]
             [Display(Name = "Email")]
@@ -111,23 +125,43 @@ namespace VUtor.Areas.Identity.Pages.Account
             public string ConfirmPassword { get; set; }
         }
 
+        public List<TopicEntity> TopicList { get; set; } = new List<TopicEntity>();
 
         public async Task OnGetAsync(string returnUrl = null)
         {
+            TopicList = await _context.Topics.ToListAsync();
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
+            TopicList = await _context.Topics.ToListAsync();
             returnUrl ??= Url.Content("~/");
-            ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
                 var user = CreateUser();
 
+                var top = TopicList.ElementAtOrDefault(5);
+
                 user.Name = Input.Name;
                 user.Surname = Input.Surname;
+                user.CourseName = Input.CourseName;
+                user.CourseYear = Input.CourseYear;
+
+                foreach(var topic in TopicList)
+                {
+                    if(topic == Input.TopicToLearn)
+                    {
+                        topic.LearningProfiles.Add(user);
+                        user.TopicsToLearn.Add(topic);
+                    }
+                    if(topic == Input.TopicToTeach)
+                    { 
+                        topic.TeachingProfiles.Add(user);
+                        user.TopicsToTeach.Add(topic);
+                    }
+                }
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
@@ -143,6 +177,7 @@ namespace VUtor.Areas.Identity.Pages.Account
                     //confirms email on registration, should be changed
                     await _userManager.ConfirmEmailAsync(user, code);
                     await _signInManager.SignInAsync(user, isPersistent: false);
+                    await _context.SaveChangesAsync();
                     return LocalRedirect(returnUrl);
                     
                 }
@@ -151,7 +186,6 @@ namespace VUtor.Areas.Identity.Pages.Account
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
             }
-
             // If we got this far, something failed, redisplay form
             return Page();
         }

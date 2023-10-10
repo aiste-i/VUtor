@@ -5,15 +5,15 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using VUtor.Data;
+using DataAccessLibrary.Data;
 
 #nullable disable
 
-namespace VUtor.Data.Migrations
+namespace DataAccessLibrary.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231003173626_CustomFields")]
-    partial class CustomFields
+    [Migration("20231009213820_Topic")]
+    partial class Topic
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -162,46 +162,34 @@ namespace VUtor.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("ProfileTopicToLearn", b =>
+            modelBuilder.Entity("ProfileEntityTopicEntity", b =>
                 {
-                    b.Property<int>("ProfileId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TopicId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ProfileId1")
-                        .IsRequired()
+                    b.Property<string>("LearningProfilesId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("ProfileId", "TopicId");
+                    b.Property<int>("TopicsToLearnId")
+                        .HasColumnType("int");
 
-                    b.HasIndex("ProfileId1");
+                    b.HasKey("LearningProfilesId", "TopicsToLearnId");
 
-                    b.HasIndex("TopicId");
+                    b.HasIndex("TopicsToLearnId");
 
-                    b.ToTable("ProfileTopicToLearn", (string)null);
+                    b.ToTable("ProfilesLearningTopics", (string)null);
                 });
 
-            modelBuilder.Entity("ProfileTopicToTeach", b =>
+            modelBuilder.Entity("ProfileEntityTopicEntity1", b =>
                 {
-                    b.Property<int>("ProfileId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TopicId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ProfileId1")
-                        .IsRequired()
+                    b.Property<string>("TeachingProfilesId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("ProfileId", "TopicId");
+                    b.Property<int>("TopicsToTeachId")
+                        .HasColumnType("int");
 
-                    b.HasIndex("ProfileId1");
+                    b.HasKey("TeachingProfilesId", "TopicsToTeachId");
 
-                    b.HasIndex("TopicId");
+                    b.HasIndex("TopicsToTeachId");
 
-                    b.ToTable("ProfileTopicToTeach", (string)null);
+                    b.ToTable("ProfilesTeachingTopics", (string)null);
                 });
 
             modelBuilder.Entity("VUtor.Entities.ProfileEntity", b =>
@@ -215,6 +203,14 @@ namespace VUtor.Data.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CourseName")
+                        .HasMaxLength(250)
+                        .HasColumnType("int");
+
+                    b.Property<int>("CourseYear")
+                        .HasMaxLength(250)
+                        .HasColumnType("int");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
@@ -289,7 +285,8 @@ namespace VUtor.Data.Migrations
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
 
                     b.HasKey("Id");
 
@@ -347,56 +344,34 @@ namespace VUtor.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ProfileTopicToLearn", b =>
+            modelBuilder.Entity("ProfileEntityTopicEntity", b =>
                 {
-                    b.HasOne("VUtor.Entities.ProfileEntity", "Profile")
-                        .WithMany("TopicsToLearn")
-                        .HasForeignKey("ProfileId1")
+                    b.HasOne("VUtor.Entities.ProfileEntity", null)
+                        .WithMany()
+                        .HasForeignKey("LearningProfilesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("VUtor.Entities.TopicEntity", "Topic")
-                        .WithMany("LearningProfiles")
-                        .HasForeignKey("TopicId")
+                    b.HasOne("VUtor.Entities.TopicEntity", null)
+                        .WithMany()
+                        .HasForeignKey("TopicsToLearnId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Profile");
-
-                    b.Navigation("Topic");
                 });
 
-            modelBuilder.Entity("ProfileTopicToTeach", b =>
+            modelBuilder.Entity("ProfileEntityTopicEntity1", b =>
                 {
-                    b.HasOne("VUtor.Entities.ProfileEntity", "Profile")
-                        .WithMany("TopicsToTeach")
-                        .HasForeignKey("ProfileId1")
+                    b.HasOne("VUtor.Entities.ProfileEntity", null)
+                        .WithMany()
+                        .HasForeignKey("TeachingProfilesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("VUtor.Entities.TopicEntity", "Topic")
-                        .WithMany("TeachingProfiles")
-                        .HasForeignKey("TopicId")
+                    b.HasOne("VUtor.Entities.TopicEntity", null)
+                        .WithMany()
+                        .HasForeignKey("TopicsToTeachId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Profile");
-
-                    b.Navigation("Topic");
-                });
-
-            modelBuilder.Entity("VUtor.Entities.ProfileEntity", b =>
-                {
-                    b.Navigation("TopicsToLearn");
-
-                    b.Navigation("TopicsToTeach");
-                });
-
-            modelBuilder.Entity("VUtor.Entities.TopicEntity", b =>
-                {
-                    b.Navigation("LearningProfiles");
-
-                    b.Navigation("TeachingProfiles");
                 });
 #pragma warning restore 612, 618
         }

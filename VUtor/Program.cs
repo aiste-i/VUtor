@@ -4,8 +4,10 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.EntityFrameworkCore;
-using VUtor.Data;
-using VUtor.Entities;
+using Microsoft.EntityFrameworkCore.Diagnostics;
+using DataAccessLibrary.Data;
+using DataAccessLibrary.Models;
+using DataAccessLibrary;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,7 +21,7 @@ builder.Services.AddDefaultIdentity<ProfileEntity>(options => options.SignIn.Req
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddSingleton<WeatherForecastService>();
+builder.Services.AddScoped<IProfileRepository, ProfileRepository>();
 
 var app = builder.Build();
 
@@ -71,12 +73,14 @@ using (var scope = app.Services.CreateScope())
 
     if (await userManager.FindByEmailAsync(email) == null)
     {
-        var user = new ProfileEntity();
-        user.Name = "admin";
-        user.Surname = "admin";
-        user.UserName = email;
-        user.Email = email;
-        user.EmailConfirmed = true;
+        var user = new ProfileEntity
+        {
+            Name = "admin",
+            Surname = "admin",
+            UserName = email,
+            Email = email,
+            EmailConfirmed = true
+        };
 
         await userManager.CreateAsync(user, password);
 
