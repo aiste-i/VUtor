@@ -53,5 +53,5 @@ jobs:
         with:
           app-name: 'VUtor'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_CD92A8C83A3B45F9BC14A68C605CEF12 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_49DD8B378BC54DA9AE82407AE0A47093 }}
           package: .

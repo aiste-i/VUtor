@@ -1,65 +1,35 @@
 ﻿@page
-@model RegisterModel 
+@model RegisterModel
 @{
-    ViewData["Title"] = "Register";
+    ViewData["Title"] = "Welcome to VUtor";
 }
 
-<h1>@ViewData["Title"]</h1>
+<h1 class="login_welcome_h1">@ViewData["Title"]</h1>
 
 <div class="row">
-    <div class="col-md-4">
+    <div>
         <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
-            <h2>Create a new account.</h2>
-            <hr />
+            <h2 class="congrats_h2">Glad to have you with us!</h2>
             <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
-            <div class="form-floating">
-                <label asp-for="Input.Name"></label>
-                <input asp-for="Input.Name" class="form-control" />
+            <label class="specifications">Enter name:</label>
+            <div class="form-floating mb-3">
+                <input asp-for="Input.Name" class="round_corners" />
                 <span asp-validation-for="Input.Name" class="text-danger"></span>
             </div>
-            <div class="form-floating">
-                <label asp-for="Input.Surname"></label>
-                <input asp-for="Input.Surname" class="form-control" />
+            <label class="specifications">Enter surname:</label>
+            <div class="form-floating mb-3">
+                <input asp-for="Input.Surname" class="round_corners" />
                 <span asp-validation-for="Input.Surname" class="text-danger"></span>
             </div>
+            <label class="specifications">Enter email:</label>
             <div class="form-floating mb-3">
-                <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
-                <label asp-for="Input.Email">Email</label>
+                <input asp-for="Input.Email" class="round_corners" autocomplete="username" aria-required="true" />
                 <span asp-validation-for="Input.Email" class="text-danger"></span>
             </div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
-                <label asp-for="Input.Password">Password</label>
-                <span asp-validation-for="Input.Password" class="text-danger"></span>
-            </div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
-                <label asp-for="Input.ConfirmPassword">Confirm Password</label>
-                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
-            </div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.TopicToTeach" class="form-control">
-                <label asp-for="Input.TopicToTeach">Topic To Teach</label>
-                    <option value="">Select Topic</option>
-                    @foreach (var topic in Model.Dropdown)
-                    {
-                        <option value="@topic.Id">@topic.Title</option>
-                    }
-                </>
-                <label>Topics</label>
-            </div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.TopicToLearn" class="form-control">
-                <label asp-for="Input.TopicToLearn">Topic To Learn</label>
-                <option value="">Select Topic</option>
-                @foreach (var topic in Model.Dropdown)
-                {
-                    <option value="@topic.Id">@topic.Title</option>
-                }
-                </>
-                <label>Topics</label>
-            </div>
-            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
+
+            <img class="round_img" src="~/css/Images/user.jpg" alt="Default user image">
+            <br />
+            <button id="registerSubmit" type="submit" class="round_corners login">Create a profile</button>
         </form>
     </div>
 </div>

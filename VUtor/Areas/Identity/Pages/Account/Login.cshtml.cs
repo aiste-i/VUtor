@@ -21,14 +21,15 @@ namespace VUtor.Areas.Identity.Pages.Account
     public class LoginModel : PageModel
     {
         private readonly SignInManager<ProfileEntity> _signInManager;
-        private readonly UserManager<ProfileEntity> _userManager;
         private readonly ILogger<LoginModel> _logger;
+        private readonly UserManager<ProfileEntity> _userManager;
 
         public LoginModel(SignInManager<ProfileEntity> signInManager, ILogger<LoginModel> logger, UserManager<ProfileEntity> userManager)
         {
             _signInManager = signInManager;
             _logger = logger;
             _userManager = userManager;
+
         }
 
         /// <summary>
@@ -57,31 +58,12 @@ namespace VUtor.Areas.Identity.Pages.Account
         [TempData]
         public string ErrorMessage { get; set; }
 
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
         public class InputModel
         {
-            /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
-            /// </summary>
+
             [Required]
             [EmailAddress]
             public string Email { get; set; }
-
-            /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
-            /// </summary>
-
-            /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
-            /// </summary>
-            [Display(Name = "Remember me?")]
-            public bool RememberMe { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -110,23 +92,16 @@ namespace VUtor.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = _userManager.FindByEmailAsync(Input.Email);
-                if(user == null) 
+                if (user == null)
                 {
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                     return Page();
                 }
 
-                await _signInManager.SignInAsync(user.Result, Input.RememberMe);
-                if (true)
-                {
-                    _logger.LogInformation("User logged in.");
-                    return LocalRedirect(returnUrl);
-                }
-                else
-                {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-                    return Page();
-                }
+                await _signInManager.SignInAsync(user.Result, true);
+                 _logger.LogInformation("User logged in.");
+                 return LocalRedirect(returnUrl);
+                
             }
 
             // If we got this far, something failed, redisplay form
@@ -134,3 +109,4 @@ namespace VUtor.Areas.Identity.Pages.Account
         }
     }
 }
+

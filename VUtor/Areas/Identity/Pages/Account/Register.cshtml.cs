@@ -17,9 +17,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using VUtor.Data;
 using VUtor.Entities;
 
 namespace VUtor.Areas.Identity.Pages.Account
@@ -32,14 +30,13 @@ namespace VUtor.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<ProfileEntity> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
-        private readonly ApplicationDbContext _context;
 
         public RegisterModel(
             UserManager<ProfileEntity> userManager,
             IUserStore<ProfileEntity> userStore,
             SignInManager<ProfileEntity> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender, ApplicationDbContext context)
+            IEmailSender emailSender)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -47,7 +44,6 @@ namespace VUtor.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
-            _context = context;
         }
 
         /// <summary>
@@ -113,23 +109,11 @@ namespace VUtor.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
-
-            [Required]
-            [DataType(DataType.Text)]
-            [Display(Name = "Topic To Learn")]
-            public List<int> TopicToLearn { get; set; }
-
-            [Required]
-            [DataType(DataType.Text)]
-            [Display(Name = "Topic To Teach")]
-            public List<int> TopicToTeach { get; set; }
         }
 
-        public List<TopicEntity> Dropdown { get; set; } = new List<TopicEntity>();
 
         public async Task OnGetAsync(string returnUrl = null)
         {
-            Dropdown = await _context.Topics.ToListAsync();
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
@@ -144,38 +128,6 @@ namespace VUtor.Areas.Identity.Pages.Account
 
                 user.Name = Input.Name;
                 user.Surname = Input.Surname;
-
-                var selectedTopics = Input.TopicToLearn;
-                
-                foreach (var TopicId in selectedTopics)
-                {
-                    var topic = _context.Topics.Find(TopicId); 
-                    if (topic != null)
-                    {
-                        _context.Topics.Include(t => t.LearningProfiles)
-                                .FirstOrDefault(t => t.Id == 1);
-
-                        topic.LearningProfiles.Add(user);
-                        user.TopicsToLearn.Add(topic);
-                    }
-                }
-
-                selectedTopics = Input.TopicToTeach;
-
-                foreach (var TopicId in selectedTopics)
-                {
-                    var topic = _context.Topics.Find(TopicId);
-                    if (topic != null)
-                    {
-                        _context.Topics.Include(t => t.TeachingProfiles)
-                                .FirstOrDefault(t => t.Id == 1);
-
-                        topic.TeachingProfiles.Add(user);
-                        user.TopicsToTeach.Add(topic);
-                    }
-                }
-                _context.SaveChanges();
-                await _context.SaveChangesAsync();
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
