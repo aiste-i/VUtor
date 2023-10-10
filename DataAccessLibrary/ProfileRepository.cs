@@ -71,7 +71,7 @@ namespace DataAccessLibrary
                 .Where(profile =>
                 (string.IsNullOrWhiteSpace(name) || profile.Name.Contains(name, StringComparison.OrdinalIgnoreCase)) &&
                 (string.IsNullOrWhiteSpace(surname) || profile.Surname.Contains(surname, StringComparison.OrdinalIgnoreCase)) &&
-                (courseName == 0 || profile.CourseYear.Equals(courseName)) &&
+                (courseName == 0 || profile.CourseName.Equals(courseName)) &&
                 (courseYear == 0 || profile.CourseYear.Equals(courseYear)))
                 .OrderBy(profile => profile.Surname)
                 .ToList();
