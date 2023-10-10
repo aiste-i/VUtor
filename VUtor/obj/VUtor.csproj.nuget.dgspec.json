@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Lenovo\\Desktop\\VUtor-4\\VUtor\\VUtor.csproj": {}
+    "C:\\Users\\Lenovo\\Desktop\\VUtor\\VUtor\\VUtor.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Lenovo\\Desktop\\VUtor-4\\VUtor\\VUtor.csproj": {
+    "C:\\Users\\Lenovo\\Desktop\\VUtor\\VUtor\\VUtor.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Lenovo\\Desktop\\VUtor-4\\VUtor\\VUtor.csproj",
+        "projectUniqueName": "C:\\Users\\Lenovo\\Desktop\\VUtor\\VUtor\\VUtor.csproj",
         "projectName": "VUtor",
-        "projectPath": "C:\\Users\\Lenovo\\Desktop\\VUtor-4\\VUtor\\VUtor.csproj",
+        "projectPath": "C:\\Users\\Lenovo\\Desktop\\VUtor\\VUtor\\VUtor.csproj",
         "packagesPath": "C:\\Users\\Lenovo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Lenovo\\Desktop\\VUtor-4\\VUtor\\obj\\",
+        "outputPath": "C:\\Users\\Lenovo\\Desktop\\VUtor\\VUtor\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
