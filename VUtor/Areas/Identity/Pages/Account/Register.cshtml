@@ -5,40 +5,108 @@
 }
 
 <h1 class="login_welcome_h1">@ViewData["Title"]</h1>
+<h2 class="congrats_h2">Glad to have you with us!</h2>
 
 <div class="row">
-    <div>
-        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
-            <h2 class="congrats_h2">Glad to have you with us!</h2>
+    <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+        <div class="login_container">
             <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
-            <label class="specifications">Enter name:</label>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.Name" class="round_corners" />
-                <span asp-validation-for="Input.Name" class="text-danger"></span>
+            <div>
+                <label class="specifications">Enter email:</label>
+                <div class="form-floating mb-2">
+                    <input asp-for="Input.Email" class="round_corners register_email" autocomplete="username" aria-required="true" />
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
             </div>
-            <label class="specifications">Enter surname:</label>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.Surname" class="round_corners" />
-                <span asp-validation-for="Input.Surname" class="text-danger"></span>
+            <div class="edit_row_container">
+                <div>
+                    <label class="specifications">Enter password:</label>
+                    <div class="form-floating mb-2">
+                        <input asp-for="Input.Password" class="round_corners" autocomplete="new-password" aria-required="true" />
+                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                    </div>
+
+                    <label class="specifications">Enter name:</label>
+                    <div class="form-floating mb-2">
+                        <input asp-for="Input.Name" class="round_corners" />
+                        <span asp-validation-for="Input.Name" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="specifications">Confirm password:</label>
+                    <div class="form-floating mb-2">
+                        <input asp-for="Input.ConfirmPassword" class="round_corners" autocomplete="new-password" aria-required="true" />
+                        <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                    </div>
+
+                    <label class="specifications">Enter surname:</label>
+                    <div class="form-floating mb-2">
+                        <input asp-for="Input.Surname" class="round_corners" />
+                        <span asp-validation-for="Input.Surname" class="text-danger"></span>
+                    </div>
+                </div>
             </div>
-            <label class="specifications">Enter email:</label>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.Email" class="round_corners" autocomplete="username" aria-required="true" />
-                <span asp-validation-for="Input.Email" class="text-danger"></span>
+
+            <div class="edit_row_container">
+                <div>
+                    <label class="specifications">Enter course name:</label>
+                    <div class="form-floating mb-2">
+                        <input type="text" name="course_name" maxlength="30" class="round_corners long" />
+                    </div>
+                </div>
+
+                <div>
+                    <label class="specifications" for="academic_year">Select acaddemic year:</label>
+                    <div class="form-floating mb-2">
+                        <select name="academic_year" id="academic_year" class="round_corners register_year">
+                            <option value="bachelor1">Bachelor 1st</option>
+                            <option value="bachelor2">Bachelor 2nd</option>
+                            <option value="bachelor3">Bachelor 3rd</option>
+                            <option value="bachelor4">Bachelor 4th</option>
+                            <option value="masters1">Masters 1st</option>
+                            <option value="masters2">Masters 2nd</option>
+                        </select>
+                    </div>
+                </div>
             </div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
-                <label asp-for="Input.Password">Password</label>
-                <span asp-validation-for="Input.Password" class="text-danger"></span>
+
+            <div class="edit_row_container">
+                <div>
+                    <label class="specifications">Select a subject you wish to learn:</label>
+                    <div>
+                        <div class="form-floating mb-2">
+                            <input type="radio" id="matlog" name="mokytis" value="Matematinë logika">
+                            <label class="label" for="matlog">Matematinë logika</label>
+                        </div>
+
+                        <input type="radio" id="psi" name="mokytis" value="PSI">
+                        <label class="label form-floating mb-2" for="psi">PSI</label>
+
+                        <input type="radio" id="funk" name="mokytis" value="Funkcinis programavimas">
+                        <label class="label form-floating mb-2" for="funk">Funkcinis programavimas</label>
+                        <div></div>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="specifications">Select a subject you are willing to teach:</label>
+                    <div>
+                        <input type="radio" id="matlog1" name="mokyti" value="Matematinë logika">
+                        <label class="label form-floating mb-2" for="matlog1">Matematinë logika</label>
+
+                        <input type="radio" id="psi1" name="mokyti" value="PSI">
+                        <label class="label form-floating mb-2" for="psi1">PSI</label>
+
+                        <input type="radio" id="funk2" name="mokyti" value="Funkcinis programavimas">
+                        <label class="label form-floating mb-2" for="funk2">Funkcinis programavimas</label>
+                    </div>
+                </div>
             </div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
-                <label asp-for="Input.ConfirmPassword">Confirm Password</label>
-                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
-            </div>
-            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
-        </form>
-    </div>
+            <div class="form-floating mb-3"></div>
+            <button id="registerSubmit" type="submit" class=" round_corners login">Register</button>
+        </div>
+    </form>
 </div>
 
 @section Scripts {
