@@ -147,7 +147,9 @@ namespace VUtor.Areas.Identity.Pages.Account
                 user.Name = Input.Name;
                 user.Surname = Input.Surname;
                 user.CourseName = Input.CourseName;
+                Console.WriteLine(user.CourseName);
                 user.CourseYear = Input.CourseYear;
+                Console.WriteLine(user.CourseYear);
 
                 foreach(var topic in TopicList)
                 {

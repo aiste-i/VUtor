@@ -1,58 +1,91 @@
 @page "/editprofile"
-@inject IJSRuntime  JSRuntime;
 
 <PageTitle>Edit Profile</PageTitle>
 
 <h1>Edit Profile</h1>
 
 <form action="/url" method="GET">
-    <label>
-        Enter first name:
-        <input type="text" name="first_name" maxlength="30" />
-    </label>
-    <label>
-        Enter last name:
-        <input type="text" name="last_name" maxlength="30" />
-    </label>
-    <label>
-        Enter course name:
-        <input type="text" name="course_name" maxlength="30" />
-     <label for="academic_year">Select acaddemic year:</label>
-        <select name="academic_year" id="academic_year">
-            <option value="bachelor1">Bachelor 1st year</option>
-            <option value="bachelor2">Bachelor 2nd year</option>
-            <option value="bachelor3">Bachelor 3rd yearl</option>
-            <option value="bachelor4">Bachelor 4th year</option>
-            <option value="masters1">Masters 1st year</option>
-            <option value="masters2">Masters 2nd year</option>
-        </select>
-    </label>
-    <div >
-        <img class="round_img" src="/Images/user.jpg" alt="Default user image">
+    <div class="edit_container">
+        <div class="edit_row_container">
+            <div class="edit_container">
+                <label class="specifications">Enter email:</label>
+                <div class="form-floating mb-2">
+                    <input type="text" name="email" class="round_corners" />
+                </div>
+
+                <label class="specifications"> Enter first name: </label>
+                <div class="form-floating mb-2">
+                    <input type="text" name="first_name" class="round_corners" />
+                </div>
+
+                <label class="specifications"> Enter last name: </label>
+                <div class="form-floating mb-2">
+                    <input type="text" name="last_name" class="round_corners" />
+                </div>
+            </div>
+
+            <img class="round_img" src="css/Images/user.jpg" alt="Default user image">
+        </div>
+
+        <div class="edit_row_container">
+            <div>
+                <label class="specifications">Enter course name:</label>
+                <div class="form-floating mb-2">
+                    <input type="text" name="course_name" maxlength="30" class="round_corners long" />
+                </div>
+            </div>
+
+            <div>
+                <label class="specifications" for="academic_year">Select acaddemic year:</label>
+                <div class="form-floating mb-2">
+                    <select name="academic_year" id="academic_year" class="round_corners">
+                        <option value="bachelor1">Bachelor 1st</option>
+                        <option value="bachelor2">Bachelor 2nd</option>
+                        <option value="bachelor3">Bachelor 3rd</option>
+                        <option value="bachelor4">Bachelor 4th</option>
+                        <option value="masters1">Masters 1st</option>
+                        <option value="masters2">Masters 2nd</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="edit_row_container">
+            <div>
+                <label class="specifications">Select a subject you wish to learn:</label>
+                <div>
+                    <input type="radio" id="matlog" name="mokytis" value="Matematinë logika">
+                    <label class="label" for="matlog">Matematinë logika</label>
+
+                    <input type="radio" id="psi" name="mokytis" value="PSI">
+                    <label class="label" for="psi">PSI</label>
+
+                    <input type="radio" id="funk" name="mokytis" value="Funkcinis programavimas">
+                    <label class="label" for="funk">Funkcinis programavimas</label>
+                    <div></div>
+                </div>
+            </div>
+
+            <div>
+                <label class="specifications">Select a subject you are willing to teach:</label>
+                <div>
+                    <input type="radio" id="matlog1" name="mokyti" value="Matematinë logika">
+                    <label class="label" for="matlog1">Matematinë logika</label>
+
+                    <input type="radio" id="psi1" name="mokyti" value="PSI">
+                    <label class="label" for="psi1">PSI</label>
+
+                    <input type="radio" id="funk2" name="mokyti" value="Funkcinis programavimas">
+                    <label class="label" for="funk2">Funkcinis programavimas</label>
+                </div>
+            </div>
+        </div>
+        <div class="form-floating mb-2"></div>
+
+        <div>
+            <button type="submit" class="round_corners edit">Edit profile</button>
+            <button type="submit" class="round_corners delete">Delete profile</button>
+        </div>
+
     </div>
-
-    <label> Select a subject you with to learn:
-        <input type="radio" id="matematine_logika" name="mokytis" value="Matematinë logika">
-        <label for="matematine_logika">Matematinë logika</label><br>
-        <input type="radio" id="psi" name="mokytis" value="PSI">
-        <label for="psi">PSI</label><br>
-        <input type="radio" id="funkcinis_programavimas" name="mokytis" value="Funkcinis programavimas">
-        <label for="funkcinis_programavimas">Funkcinis programavimas</label>
-    </label>
-
-    <br />
-    <label> Select a subject you are willing to teach:
-        <input type="radio" id="matematine_logika" name="mokyti" value="Matematinë logika">
-        <label for="matematine_logika">Matematinë logika</label><br>
-        <input type="radio" id="psi" name="mokyti" value="PSI">
-        <label for="psi">PSI</label><br>
-        <input type="radio" id="funkcinis_programavimas" name="mokyti" value="Funkcinis programavimas">
-        <label for="funkcinis_programavimas">Funkcinis programavimas</label>
-    </label>
-
-    <br />
-
-    <button type="submit">Edit profile</button>
-    <button type="reset">Delete profile</button>
-
 </form>

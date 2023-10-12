@@ -6,34 +6,28 @@
 
 @inject IProfileRepository _db
 
-<style>
-    .clear
-    {
-        background-color: #f44336;
-    }
-</style>
-
 <PageTitle>Student List</PageTitle>
 
 <h1>Student List</h1>
 
-<h4>Insert new user:</h4>
+<h2 class="instructions">Insert new user:</h2>
 
 <EditForm Model="@newUser" OnValidSubmit="@InsertUser">
+<div class="edit_row_container">
     <div>
-        <label>
-            Name*:
-            <InputText name="Name" @bind-Value="newUser.Name" />
-        </label>
-        <label>
-            Surname*:
-            <InputText name="Surname" @bind-Value="newUser.Surname" />
-        </label>
+        <label class="specifications"> Name*:</label>
+        <div class="form-floating mb-1">
+            <InputText name="Name" @bind-Value="newUser.Name" class="round_corners" />
+        </div>
+        <label class="specifications">Surname*:</label>
+        <div class="form-floating mb-1">
+            <InputText name="Surname" @bind-Value="newUser.Surname" class="round_corners" />
+        </div>
     </div>
     <div>
-        <label for="courseName">
-            Select course name:
-            <InputSelect name="courseName" @bind-Value="newUser.CourseName">
+        <label class="specifications" for="courseName"> Select course name: </label>
+            <div class="form-floating mb-1">
+            <InputSelect name="courseName" @bind-Value="newUser.CourseName" class="round_corners">
                 <option value="0">None</option>
                 <option value="1">PSI</option>
                 <option value="2">ISI</option>
@@ -43,65 +37,69 @@
                 <option value="6">FDM</option>
                 <option value="7">DM</option>
             </InputSelect>
-        </label>
-        <label for="courseYear">
-            Select acaddemic year:
-            <InputSelect name="courseYear" @bind-Value="newUser.CourseYear">
+            </div>
+        <label class="specifications" for="courseYear"> Select acaddemic year:</label>
+        <div class="form-floating mb-1">
+            <InputSelect name="courseYear" @bind-Value="newUser.CourseYear" class="round_corners">
                 <option value="0">None</option>
                 <option value="1">I</option>
                 <option value="2">II</option>
                 <option value="3">III</option>
                 <option value="4">IV</option>
             </InputSelect>
-        </label>
+        </div>
     </div>
+</div>
 
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="round_corners student_list">Submit</button>
 </EditForm>
-
-<p>@message</p>
+<div class="form-floating mb-3"> </div>
+<h2 class="instructions">Filter users:</h2>
 
 <EditForm Model="@Users" OnValidSubmit="@FilterList">
+<div class="edit_row_container">
     <div>
-        <label for="nameFilter">
-            Filter by name:
-            <InputText name="nameFilter" @bind-Value="nameFilter" />
-        </label>
+        <label class="specifications" for="nameFilter">Filter by name:</label>
+        <div class="form-floating mb-1">
+                <InputText name="nameFilter" @bind-Value="nameFilter" class="round_corners" />
+        </div>
 
-        <label for="surnameFilter">
-            Filter by surname:
-            <InputText name="surnameFilter" @bind-Value="surnameFilter" />
-        </label>
+        <label class="specifications" for="surnameFilter">Filter by surname:</label>
+        <div class="form-floating mb-1">
+                <InputText name="surnameFilter" @bind-Value="surnameFilter" class="round_corners" />
+        </div>
     </div>
 
     <div>
-        <label for="courseName">
-            Select course name:
-            <InputSelect name="courseName" @bind-Value="courseFilter">
-                <option value="0">None</option>
-                <option value="1">PSI</option>
-                <option value="2">ISI</option>
-                <option value="3">VDA</option>
-                <option value="4">MMT</option>
-                <option value="5">IT</option>
-                <option value="6">FDM</option>
-                <option value="7">DM</option>
-            </InputSelect>
-        </label>
-        <label for="courseYear">
-            Select acaddemic year:
-            <InputSelect name="courseYear" @bind-Value="yearFilter">
-                <option value="0">None</option>
-                <option value="1">I</option>
-                <option value="2">II</option>
-                <option value="3">III</option>
-                <option value="4">IV</option>
-            </InputSelect>
-        </label>
-    </div>
+        <label class="specifications" for="courseName"> Select course name: </label>
+            <div class="form-floating mb-1">
+                <InputSelect name="courseName" @bind-Value="courseFilter" class="round_corners">
+                    <option value="0">None</option>
+                    <option value="1">PSI</option>
+                    <option value="2">ISI</option>
+                    <option value="3">VDA</option>
+                    <option value="4">MMT</option>
+                    <option value="5">IT</option>
+                    <option value="6">FDM</option>
+                    <option value="7">DM</option>
+                </InputSelect>
+            </div>
 
-    <button type="submit" class="btn btn-primary">Filter</button>
-    <button type="button" class="btn btn-primary clear" onclick="@RefetchData">Clear filters</button>
+        <label class="specifications" for="courseYear"> Select acaddemic year:</label>
+            <div class="form-floating mb-1">
+                <InputSelect name="courseYear" @bind-Value="yearFilter" class="round_corners">
+                    <option value="0">None</option>
+                    <option value="1">I</option>
+                    <option value="2">II</option>
+                    <option value="3">III</option>
+                    <option value="4">IV</option>
+                </InputSelect>
+            </div>
+    </div>
+</div>
+
+    <button type="submit" class="round_corners student_list">Filter</button>
+    <button type="button" class="round_corners student_list_red" onclick="@RefetchData">Clear filters</button>
 </EditForm>
 
 
