@@ -4,7 +4,7 @@ namespace DataAccessLibrary
 {
     public interface IProfileRepository
     {
-        Task AddStudent(ProfileEntity student);
+        Task AddProfile(ProfileEntity profile);
         Task<List<ProfileEntity>> GetProfiles();
         Task<List<ProfileEntity>> GetProfilesByCourseAsync(int course);
         Task<List<ProfileEntity>> GetProfilesByFilterAsync(string name, string surname, int courseName, int courseYear);

@@ -178,9 +178,7 @@ else
                     Surname = newUser.Surname,
                 };
 
-            await _db.AddStudent(newUser);
-
-            Users.Add(user);
+            await _db.AddProfile(newUser);
             await RefetchData();
 
             newUser = new ProfileEntity();
@@ -215,6 +213,7 @@ else
 
     private async Task RefetchData()
     {
+        Users = await _db.GetProfiles();
         UsersDisplay = Users;
     }
 }
