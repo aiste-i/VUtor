@@ -88,8 +88,9 @@
                             <div>
                                 <input type="radio"
                                        asp-for="Input.TopicToLearn"
-                                       value="@topic.Id" />
-                                @topic.Title
+                                       value="@topic.Id"
+                                       id="@("learn" + topic.Title)" />
+                                <label class="label form-floating mb-2" for="@("learn" + topic.Title)"> @topic.Title </label>
                             </div>
                         }
                         <span asp-validation-for="Input.TopicToLearn"></span>
@@ -104,7 +105,9 @@
                             <div>
                                 <input type="radio"
                                        asp-for="Input.TopicToTeach"
-                                       value="@topic.Id" /> @topic.Title
+                                       value="@topic.Id"
+                                       id="@("teach" + topic.Title)" />
+                                <label class="label form-floating mb-2" for="@("teach" + topic.Title)"> @topic.Title </label>
                             </div>
                         }
                     </div>
