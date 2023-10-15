@@ -1,0 +1,167 @@
+﻿/*images*/
+.round_img {
+    width: 168px;
+    height: 168px;
+    padding: 20px;
+    border-radius: 47%;
+}
+/*text boxes*/
+.round_corners { /*used for buttons too*/
+    border-radius: 13px;
+    border: 1px solid #000f;
+    width: 220px;
+    height: 30px;
+    padding: 0 10px 0 10px;
+}
+
+.long { /*use to exted .round_corners*/
+    width: 300px;
+}
+
+.long_tall { /*use to exted .round_corners*/
+    width: 400px;
+    height: 40px;
+    border-radius: 18px;
+}
+
+.register_email {
+    width: 445px;
+}
+
+.register_year {
+    width: 140px;
+}
+
+/*buttons*/
+.edit {
+    border-radius: 10px;
+    border: #6855c9;
+    background: #6855c9;
+    color: #ffffff;
+}
+
+.delete {
+    border-radius: 10px;
+    border: #eb7267;
+    background: #eb7267;
+    color: #ffffff;
+}
+
+.login {
+    border: #6855c9;
+    background: #6855c9;
+    color: #ffffff;
+}
+
+.student_list {
+    width: 150px;
+    border: #6855c9;
+    background: #6855c9;
+    color: #ffffff;
+}
+
+.student_list_red {
+    width: 150px;
+    border: #eb7267;
+    background: #eb7267;
+    color: #ffffff;
+}
+/*radio buttons*/
+
+input[type="radio"] {
+    display: none;
+}
+
+.label {
+    background-color: #979699;
+    color: black;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 0 10px 0 10px;
+    float: left;
+    border-radius: 9px;
+    border: 1px solid #979699;
+    height: 20px;
+}
+
+input[type="radio"]:checked + label {
+    background-color: #6855c9;
+    border-color: #6855c9;
+    color: white;
+}
+
+/*text*/
+h1 {
+    color: #6855c9;
+    font-size: 45px;
+}
+
+.instructions {
+    color: #626063;
+    font-size: 18px;
+}
+
+.welcome_h1 {
+    font-size: 100px;
+    text-align: center;
+    padding: 15%;
+}
+
+.login_welcome_h1 {
+    font-size: 80px;
+    text-align: center;
+}
+
+.congrats_h2 {
+    color: #626063;
+    font-size: 25px;
+    text-align: center;
+}
+
+.specifications {
+    color: #979699;
+    font-size: 12px;
+}
+/*flex*/
+.login_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.edit_container {
+    display: flex;
+    flex-direction: column;
+}
+
+.edit_row_container {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+/*other*/
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+}
+
+.mainwrapper {
+    height: 90%;
+}
+
+main {
+    height: 100%;
+}
