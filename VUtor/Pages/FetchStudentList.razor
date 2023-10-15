@@ -27,7 +27,7 @@
     <div>
         <label class="specifications" for="courseName"> Select course name: </label>
             <div class="form-floating mb-1">
-            <InputSelect name="courseName" @bind-Value="newUser.CourseName" class="round_corners">
+            <InputSelect name="courseName" @bind-Value="courseName" class="round_corners">
                 <option value="0">None</option>
                 <option value="1">PSI</option>
                 <option value="2">ISI</option>
@@ -40,7 +40,7 @@
             </div>
         <label class="specifications" for="courseYear"> Select acaddemic year:</label>
         <div class="form-floating mb-1">
-            <InputSelect name="courseYear" @bind-Value="newUser.CourseYear" class="round_corners">
+            <InputSelect name="courseYear" @bind-Value="courseYear" class="round_corners">
                 <option value="0">None</option>
                 <option value="1">I</option>
                 <option value="2">II</option>
@@ -126,8 +126,8 @@ else
                 <tr>
                     <td>@user.Name</td>
                     <td>@user.Surname</td>
-                    <td>@DisplayCourse(user)</td>
-                    <td>@DisplayYear(user)</td>
+                    <td>@user.CourseInfo.GetName()</td>
+                    <td>@user.CourseInfo.GetYear()</td>
                     <td>
                         <ul>
                             @foreach(var topic in user.TopicsToLearn)
@@ -156,6 +156,9 @@ else
     private ProfileEntity newUser = new ProfileEntity();
     private string message;
 
+    private int courseName;
+    private int courseYear;
+
     protected override async Task OnInitializedAsync()
     {
         Users = await _db.GetProfiles();
@@ -174,6 +177,8 @@ else
                 {
                     Name = newUser.Name,
                     Surname = newUser.Surname,
+                    CourseInfo = new CourseData(courseName, courseYear),
+                    CreationDate = new profileCreationDate()
                 };
 
             await _db.AddProfile(newUser);
@@ -193,20 +198,6 @@ else
     private async Task FilterList()
     {
         UsersDisplay = await _db.GetProfilesByFilterAsync(nameFilter, surnameFilter, courseFilter, yearFilter);
-    }
-
-    private string DisplayCourse(ProfileEntity user)
-    {
-        var courseValue = (CourseName)user.CourseName;
-
-        return courseValue.ToString();
-    }
-
-    private string DisplayYear(ProfileEntity user)
-    {
-        var yearValue = (CourseYear)user.CourseYear;
-
-        return yearValue.ToString();
     }
 
     private async Task RefetchData()

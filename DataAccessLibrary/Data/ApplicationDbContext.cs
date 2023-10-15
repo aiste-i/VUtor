@@ -40,11 +40,17 @@ namespace DataAccessLibrary.Data
                 .HasMaxLength(250);
 
             modelBuilder.Entity<ProfileEntity>()
-                .Property(e => e.CourseName)
+                .Property(e => e.CourseInfo)
+                .HasConversion(
+                    v => v.ToString(),
+                    v => new CourseData(v))
                 .HasMaxLength(250);
 
             modelBuilder.Entity<ProfileEntity>()
-                .Property(e => e.CourseYear)
+                .Property(e => e.CreationDate)
+                .HasConversion(
+                    v => v.ToString(),
+                    v => new profileCreationDate(v))
                 .HasMaxLength(250);
 
             modelBuilder.Entity<ProfileEntity>()
