@@ -22,24 +22,10 @@
             </div>
             <div class="edit_row_container">
                 <div>
-                    <label class="specifications">Enter password:</label>
-                    <div class="form-floating mb-2">
-                        <input asp-for="Input.Password" class="round_corners" autocomplete="new-password" aria-required="true" />
-                        <span asp-validation-for="Input.Password" class="text-danger"></span>
-                    </div>
-
                     <label class="specifications">Enter name:</label>
                     <div class="form-floating mb-2">
                         <input asp-for="Input.Name" class="round_corners" />
                         <span asp-validation-for="Input.Name" class="text-danger"></span>
-                    </div>
-                </div>
-
-                <div>
-                    <label class="specifications">Confirm password:</label>
-                    <div class="form-floating mb-2">
-                        <input asp-for="Input.ConfirmPassword" class="round_corners" autocomplete="new-password" aria-required="true" />
-                        <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
                     </div>
 
                     <label class="specifications">Enter surname:</label>
@@ -48,34 +34,47 @@
                         <span asp-validation-for="Input.Surname" class="text-danger"></span>
                     </div>
                 </div>
+
+                <div>
+                    <label class="specifications">Enter password:</label>
+                    <div class="form-floating mb-2">
+                        <input asp-for="Input.Password" class="round_corners" autocomplete="new-password" aria-required="true" />
+                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                    </div>
+
+                    <label class="specifications">Confirm password:</label>
+                    <div class="form-floating mb-2">
+                        <input asp-for="Input.ConfirmPassword" class="round_corners" autocomplete="new-password" aria-required="true" />
+                        <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                    </div>
+
+                </div>
             </div>
 
             <div class="edit_row_container">
                 <div>
-                    <label class="specifications" for="courseName"> Select course name:</label>
+                    <label class="specifications" for="Input.CourseName"> Select course name:</label>
                     <div class="form-floating mb-1">
-                        <select name="courseName" id="Course_Name" class="round_corners">
-                            <option asp-for="Input.CourseName" value="1">PSI</option>
-                            <option asp-for="Input.CourseName" value="2">ISI</option>
-                            <option asp-for="Input.CourseName" value="3">VDA</option>
-                            <option asp-for="Input.CourseName" value="4">MMT</option>
-                            <option asp-for="Input.CourseName" value="5">IT</option>
-                            <option asp-for="Input.CourseName" value="6">FDM</option>
-                            <option asp-for="Input.CourseName" value="7">DM</option>
+                        <select asp-for="Input.CourseName" id="Course_Name" class="round_corners">
+                            @foreach (var value in Enum.GetValues(typeof(CourseName)))
+                            {
+                                <option value="@value">@value.ToString()</option>
+                            }
                         </select>
+                        <span asp-validation-for="Input.CourseName"></span>
                     </div>
                 </div>
 
                 <div>
-                    <label class="specifications" for="academic_year">Select acaddemic year:</label>
+                    <label class="specifications" for="Input.CourseYear">Select acaddemic year:</label>
                     <div class="form-floating mb-2">
-                        <select name="academic_year" id="academic_year" class="round_corners">
+                        <select asp-for="Input.CourseYear" id="courseYear" class="round_corners">
                             @foreach (var value in Enum.GetValues(typeof(CourseYear)))
-                            {   
-                                <option asp-for="Input.CourseYear" value="@value">@value.ToString()</option>
+                            {
+                                <option value="@value">@value.ToString()</option>
                             }
-
                         </select>
+                        <span asp-validation-for="Input.CourseYear"></span>
                     </div>
                 </div>
             </div>
@@ -89,11 +88,11 @@
                             <div>
                                 <input type="radio"
                                        asp-for="Input.TopicToLearn"
-                                       value="@topic"
-                                       id="@("learn" + topic.Title)" />
-                                <label class="label form-floating mb-2" for="@("learn" + topic.Title)"> @topic.Title </label>
+                                       value="@topic.Id" />
+                                @topic.Title
                             </div>
                         }
+                        <span asp-validation-for="Input.TopicToLearn"></span>
                     </div>
                 </div>
 
@@ -105,9 +104,7 @@
                             <div>
                                 <input type="radio"
                                        asp-for="Input.TopicToTeach"
-                                       value="@topic"
-                                       id="@("teach" + topic.Title)"/>
-                                <label class="label form-floating mb-2" for="@("teach" + topic.Title)"> @topic.Title </label>
+                                       value="@topic.Id" /> @topic.Title
                             </div>
                         }
                     </div>

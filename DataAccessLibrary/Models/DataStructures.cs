@@ -1,4 +1,7 @@
-﻿namespace DataAccessLibrary.Models
+﻿using Microsoft.IdentityModel.Tokens;
+using System.Globalization;
+
+namespace DataAccessLibrary.Models
 {
     public record profileCreationDate
     {
@@ -6,17 +9,24 @@
 
         public profileCreationDate()
         {
-            Date = DateTime.Now;
+            Date = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
         }
 
         public profileCreationDate(string dateAsString)
         {
-            Date = DateTime.Parse(dateAsString);
+            if (!dateAsString.IsNullOrEmpty())
+            {
+                Date = DateTime.ParseExact(dateAsString, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+            }
+            else
+            {
+                Date = DateTime.MinValue;
+            }
         }
 
         public override string ToString()
         {
-            return Date.ToLongDateString();
+            return Date.ToShortDateString();
         }
     }
     public enum CourseName : int
@@ -54,9 +64,17 @@
         }
         public CourseData(string conversionString)
         {
-            string[] values = conversionString.Split(' ');
-            courseName = int.Parse(values[0]);
-            courseYear = int.Parse(values[1]);
+            if (!conversionString.IsNullOrEmpty())
+            {
+                string[] values = conversionString.Split(' ');
+                courseName = int.Parse(values[0]);
+                courseYear = int.Parse(values[1]);
+            }
+            else
+            {
+                courseName = 0;
+                courseYear = 0;
+            }
         }
 
         public string GetName()
@@ -86,7 +104,7 @@
         // IEquatable 
         public bool Equals(CourseData other)
         {
-            if(courseName == other.courseName && courseYear == other.courseYear)
+            if (courseName == other.courseName && courseYear == other.courseYear)
                 return true;
             else return false;
         }

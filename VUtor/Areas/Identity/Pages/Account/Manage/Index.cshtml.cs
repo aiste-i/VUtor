@@ -1,5 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
-// The .NET Foundation licenses this file to you under the MIT license.
+﻿
 #nullable disable
 
 using System;
@@ -10,6 +9,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using DataAccessLibrary.Models;
+using System.Diagnostics.CodeAnalysis;
+using DataAccessLibrary.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace VUtor.Areas.Identity.Pages.Account.Manage
 {
@@ -17,67 +19,68 @@ namespace VUtor.Areas.Identity.Pages.Account.Manage
     {
         private readonly UserManager<ProfileEntity> _userManager;
         private readonly SignInManager<ProfileEntity> _signInManager;
+        private readonly ApplicationDbContext _context;
 
         public IndexModel(
             UserManager<ProfileEntity> userManager,
-            SignInManager<ProfileEntity> signInManager)
+            SignInManager<ProfileEntity> signInManager, ApplicationDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _context = context;
         }
 
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
         public string Username { get; set; }
+        public List<TopicEntity> TopicList { get; set; } = new List<TopicEntity>();
 
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
+
+
         [TempData]
         public string StatusMessage { get; set; }
 
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
         [BindProperty]
         public InputModel Input { get; set; }
-
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
         public class InputModel
         {
-            /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
-            /// </summary>
-            [Required]
+            [AllowNull]
             [DataType(DataType.Text)]
             [Display(Name = "Name")]
             public string Name { get; set; }
 
-            [Required]
+            [AllowNull]
             [DataType(DataType.Text)]
             [Display(Name = "Surname")]
             public string Surname { get; set; }
+
+            [AllowNull]
+            [Display(Name = "Course Name")]
+            public CourseName CourseName { get; set; }
+
+            [AllowNull]
+            [Display(Name = "Course Year")]
+            public CourseYear CourseYear { get; set; }
+
+            [Display(Name = "Topic To Learn")]
+            public int TopicToLearn { get; set; }
+
+            [Display(Name = "Topic To Teach")]
+            public int TopicToTeach { get; set; }
 
         }
 
         private async Task LoadAsync(ProfileEntity user)
         {
-            var userName = await _userManager.GetUserNameAsync(user);
-
-            Username = userName;
-
+            TopicList = _context.Topics.ToList();
+            Username = await _userManager.GetUserNameAsync(user);
+            var profile = _context.Profiles.Where(p => p.Id == user.Id).Include(p => p.TopicsToLearn).Include(p => p.TopicsToTeach).First();
             Input = new InputModel
             {
                 Name = user.Name,
-                Surname = user.Surname
+                Surname = user.Surname,
+                CourseName = (CourseName)user.CourseInfo.courseName,
+                CourseYear = (CourseYear)user.CourseInfo.courseYear,
+                TopicToLearn = profile.TopicsToLearn.First().Id,
+                TopicToTeach = profile.TopicsToTeach.First().Id
             };
         }
 
@@ -95,7 +98,9 @@ namespace VUtor.Areas.Identity.Pages.Account.Manage
 
         public async Task<IActionResult> OnPostAsync()
         {
+            TopicList = _context.Topics.ToList();
             var user = await _userManager.GetUserAsync(User);
+            var profile = _context.Profiles.Where(p => p.Id == user.Id).Include(p => p.TopicsToLearn).Include(p => p.TopicsToTeach).First();
             if (user == null)
             {
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
@@ -117,6 +122,40 @@ namespace VUtor.Areas.Identity.Pages.Account.Manage
                 user.Surname = Input.Surname;
             }
 
+            var newCourseInfo = new CourseData((int)Input.CourseName, (int)Input.CourseYear);
+            if (!user.CourseInfo.Equals(newCourseInfo))
+            {
+                user.CourseInfo = newCourseInfo;
+            }
+
+            var TopicLearn = _context.Topics.Where(p => p.Id == Input.TopicToLearn).First();
+            if (!profile.TopicsToLearn.Contains(TopicLearn))
+            {
+                var currentTopic = profile.TopicsToLearn.FirstOrDefault();
+                var removedTopic = _context.Topics.Where(p => p.Id == currentTopic.Id).Include(p => p.LearningProfiles).First();
+                if (TopicLearn != null)
+                {
+                    removedTopic.LearningProfiles.Remove(user);
+                    user.TopicsToLearn.Remove(removedTopic);
+                    user.TopicsToLearn.Add(TopicLearn);
+                    TopicLearn.LearningProfiles.Add(user);
+                }
+            }
+
+            var TopicTeach = _context.Topics.Where(p => p.Id == Input.TopicToTeach).First();
+            if (!user.TopicsToTeach.Contains(TopicTeach))
+            {
+                var currentTopic = profile.TopicsToTeach.FirstOrDefault();
+                var removedTopic = _context.Topics.Where(p => p.Id == currentTopic.Id).Include(p => p.TeachingProfiles).First();
+                if (TopicTeach != null)
+                {
+                    removedTopic.TeachingProfiles.Remove(user);
+                    user.TopicsToTeach.Remove(removedTopic);
+                    user.TopicsToTeach.Add(TopicTeach);
+                    TopicTeach.TeachingProfiles.Add(user);
+                }
+            }
+            await _context.SaveChangesAsync();
             await _userManager.UpdateAsync(user);
 
             await _signInManager.RefreshSignInAsync(user);
