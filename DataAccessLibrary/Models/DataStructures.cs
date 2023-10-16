@@ -1,7 +1,5 @@
 ﻿using Microsoft.IdentityModel.Tokens;
-using System.Data;
 using System.Globalization;
-using System.Reflection.Emit;
 
 namespace DataAccessLibrary.Models
 {
@@ -56,61 +54,56 @@ namespace DataAccessLibrary.Models
     }
     public struct CourseData : IEquatable<CourseData>
     {
-        public int courseName { get; set; }
-        public int courseYear { get; set; }
+        public int CourseName { get; set; }
+        public int CourseYear { get; set; }
         public CourseData()
         {
-            courseName = 0;
-            courseYear = 0;
+            CourseName = 0;
+            CourseYear = 0;
         }
         public CourseData(int courseName, int courseYear)
         {
-            this.courseName = courseName;
-            this.courseYear = courseYear;
+            this.CourseName = courseName;
+            this.CourseYear = courseYear;
         }
         public CourseData(string conversionString)
         {
             if (!conversionString.IsNullOrEmpty())
             {
                 string[] values = conversionString.Split(' ');
-                courseName = int.Parse(values[0]);
-                courseYear = int.Parse(values[1]);
+                CourseName = int.Parse(values[0]);
+                CourseYear = int.Parse(values[1]);
             }
             else
             {
-                courseName = 0;
-                courseYear = 0;
+                CourseName = 0;
+                CourseYear = 0;
             }
         }
 
         public string GetName()
         {
-            var nameEnum = (CourseName)courseName;
+            var nameEnum = (CourseName)CourseName;
 
             return nameEnum.ToString();
         }
 
         public string GetYear()
         {
-            var yearEnum = (CourseYear)courseYear;
+            var yearEnum = (CourseYear)CourseYear;
 
             return yearEnum.ToString();
         }
 
-        public int[] ToArray()
-        {
-            return [courseName, courseYear];
-        }
-
         public override string ToString()
         {
-            return courseName + " " + courseYear;
+            return CourseName + " " + CourseYear;
         }
 
         // IEquatable 
         public bool Equals(CourseData other)
         {
-            if (courseName == other.courseName && courseYear == other.courseYear)
+            if (CourseName == other.CourseName && CourseYear == other.CourseYear)
                 return true;
             else return false;
         }

@@ -17,7 +17,7 @@ namespace DataAccessLibrary.Data
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=tcp:vutor.database.windows.net,1433;Initial Catalog=VUtor;Encrypt=True;TrustServerCertificate=True;Connection Timeout=30;Authentication=Active Directory Default;Pooling=True;", 
+            optionsBuilder.UseSqlServer("Server=tcp:vutor.database.windows.net,1433;Initial Catalog=VUtor;Encrypt=True;TrustServerCertificate=True;Connection Timeout=30;Authentication=Active Directory Default;Pooling=True;",
                 options => options.EnableRetryOnFailure().MaxBatchSize(100));
             base.OnConfiguring(optionsBuilder);
         }
@@ -30,7 +30,7 @@ namespace DataAccessLibrary.Data
             modelBuilder.Entity<TopicEntity>()
                 .Property(e => e.Title)
                 .HasMaxLength(250);
-           
+
             modelBuilder.Entity<ProfileEntity>()
                 .Property(e => e.Name)
                 .HasMaxLength(250);
