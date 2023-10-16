@@ -79,7 +79,9 @@ using (var scope = app.Services.CreateScope())
             Surname = "admin",
             UserName = email,
             Email = email,
-            EmailConfirmed = true
+            EmailConfirmed = true,
+            CourseInfo = new CourseData(0, 0),
+            CreationDate = new profileCreationDate()
         };
 
         await userManager.CreateAsync(user, password);

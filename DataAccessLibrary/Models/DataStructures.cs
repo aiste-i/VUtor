@@ -1,5 +1,7 @@
 ﻿using Microsoft.IdentityModel.Tokens;
+using System.Data;
 using System.Globalization;
+using System.Reflection.Emit;
 
 namespace DataAccessLibrary.Models
 {
@@ -9,6 +11,8 @@ namespace DataAccessLibrary.Models
 
         public profileCreationDate()
         {
+            CultureInfo culture = new CultureInfo("en-US");
+            Thread.CurrentThread.CurrentCulture = culture;
             Date = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
         }
 
@@ -16,7 +20,7 @@ namespace DataAccessLibrary.Models
         {
             if (!dateAsString.IsNullOrEmpty())
             {
-                Date = DateTime.ParseExact(dateAsString, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+                Date = DateTime.ParseExact(dateAsString, "MM/dd/yyyy", CultureInfo.CurrentCulture);
             }
             else
             {
@@ -26,13 +30,15 @@ namespace DataAccessLibrary.Models
 
         public override string ToString()
         {
+            CultureInfo culture = new CultureInfo("en-US");
+            Thread.CurrentThread.CurrentCulture = culture;
             return Date.ToShortDateString();
         }
     }
     public enum CourseName : int
     {
         None = 0,
-        PSI = 1,
+        PS = 1,
         ISI = 2,
         VDA = 3,
         MMT = 4,
@@ -79,7 +85,7 @@ namespace DataAccessLibrary.Models
 
         public string GetName()
         {
-            var nameEnum = (CourseYear)courseName;
+            var nameEnum = (CourseName)courseName;
 
             return nameEnum.ToString();
         }
