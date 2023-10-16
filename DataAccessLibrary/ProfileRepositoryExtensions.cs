@@ -17,8 +17,8 @@ namespace DataAccessLibrary
                     (string.IsNullOrWhiteSpace(surname) || (profile.Surname != null && profile.Surname.Contains(surname, StringComparison.OrdinalIgnoreCase))) &&
                     (courseName == 0 || profile.CourseInfo.courseName.Equals(courseName)) &&
                     (courseYear == 0 || profile.CourseInfo.courseYear.Equals(courseYear)) &&
-                    (topicsLearn == 0 || profile.TopicsToLearn.All(topic => topic.Id.Equals(topicsLearn))) &&
-                    (topicsTeach == 0 || profile.TopicsToTeach.All(topic => topic.Id.Equals(topicsTeach))))
+                    (topicsLearn == 0 || profile.TopicsToLearn.Any(topic => topic.Id.Equals(topicsLearn))) &&
+                    (topicsTeach == 0 || profile.TopicsToTeach.Any(topic => topic.Id.Equals(topicsTeach))))
                     .OrderBy(profile => profile.Surname)
                     .ToList();
         }

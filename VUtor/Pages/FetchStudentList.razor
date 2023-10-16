@@ -89,7 +89,7 @@
                 </InputSelect>
             </div>
 
-        <label class="specifications" for="courseYear"> Select acaddemic year:</label>
+        <label class="specifications" for="courseYear"> Select academic year:</label>
             <div class="form-floating mb-1">
                 <InputSelect name="courseYear" @bind-Value="yearFilter" class="round_corners">
                     <option value="0">None</option>
@@ -127,7 +127,7 @@
 </div>
 
     <button type="submit" class="round_corners student_list">Filter</button>
-    <button type="button" class="round_corners student_list_red" onclick="@RefetchData">Clear filters</button>
+    <button type="button" class="round_corners student_list_red" onclick="@ClearFilters">Clear filters</button>
 </EditForm>
 
 
@@ -185,10 +185,21 @@ else
     private List<ProfileEntity> Users = new List<ProfileEntity>();
     private List<ProfileEntity> UsersDisplay = new List<ProfileEntity>();
     private ProfileEntity newUser = new ProfileEntity();
-    private string message;
+    private string? message;
 
     private int courseName;
     private int courseYear;
+
+    private async Task ClearFilters()
+    {
+        nameFilter = string.Empty;
+        surnameFilter = string.Empty;
+        courseFilter = 0;
+        yearFilter = 0;
+        learnFilter = 0;
+        teachFilter = 0;
+        await RefetchData();
+    }
 
     protected override async Task OnInitializedAsync()
     {
