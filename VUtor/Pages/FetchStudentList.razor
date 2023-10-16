@@ -168,7 +168,7 @@ else
     protected override async Task OnInitializedAsync()
     {
         _profiles = _context.Profiles.Include(p => p.TopicsToLearn).Include(p => p.TopicsToTeach).ToList();
-        Users = await _db.GetProfiles();
+        Users = await _db.LoadData();
         UsersDisplay = Users;
     }
 
@@ -188,7 +188,8 @@ else
                     CreationDate = new profileCreationDate()
                 };
 
-            await _db.AddProfile(newUser);
+            await _db.Insert(user);
+            await _db.SaveChanges();
             await RefetchData();
 
             newUser = new ProfileEntity();
@@ -209,7 +210,7 @@ else
 
     private async Task RefetchData()
     {
-        Users = await _db.GetProfiles();
+        Users = await _db.LoadData();
         UsersDisplay = Users;
     }
 }
