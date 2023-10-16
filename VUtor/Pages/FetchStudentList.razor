@@ -3,8 +3,12 @@
 @using DataAccessLibrary.Data
 @using DataAccessLibrary.Models
 @using DataAccessLibrary
+@using Microsoft.EntityFrameworkCore
+
+
 
 @inject IProfileRepository _db
+@inject ApplicationDbContext _context
 
 <PageTitle>Student List</PageTitle>
 
@@ -128,9 +132,10 @@ else
                     <td>@user.Surname</td>
                     <td>@user.CourseInfo.GetName()</td>
                     <td>@user.CourseInfo.GetYear()</td>
+                    
                     <td>
                         <ul>
-                            @foreach(var topic in user.TopicsToLearn)
+                            @foreach (var topic in user.TopicsToLearn)
                             {
                                 <li>@topic.Title</li>
                             }
@@ -151,6 +156,7 @@ else
 }
 
 @code {
+    private List<ProfileEntity> _profiles = new List<ProfileEntity>();
     private List<ProfileEntity> Users = new List<ProfileEntity>();
     private List<ProfileEntity> UsersDisplay = new List<ProfileEntity>();
     private ProfileEntity newUser = new ProfileEntity();
@@ -161,6 +167,7 @@ else
 
     protected override async Task OnInitializedAsync()
     {
+        _profiles = _context.Profiles.Include(p => p.TopicsToLearn).Include(p => p.TopicsToTeach).ToList();
         Users = await _db.GetProfiles();
         UsersDisplay = Users;
     }
