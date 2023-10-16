@@ -1,4 +1,7 @@
-﻿namespace DataAccessLibrary.Models
+﻿using Microsoft.IdentityModel.Tokens;
+using System.Globalization;
+
+namespace DataAccessLibrary.Models
 {
     public record profileCreationDate
     {
@@ -11,12 +14,19 @@
 
         public profileCreationDate(string dateAsString)
         {
-            Date = DateTime.Parse(dateAsString);
-        }
+            if(!dateAsString.IsNullOrEmpty())
+            {
+                DateTime.TryParseExact(dateAsString, "dd/MM/yyyy", null, DateTimeStyles.AllowLeadingWhite, out Date);
+                DateTime.TryParseExact(dateAsString, "MM/dd/yyyy", null, DateTimeStyles.AllowLeadingWhite, out Date);
+                DateTime.TryParseExact(dateAsString, "yyyy-MM-dd", null, DateTimeStyles.AllowLeadingWhite, out Date);
+            }
+            else
+                Date = DateTime.MinValue;
+        }   
 
         public override string ToString()
         {
-            return Date.ToLongDateString();
+            return Date.ToString("yyyy-MM-dd");
         }
     }
     public enum CourseName : int
@@ -54,14 +64,22 @@
         }
         public CourseData(string conversionString)
         {
-            string[] values = conversionString.Split(' ');
-            courseName = int.Parse(values[0]);
-            courseYear = int.Parse(values[1]);
+            if(!conversionString.IsNullOrEmpty())
+            {
+                string[] values = conversionString.Split(" ");
+                courseName = int.Parse(values[0]);
+                courseYear = int.Parse(values[1]);
+            }
+            else
+            {
+                courseName= 0;
+                courseYear = 0;
+            }
         }
 
         public string GetName()
         {
-            var nameEnum = (CourseYear)courseName;
+            var nameEnum = (CourseName)courseName;
 
             return nameEnum.ToString();
         }
@@ -71,11 +89,6 @@
             var yearEnum = (CourseYear)courseYear;
 
             return yearEnum.ToString();
-        }
-
-        public int[] ToArray()
-        {
-            return [courseName, courseYear];
         }
 
         public override string ToString()
