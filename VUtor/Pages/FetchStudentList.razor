@@ -102,7 +102,7 @@
     </div>
 
         <div>
-            <label class="specifications" for="courseName"> Select course name: </label>
+            <label class="specifications" for="topicLearn"> Select topics to learn: </label>
             <div class="form-floating mb-1">
                 <InputSelect name="topicLearn" @bind-Value="learnFilter" class="round_corners">
                     <option value="0">None</option>
@@ -113,7 +113,7 @@
                 </InputSelect>
             </div>
 
-            <label class="specifications" for="courseYear"> Select acaddemic year:</label>
+            <label class="specifications" for="topicTeach"> Select topic to teach:</label>
             <div class="form-floating mb-1">
                 <InputSelect name="topicTeach" @bind-Value="teachFilter" class="round_corners">
                     <option value="0">None</option>
@@ -144,8 +144,8 @@ else
                 <th>Surname</th>
                 <th>Course</th>
                 <th>Academic year</th>
-                <th>Topics to teach</th>
                 <th>Topics to learn</th>
+                <th>Topics to teach</th>
             </tr>
         </thead>
         <tbody>
