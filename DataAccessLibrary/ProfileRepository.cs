@@ -34,7 +34,7 @@ namespace DataAccessLibrary
             return profiles;
         }
 
-        public async Task<List<ProfileEntity>> GetProfilesByFilterAsync(string name, string surname, int courseName, int courseYear)
+        public async Task<List<ProfileEntity>> GetProfilesByFilterAsync(string name, string surname, int courseName, int courseYear, int topicsLearn, int topicsTeach)
         {
             List<ProfileEntity> profiles = await LoadData();
 
@@ -43,7 +43,7 @@ namespace DataAccessLibrary
                 while (!_pool.WaitOne(TimeSpan.FromTicks(1)))
                     await Task.Delay(TimeSpan.FromSeconds(1));
 
-                profiles = (List<ProfileEntity>)profiles.FilterProfiles(name, surname, courseName, courseYear);
+                profiles = (List<ProfileEntity>)profiles.FilterProfiles(name, surname, courseName, courseYear, topicsLearn, topicsTeach);
             }
             _pool.Release();
 

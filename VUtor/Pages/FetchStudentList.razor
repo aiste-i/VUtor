@@ -100,6 +100,30 @@
                 </InputSelect>
             </div>
     </div>
+
+        <div>
+            <label class="specifications" for="courseName"> Select course name: </label>
+            <div class="form-floating mb-1">
+                <InputSelect name="topicLearn" @bind-Value="learnFilter" class="round_corners">
+                    <option value="0">None</option>
+                    @foreach(var topic in TopicList)
+                    {
+                        <option value="@topic.Id">@topic.Title</option>
+                    }
+                </InputSelect>
+            </div>
+
+            <label class="specifications" for="courseYear"> Select acaddemic year:</label>
+            <div class="form-floating mb-1">
+                <InputSelect name="topicTeach" @bind-Value="teachFilter" class="round_corners">
+                    <option value="0">None</option>
+                    @foreach (var topic in TopicList)
+                    {
+                        <option value="@topic.Id">@topic.Title</option>
+                    }
+                </InputSelect>
+            </div>
+        </div>
 </div>
 
     <button type="submit" class="round_corners student_list">Filter</button>
@@ -156,6 +180,7 @@ else
 }
 
 @code {
+    private List<TopicEntity> TopicList = new List<TopicEntity>();
     private List<ProfileEntity> _profiles = new List<ProfileEntity>();
     private List<ProfileEntity> Users = new List<ProfileEntity>();
     private List<ProfileEntity> UsersDisplay = new List<ProfileEntity>();
@@ -168,6 +193,7 @@ else
     protected override async Task OnInitializedAsync()
     {
         _profiles = _context.Profiles.Include(p => p.TopicsToLearn).Include(p => p.TopicsToTeach).ToList();
+        TopicList = await _context.Topics.ToListAsync();
         Users = await _db.LoadData();
         UsersDisplay = Users;
     }
@@ -202,10 +228,12 @@ else
     private string? surnameFilter;
     private int courseFilter;
     private int yearFilter;
+    private int learnFilter;
+    private int teachFilter;
 
     private async Task FilterList()
     {
-        UsersDisplay = await _db.GetProfilesByFilterAsync(nameFilter, surnameFilter, courseFilter, yearFilter);
+        UsersDisplay = await _db.GetProfilesByFilterAsync(name: nameFilter, surname: surnameFilter, courseName: courseFilter, courseYear: yearFilter, topicsLearn: learnFilter, topicsTeach: teachFilter);
     }
 
     private async Task RefetchData()
