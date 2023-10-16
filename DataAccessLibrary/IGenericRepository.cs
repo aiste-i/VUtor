@@ -1,6 +1,7 @@
 ﻿namespace DataAccessLibrary
 {
-    public interface IGenericRepository<TEntity> where TEntity : class
+    public interface IGenericRepository<TEntity> 
+        where TEntity : class
     {
         Task Delete(TEntity entity);
         Task<IQueryable<TEntity>> GetQueryable();
