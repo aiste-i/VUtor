@@ -161,7 +161,7 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        Users = await _db.GetProfiles();
+        Users = await _db.LoadData();
         UsersDisplay = Users;
     }
 
@@ -181,7 +181,8 @@ else
                     CreationDate = new profileCreationDate()
                 };
 
-            await _db.AddProfile(newUser);
+            await _db.Insert(user);
+            await _db.SaveChanges();
             await RefetchData();
 
             newUser = new ProfileEntity();
@@ -202,7 +203,7 @@ else
 
     private async Task RefetchData()
     {
-        Users = await _db.GetProfiles();
+        Users = await _db.LoadData();
         UsersDisplay = Users;
     }
 }
