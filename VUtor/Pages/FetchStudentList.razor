@@ -188,8 +188,7 @@ else
                     CreationDate = new profileCreationDate()
                 };
 
-            await _db.Insert(user);
-            await _db.SaveChanges();
+            await _db.Insert(newUser);
             await RefetchData();
 
             newUser = new ProfileEntity();

@@ -18,21 +18,19 @@ namespace DataAccessLibrary.Models
 
         public profileCreationDate(string dateAsString)
         {
-            if (!dateAsString.IsNullOrEmpty())
+            if(!dateAsString.IsNullOrEmpty())
             {
-                Date = DateTime.ParseExact(dateAsString, "MM/dd/yyyy", CultureInfo.CurrentCulture);
+                DateTime.TryParseExact(dateAsString, "dd/MM/yyyy", null, DateTimeStyles.AllowLeadingWhite, out Date);
+                DateTime.TryParseExact(dateAsString, "MM/dd/yyyy", null, DateTimeStyles.AllowLeadingWhite, out Date);
+                DateTime.TryParseExact(dateAsString, "yyyy-MM-dd", null, DateTimeStyles.AllowLeadingWhite, out Date);
             }
             else
-            {
                 Date = DateTime.MinValue;
-            }
-        }
+        }   
 
         public override string ToString()
         {
-            CultureInfo culture = new CultureInfo("en-US");
-            Thread.CurrentThread.CurrentCulture = culture;
-            return Date.ToShortDateString();
+            return Date.ToString("yyyy-MM-dd");
         }
     }
     public enum CourseName : int
@@ -70,15 +68,15 @@ namespace DataAccessLibrary.Models
         }
         public CourseData(string conversionString)
         {
-            if (!conversionString.IsNullOrEmpty())
+            if(!conversionString.IsNullOrEmpty())
             {
-                string[] values = conversionString.Split(' ');
+                string[] values = conversionString.Split(" ");
                 courseName = int.Parse(values[0]);
                 courseYear = int.Parse(values[1]);
             }
             else
             {
-                courseName = 0;
+                courseName= 0;
                 courseYear = 0;
             }
         }
@@ -95,11 +93,6 @@ namespace DataAccessLibrary.Models
             var yearEnum = (CourseYear)courseYear;
 
             return yearEnum.ToString();
-        }
-
-        public int[] ToArray()
-        {
-            return [courseName, courseYear];
         }
 
         public override string ToString()

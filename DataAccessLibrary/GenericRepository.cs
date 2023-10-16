@@ -1,9 +1,10 @@
-﻿using DataAccessLibrary.Data;
+using DataAccessLibrary.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessLibrary
 {
-    public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
+    public class GenericRepository<TEntity> : IGenericRepository<TEntity> 
+        where TEntity : class
     {
         readonly ApplicationDbContext _context;
         private Semaphore _pool;

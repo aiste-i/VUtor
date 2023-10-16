@@ -2,6 +2,8 @@
 using DataAccessLibrary.Data;
 using DataAccessLibrary.Models;
 using Microsoft.IdentityModel.Tokens;
+using DataAccessLibrary;
+using static Dapper.SqlMapper;
 
 namespace DataAccessLibrary
 {
@@ -9,7 +11,7 @@ namespace DataAccessLibrary
     {
         readonly ApplicationDbContext _context;
         private Semaphore _pool;
-        public ProfileRepository(ApplicationDbContext context) : base(context)
+        public ProfileRepository(ApplicationDbContext context) : base(context) 
         {
             _context = context;
 
