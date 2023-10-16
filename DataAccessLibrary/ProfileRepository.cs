@@ -2,6 +2,7 @@
 using DataAccessLibrary.Data;
 using DataAccessLibrary.Models;
 using Microsoft.IdentityModel.Tokens;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace DataAccessLibrary
 {
@@ -94,14 +95,7 @@ namespace DataAccessLibrary
                 while (!_pool.WaitOne(TimeSpan.FromTicks(1)))
                     await Task.Delay(TimeSpan.FromSeconds(1));
 
-                profiles = profiles
-                    .Where(profile =>
-                    (string.IsNullOrWhiteSpace(name) || profile.Name.Contains(name, StringComparison.OrdinalIgnoreCase)) &&
-                    (string.IsNullOrWhiteSpace(surname) || profile.Surname.Contains(surname, StringComparison.OrdinalIgnoreCase)) &&
-                    (courseName == 0 || profile.CourseInfo.courseName.Equals(courseName)) &&
-                    (courseYear == 0 || profile.CourseInfo.courseYear.Equals(courseYear)))
-                    .OrderBy(profile => profile.Surname)
-                    .ToList();
+                profiles = (List<ProfileEntity>)profiles.FilterProfiles(name, surname, courseName, courseYear);
             }
             _pool.Release();
 
