@@ -1,6 +1,7 @@
 ﻿using DataAccessLibrary.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace DataAccessLibrary.Data
 {
@@ -8,6 +9,7 @@ namespace DataAccessLibrary.Data
     {
         public DbSet<ProfileEntity> Profiles { get; set; }
         public DbSet<TopicEntity> Topics { get; set; }
+        public DbSet<UserFile> UserFiles { get; set; }
 
 
 
@@ -17,13 +19,19 @@ namespace DataAccessLibrary.Data
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=tcp:vutor.database.windows.net,1433;Initial Catalog=VUtor;Encrypt=True;TrustServerCertificate=True;Connection Timeout=30;Authentication=Active Directory Default;Pooling=True;", 
+            optionsBuilder.UseSqlServer("Server=tcp:vutor.database.windows.net,1433;Initial Catalog=vutorapp;Encrypt=True;TrustServerCertificate=True;Connection Timeout=30;Authentication=Active Directory Default;Pooling=True;",
                 options => options.EnableRetryOnFailure().MaxBatchSize(100));
             base.OnConfiguring(optionsBuilder);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<UserFile>()
+                .HasOne(e => e.Topic)
+                .WithMany(e => e.UserFiles)
+                .HasForeignKey(e => e.TopicId)
+                .IsRequired();
+
             modelBuilder.Entity<TopicEntity>()
                 .HasKey(e => e.Id);
 

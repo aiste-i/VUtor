@@ -1,0 +1,59 @@
+﻿@page "/loadfiles"
+
+@using DataAccessLibrary.Data;
+@using DataAccessLibrary.Models;
+@using DataAccessLibrary;
+
+@inject IConfiguration config
+@inject ApplicationDbContext context
+
+@if(_userFiles is not null)
+{
+    <h2>Uploaded files</h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Topic</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Resource</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var item in _userFiles)
+            {
+                <tr>
+                    <td>@item.Topic.Title</td>
+                    <td>@item.Title</td>
+                    <td>@item.Description</td>
+                    <td>
+                        @if(string.IsNullOrWhiteSpace(item.FileName) == false)
+                        {
+                            <a href="@CreateFullPath(item.FileName)">@item.Title</a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<TopicEntity> _topics;
+    private List<UserFile>? _userFiles;
+
+    private void LoadFiles()
+    {
+        _topics = context.Topics.ToList();
+        _userFiles = context.UserFiles.ToList();
+    }
+    private string CreateFullPath(string relativePath)
+    {
+        return Path.Combine(config.GetValue<string>("WebStorageRoot")!, relativePath);
+    }
+
+    protected override void OnInitialized()
+    {
+        LoadFiles();
+    }
+}

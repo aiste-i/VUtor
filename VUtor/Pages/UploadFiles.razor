@@ -1,0 +1,144 @@
+﻿@page "/uploadfiles"
+
+@using DataAccessLibrary.Data
+@using DataAccessLibrary.Models
+@using DataAccessLibrary
+@using Microsoft.EntityFrameworkCore
+
+
+
+
+@inject IConfiguration config 
+@inject ApplicationDbContext Context
+
+<h3>UploadFiles</h3>
+
+<EditForm Model="userFile" OnValidSubmit="SubmitForm">
+    <div>
+        <label for="Title">Enter resource title</label>
+        <InputText id="title" class="form-control" @bind-Value="userFile.Title"></InputText>
+    </div>
+    <div>
+        <label for="Description">Enter a short description</label>
+        <InputText id="description" class="form-control" @bind-Value="userFile.Description"></InputText>
+    </div>
+    <div>
+    <label for="TopicId">Choose topic</label>
+        <InputSelect id="topicId" class="form-control" @bind-Value="userFile.TopicId">
+            @foreach (var value in TopicList)
+            {
+                <option value="@value.Id">@value.Title</option>
+            }
+        </InputSelect>
+    </div>
+    <div>
+        <label for="File">Upload your file</label>
+        <InputFile OnChange="@LoadFiles" class="form-control"/>
+    </div>
+    <button class="btn btn-primary mt-3" type="submit">Upload</button>
+</EditForm>
+
+
+@if(errors.Count() > 0)
+{
+    <h2>Errors</h2>
+    <ul class="text-danger">
+        @foreach(var error in errors)
+        {
+            <li>@error</li>
+        }
+    </ul>
+}
+
+@code {
+    private List<TopicEntity> TopicList { get; set; } = new List<TopicEntity>();
+    private long maxFileSize = 1024 * 1024 * 5; //3MB
+    private List<string> errors = new();
+    private UserFile userFile = new UserFile(); //NEEDS TO BE CHANGED
+    private IBrowserFile? file;
+
+    protected override void OnInitialized()
+    {
+        TopicList = Context.Topics.ToList();
+    }
+
+    private async Task SubmitForm()
+    {
+        errors.Clear();
+        try
+        {
+
+            var topic = Context.Topics.Find(userFile.TopicId);
+            if(topic != null)
+            {
+                userFile.Topic = topic;
+
+                string relativePath = await CaptureFile();
+                userFile.FileName = relativePath;
+
+                topic.UserFiles.Add(userFile);
+                Context.UserFiles.Add(userFile);
+                Context.SaveChanges();
+            }
+            else
+            {
+                errors.Add($"Error: topic was not chosen");
+            }
+
+            userFile = new();
+            file = null;
+            errors.Clear();
+        }
+        catch (Exception ex)
+        {
+            errors.Add($"Error:{ex.Message}");
+        }
+    }
+
+    private void LoadFiles(InputFileChangeEventArgs e)
+    {
+        file = e.File;
+    }
+
+    private async Task<string> CaptureFile()
+    {
+        TopicList = Context.Topics.ToList();
+        if(file == null)
+        {
+            return "";
+        }
+
+        try
+        {
+            string newFileName = Path.ChangeExtension(
+                Path.GetRandomFileName(),
+                Path.GetExtension(file.Name));
+
+            string path = Path.Combine(
+                Path.GetFullPath(config.GetValue<string>("FileStorage")!),
+                userFile.Topic.Title,
+                newFileName); // path start, username, filename
+            Console.WriteLine(path);
+
+            string relativePath = Path.Combine(
+                userFile.Topic.Title, 
+                newFileName);
+
+            Directory.CreateDirectory(Path.Combine(
+                config.GetValue<string>("FileStorage")!,
+                userFile.Topic.Title));
+
+            await using FileStream fs = new(path, FileMode.Create);
+            await file.OpenReadStream(maxFileSize).CopyToAsync(fs);
+
+            return relativePath;
+        }
+        catch (Exception ex)
+        {
+            errors.Add($"File: {file.Name} Error: {ex.Message}");
+            throw;
+        }
+        
+    }
+}
+

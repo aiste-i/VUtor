@@ -5,7 +5,7 @@ VisualStudioVersion = 17.7.34024.191
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VUtor", "VUtor\VUtor.csproj", "{8A59CD88-6B45-4E77-95FD-359A1D4A410B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccessLibrary", "DataAccessLibrary\DataAccessLibrary.csproj", "{D27CB4C5-6058-4E89-B92B-93B562D4719F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccessLibrary", "DataAccessLibrary\DataAccessLibrary.csproj", "{D27CB4C5-6058-4E89-B92B-93B562D4719F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
