@@ -126,8 +126,15 @@ h1 {
 }
 
 .info_message {
-    color: #6855c9;
     font-size: 14px;
+}
+
+.success {
+    color:green;
+}
+
+.failure {
+    color:darkred;
 }
 /*flex*/
 .login_container {

@@ -7,7 +7,7 @@ namespace DataAccessLibrary
 {
     public class ProfileRepository : GenericRepository<ProfileEntity>, IProfileRepository
     {
-        readonly ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
         private Semaphore _pool;
         public ProfileRepository(ApplicationDbContext context) : base(context)
         {
