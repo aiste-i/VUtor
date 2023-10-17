@@ -124,6 +124,18 @@ h1 {
     color: #979699;
     font-size: 12px;
 }
+
+.info_message {
+    font-size: 14px;
+}
+
+.success {
+    color:green;
+}
+
+.failure {
+    color:darkred;
+}
 /*flex*/
 .login_container {
     display: flex;

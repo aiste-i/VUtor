@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessLibrary
 {
-    public class GenericRepository<TEntity> : IGenericRepository<TEntity> 
+    public class GenericRepository<TEntity> : IGenericRepository<TEntity>
         where TEntity : class
     {
         readonly ApplicationDbContext _context;
@@ -27,6 +27,20 @@ namespace DataAccessLibrary
             _pool.Release();
 
             return TList;
+        }
+
+        public async Task<TEntity> GetEntityById<T>(T id)
+        {
+            TEntity entity = null;
+
+            while (!_pool.WaitOne(TimeSpan.FromTicks(1)))
+                await Task.Delay(TimeSpan.FromSeconds(1));
+
+            entity = await _context.Set<TEntity>().FindAsync(id);
+            _pool.Release();
+
+            return entity;
+
         }
 
         public async Task Insert(TEntity entity)

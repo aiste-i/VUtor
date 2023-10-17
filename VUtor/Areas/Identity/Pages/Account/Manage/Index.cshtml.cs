@@ -1,17 +1,14 @@
 ﻿
 #nullable disable
 
-using System;
-using System.ComponentModel.DataAnnotations;
-using System.Text.Encodings.Web;
-using System.Threading.Tasks;
+using DataAccessLibrary.Data;
+using DataAccessLibrary.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using DataAccessLibrary.Models;
-using System.Diagnostics.CodeAnalysis;
-using DataAccessLibrary.Data;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 
 namespace VUtor.Areas.Identity.Pages.Account.Manage
 {
@@ -77,8 +74,8 @@ namespace VUtor.Areas.Identity.Pages.Account.Manage
             {
                 Name = user.Name,
                 Surname = user.Surname,
-                CourseName = (CourseName)user.CourseInfo.courseName,
-                CourseYear = (CourseYear)user.CourseInfo.courseYear,
+                CourseName = (CourseName)user.CourseInfo.CourseName,
+                CourseYear = (CourseYear)user.CourseInfo.CourseYear,
                 TopicToLearn = profile.TopicsToLearn.First().Id,
                 TopicToTeach = profile.TopicsToTeach.First().Id
             };

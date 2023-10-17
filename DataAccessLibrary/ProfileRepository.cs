@@ -1,17 +1,15 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DataAccessLibrary;
 using DataAccessLibrary.Data;
 using DataAccessLibrary.Models;
 using Microsoft.IdentityModel.Tokens;
-using DataAccessLibrary;
-using static Dapper.SqlMapper;
 
 namespace DataAccessLibrary
 {
     public class ProfileRepository : GenericRepository<ProfileEntity>, IProfileRepository
     {
-        readonly ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
         private Semaphore _pool;
-        public ProfileRepository(ApplicationDbContext context) : base(context) 
+        public ProfileRepository(ApplicationDbContext context) : base(context)
         {
             _context = context;
 
@@ -28,8 +26,9 @@ namespace DataAccessLibrary
                 while (!_pool.WaitOne(TimeSpan.FromTicks(1)))
                     await Task.Delay(TimeSpan.FromSeconds(1));
                 profiles = profiles.Where(profile =>
-                    (string.IsNullOrWhiteSpace(name) || profile.Name.Contains(name, StringComparison.OrdinalIgnoreCase)) &&
-                    (string.IsNullOrWhiteSpace(surname) || profile.Surname.Contains(surname, StringComparison.OrdinalIgnoreCase))).ToList();
+                    (string.IsNullOrWhiteSpace(name) || (profile.Name != null && profile.Name.Contains(name, StringComparison.OrdinalIgnoreCase))) &&
+                    (string.IsNullOrWhiteSpace(surname) || (profile.Surname != null && profile.Surname.Contains(surname, StringComparison.OrdinalIgnoreCase))))
+                    .ToList();
             }
             _pool.Release();
 

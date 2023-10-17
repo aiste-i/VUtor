@@ -38,7 +38,7 @@ namespace DataAccessLibrary.Data
             modelBuilder.Entity<TopicEntity>()
                 .Property(e => e.Title)
                 .HasMaxLength(250);
-           
+
             modelBuilder.Entity<ProfileEntity>()
                 .Property(e => e.Name)
                 .HasMaxLength(250);
