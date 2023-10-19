@@ -1,10 +1,69 @@
 ﻿@page "/files"
 
+@inject IJSRuntime JS;
+
 
 <PageTitle>Files</PageTitle>
-<div class="edit_row_container mb-2 sides">
+
+<div class="form-floating mb-2 sides">
     <h1>Library</h1>
-    <button type="submit" class="round_corners edit">Create new</button>
+   
+    <div >
+        <button type="button" @onclick='eventArgs=>ShowModal("exampleModalCenter")' class="round_corners edit" data-toggle="modal" data-target="#exampleModalCenter">
+            Create new
+        </button>
+    </div>
+
+    <div>
+        <!-- Modal -->
+        <div class="modal fade show" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="display:none; background: #00000080">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div >
+                        <div class="publication gray_text">
+                            New publication
+                        </div>
+                        <button type="button" @onclick='eventargs => HideModal("exampleModalCenter")' class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="form-floating mb-3"></div>
+                    <div class="modal-body full">
+                        <div class="edit_container full">
+                            <div class="form-floating mb-2">
+                                <input type="text" name="filter" class="round_corners" placeholder="Enter name" />
+                            </div>
+                            <div class="edit_row_container mb-2">
+                                <div class="form-floating mb-2">
+                                    <select name="sort" id="sort" class="round_corners gray_text" placeholder="Select collection">
+                                        <option class="gray_text" value="collection1">Collection 1</option>
+                                        <option class="gray_text" value="collection2">Collection 2</option>
+                                        <option class="gray_text" value="collection3">Collection 3</option>
+                                        <option class="gray_text" value="collection4">Collection 4</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <input type="text" name="filter" class="round_corners" placeholder="Add author" />
+
+                                </div>
+                            </div>
+                            <div class="form-floating mb-2 description">
+                                <textarea type="text" name="filter" class="description" placeholder="Enter a description" rows=" 10" cols="50"  />
+                            </div>
+                            <div class="form-floating mb-2">
+                                <input type="file" id="myFile" />
+                            </div>
+
+                            
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" @onclick='eventargs => HideModal("exampleModalCenter")' class="round_corners edit" data-dismiss="modal">Publish</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div>
@@ -59,4 +118,52 @@
 
 @code {
 
+    private IJSObjectReference module;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if(firstRender!=null)
+        {
+            module = await JS.InvokeAsync<IJSObjectReference>("import", "./Pages/Files.razor.js");
+        }
+    }
+
+    protected async void ShowModal(string elementID)
+    {
+        if(module!=null)
+        {
+            await module.InvokeAsync<string>("showModal", elementID);
+        }
+        else
+        {
+            module = await JS.InvokeAsync<IJSObjectReference>("import", "./Pages/Files.razor.js");
+            await module.InvokeAsync<string>("showModal", elementID);   //--JS function
+        }
+    }
+
+    protected async void HideModal(string elementID)
+    {
+        if (module != null)
+        {
+            await module.InvokeAsync<string>("HideModal", elementID);
+        }
+        else
+        {
+            module = await JS.InvokeAsync<IJSObjectReference>("import", "./Pages/Files.razor.js");
+            await module.InvokeAsync<string>("HideModal", elementID);   //--JS function
+        }
+    }
+
+    protected async void SaveData(string elementID) // it still hides
+    {
+        if (module != null)
+        {
+            await module.InvokeAsync<string>("HideModal", elementID);
+        }
+        else
+        {
+            module = await JS.InvokeAsync<IJSObjectReference>("import", "./Pages/Files.razor.js");
+            await module.InvokeAsync<string>("HideModal", elementID);   //--JS function
+        }
+    }
 }
