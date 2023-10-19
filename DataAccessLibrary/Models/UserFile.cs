@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace DataAccessLibrary.Models
 {
-    public class UserFile
+    public class UserFile : UserItem
     {
-        [Key]
-        public int Id { get; set; }
         public int TopicId { get; set; }
         public TopicEntity Topic { get; set; }
         public string Title { get; set; }

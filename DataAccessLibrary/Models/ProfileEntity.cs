@@ -11,5 +11,6 @@ namespace DataAccessLibrary.Models
         public profileCreationDate CreationDate { get; set; }
         public List<TopicEntity> TopicsToLearn { get; set; } = new List<TopicEntity>();
         public List<TopicEntity> TopicsToTeach { get; set; } = new List<TopicEntity>();
+        public List<UserItem> UserItems { get; set; } = new List<UserItem>();
     }
 }

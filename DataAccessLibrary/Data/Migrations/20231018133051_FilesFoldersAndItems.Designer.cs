@@ -4,6 +4,7 @@ using DataAccessLibrary.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccessLibrary.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231018133051_FilesFoldersAndItems")]
+    partial class FilesFoldersAndItems
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -144,6 +147,40 @@ namespace DataAccessLibrary.Data.Migrations
                     b.ToTable("Topics");
                 });
 
+            modelBuilder.Entity("DataAccessLibrary.Models.UserFile", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FileName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("FolderId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TopicId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FolderId");
+
+                    b.HasIndex("TopicId");
+
+                    b.ToTable("UserFiles");
+                });
+
             modelBuilder.Entity("DataAccessLibrary.Models.UserItem", b =>
                 {
                     b.Property<int>("Id")
@@ -152,23 +189,20 @@ namespace DataAccessLibrary.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("ProfileId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("UserFileId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ProfileId");
 
+                    b.HasIndex("UserFileId");
+
                     b.ToTable("UserItems");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("UserItem");
-
-                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("FolderFolder", b =>
@@ -355,30 +389,17 @@ namespace DataAccessLibrary.Data.Migrations
 
             modelBuilder.Entity("DataAccessLibrary.Models.UserFile", b =>
                 {
-                    b.HasBaseType("DataAccessLibrary.Models.UserItem");
+                    b.HasOne("DataAccessLibrary.Models.Folder", null)
+                        .WithMany("Files")
+                        .HasForeignKey("FolderId");
 
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                    b.HasOne("DataAccessLibrary.Models.TopicEntity", "Topic")
+                        .WithMany("UserFiles")
+                        .HasForeignKey("TopicId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Property<string>("FileName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("FolderId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("TopicId")
-                        .HasColumnType("int");
-
-                    b.HasIndex("FolderId");
-
-                    b.HasIndex("TopicId");
-
-                    b.HasDiscriminator().HasValue("UserFile");
+                    b.Navigation("Topic");
                 });
 
             modelBuilder.Entity("DataAccessLibrary.Models.UserItem", b =>
@@ -389,7 +410,15 @@ namespace DataAccessLibrary.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("DataAccessLibrary.Models.UserFile", "UserFile")
+                        .WithMany()
+                        .HasForeignKey("UserFileId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Profile");
+
+                    b.Navigation("UserFile");
                 });
 
             modelBuilder.Entity("FolderFolder", b =>
@@ -486,21 +515,6 @@ namespace DataAccessLibrary.Data.Migrations
                         .HasForeignKey("TopicsToTeachId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("DataAccessLibrary.Models.UserFile", b =>
-                {
-                    b.HasOne("DataAccessLibrary.Models.Folder", null)
-                        .WithMany("Files")
-                        .HasForeignKey("FolderId");
-
-                    b.HasOne("DataAccessLibrary.Models.TopicEntity", "Topic")
-                        .WithMany("UserFiles")
-                        .HasForeignKey("TopicId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Topic");
                 });
 
             modelBuilder.Entity("DataAccessLibrary.Models.Folder", b =>

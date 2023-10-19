@@ -111,13 +111,13 @@ namespace VUtor.Areas.Identity.Pages.Account
 
                 foreach (var topic in TopicList)
                 {
-                    if (topic.Id == Input.TopicToLearn)
+                    if (topic.Id.Equals(Input.TopicToLearn))
                     {
                         _context.Attach(topic);
                         topic.LearningProfiles.Add(user);
                         user.TopicsToLearn.Add(topic);
                     }
-                    if (topic.Id == Input.TopicToTeach)
+                    if (topic.Id.Equals(Input.TopicToTeach))
                     {
                         _context.Attach(topic);
                         topic.TeachingProfiles.Add(user);

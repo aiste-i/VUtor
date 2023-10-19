@@ -9,7 +9,9 @@
 
 
 @inject IConfiguration config 
-@inject ApplicationDbContext Context
+@inject ApplicationDbContext context
+@inject FileRepository fileManager
+
 
 <h3>UploadFiles</h3>
 
@@ -51,24 +53,24 @@
 }
 
 @code {
-    private List<TopicEntity> TopicList { get; set; } = new List<TopicEntity>();
+    private List<TopicEntity> TopicList;
     private long maxFileSize = 1024 * 1024 * 5; //3MB
     private List<string> errors = new();
-    private UserFile userFile = new UserFile(); //NEEDS TO BE CHANGED
+    private UserFile userFile = new UserFile(); 
+    private Folder folder = new Folder();
     private IBrowserFile? file;
 
     protected override void OnInitialized()
     {
-        TopicList = Context.Topics.ToList();
+        TopicList = context.Topics.ToList();
     }
 
     private async Task SubmitForm()
     {
         errors.Clear();
         try
-        {
-
-            var topic = Context.Topics.Find(userFile.TopicId);
+        {           
+            var topic = context.Topics.Find(userFile.TopicId);
             if(topic != null)
             {
                 userFile.Topic = topic;
@@ -76,15 +78,20 @@
                 string relativePath = await CaptureFile();
                 userFile.FileName = relativePath;
 
+                // adding new items to dbsets and saving changes
                 topic.UserFiles.Add(userFile);
-                Context.UserFiles.Add(userFile);
-                Context.SaveChanges();
+                context.UserFiles.Add(userFile);
+                folder.Items.Add(userFile);
+                context.Folders.Add(folder);
+
+                context.SaveChanges();
             }
             else
             {
                 errors.Add($"Error: topic was not chosen");
             }
 
+            // clearing everything for a new upload
             userFile = new();
             file = null;
             errors.Clear();
@@ -102,7 +109,7 @@
 
     private async Task<string> CaptureFile()
     {
-        TopicList = Context.Topics.ToList();
+        TopicList = context.Topics.ToList();
         if(file == null)
         {
             return "";
@@ -110,35 +117,46 @@
 
         try
         {
+            //get where wwwroot\\Storage is in your set up
+            string storagePath = Path.GetFullPath(config.GetValue<string>("FileStorage")!);
+
             string newFileName = Path.ChangeExtension(
                 Path.GetRandomFileName(),
                 Path.GetExtension(file.Name));
 
-            string path = Path.Combine(
-                Path.GetFullPath(config.GetValue<string>("FileStorage")!),
-                userFile.Topic.Title,
-                newFileName); // path start, username, filename
-            Console.WriteLine(path);
+            // check and/or create the folders if they're not there
+            // full path
+            string folderPath = fileManager.CreateFolder(storagePath, userFile.Topic.Title);
+            // check if no errors occured
+            if(folderPath != null)
+            {
+                // assign folder path and name
+                UpdateFolder();
+                // get path with filename
+                string path = Path.Combine(
+                    Path.GetFullPath(folderPath),
+                    newFileName); 
+                // paste the uploaded file
+                await using FileStream fs = new(path, FileMode.Create);
+                await file.OpenReadStream(maxFileSize).CopyToAsync(fs);
 
-            string relativePath = Path.Combine(
-                userFile.Topic.Title, 
-                newFileName);
+                return newFileName;
+            }
+            return null;
 
-            Directory.CreateDirectory(Path.Combine(
-                config.GetValue<string>("FileStorage")!,
-                userFile.Topic.Title));
-
-            await using FileStream fs = new(path, FileMode.Create);
-            await file.OpenReadStream(maxFileSize).CopyToAsync(fs);
-
-            return relativePath;
         }
         catch (Exception ex)
         {
             errors.Add($"File: {file.Name} Error: {ex.Message}");
             throw;
         }
-        
+
+    }
+
+    private void UpdateFolder()
+    {
+        folder.Path = Path.Combine(config.GetValue<string>("FileStorage")!, userFile.Topic.Title);
+        folder.Name = userFile.Topic.Title;
     }
 }
 
