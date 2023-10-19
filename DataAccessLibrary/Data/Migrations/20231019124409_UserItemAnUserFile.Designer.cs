@@ -4,6 +4,7 @@ using DataAccessLibrary.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccessLibrary.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231019124409_UserItemAnUserFile")]
+    partial class UserItemAnUserFile
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -152,25 +155,15 @@ namespace DataAccessLibrary.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("CreationDate")
-                        .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
-
                     b.Property<string>("Discriminator")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("FolderId")
-                        .HasColumnType("int");
 
                     b.Property<string>("ProfileId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("FolderId");
 
                     b.HasIndex("ProfileId");
 
@@ -374,12 +367,17 @@ namespace DataAccessLibrary.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("FolderId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("TopicId")
                         .HasColumnType("int");
+
+                    b.HasIndex("FolderId");
 
                     b.HasIndex("TopicId");
 
@@ -388,10 +386,6 @@ namespace DataAccessLibrary.Data.Migrations
 
             modelBuilder.Entity("DataAccessLibrary.Models.UserItem", b =>
                 {
-                    b.HasOne("DataAccessLibrary.Models.Folder", null)
-                        .WithMany("Items")
-                        .HasForeignKey("FolderId");
-
                     b.HasOne("DataAccessLibrary.Models.ProfileEntity", "Profile")
                         .WithMany("UserItems")
                         .HasForeignKey("ProfileId")
@@ -499,6 +493,10 @@ namespace DataAccessLibrary.Data.Migrations
 
             modelBuilder.Entity("DataAccessLibrary.Models.UserFile", b =>
                 {
+                    b.HasOne("DataAccessLibrary.Models.Folder", null)
+                        .WithMany("Files")
+                        .HasForeignKey("FolderId");
+
                     b.HasOne("DataAccessLibrary.Models.TopicEntity", "Topic")
                         .WithMany("UserFiles")
                         .HasForeignKey("TopicId")
@@ -510,7 +508,7 @@ namespace DataAccessLibrary.Data.Migrations
 
             modelBuilder.Entity("DataAccessLibrary.Models.Folder", b =>
                 {
-                    b.Navigation("Items");
+                    b.Navigation("Files");
                 });
 
             modelBuilder.Entity("DataAccessLibrary.Models.ProfileEntity", b =>

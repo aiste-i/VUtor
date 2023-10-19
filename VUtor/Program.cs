@@ -17,6 +17,7 @@ builder.Services.AddDefaultIdentity<ProfileEntity>(options => options.SignIn.Req
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddScoped<IProfileRepository, ProfileRepository>();
+builder.Services.AddScoped<FileRepository>();
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
 var app = builder.Build();
@@ -46,45 +47,4 @@ app.UseAuthorization();
 app.MapControllers();
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
-/*
-using (var scope = app.Services.CreateScope())
-{
-    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-
-    var roles = new[] { "Admin", "User" };
-
-    foreach (var role in roles)
-    {
-        if (!await roleManager.RoleExistsAsync(role))
-            await roleManager.CreateAsync(new IdentityRole(role));
-    }
-}
-
-using (var scope = app.Services.CreateScope())
-{
-    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ProfileEntity>>();
-
-    string email = "admin@admin.com";
-    string password = "Test.1";
-
-    if (await userManager.FindByEmailAsync(email) == null)
-    {
-        var user = new ProfileEntity
-        {
-            Name = "admin",
-            Surname = "admin",
-            UserName = email,
-            Email = email,
-            EmailConfirmed = true,
-            CourseInfo = new CourseData(0, 0),
-            CreationDate = new profileCreationDate()
-        };
-
-        await userManager.CreateAsync(user, password);
-
-        await userManager.AddToRoleAsync(user, "Admin");
-
-    }
-}*/
-
 app.Run();

@@ -10,6 +10,8 @@ namespace DataAccessLibrary.Data
         public DbSet<ProfileEntity> Profiles { get; set; }
         public DbSet<TopicEntity> Topics { get; set; }
         public DbSet<UserFile> UserFiles { get; set; }
+        public DbSet<Folder> Folders { get; set; }
+        public DbSet<UserItem> UserItems { get; set; }
 
 
 
@@ -26,6 +28,24 @@ namespace DataAccessLibrary.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            modelBuilder.Entity<UserItem>()
+                .HasOne(e => e.Profile)
+                .WithMany(e => e.UserItems)
+                .HasForeignKey(e => e.ProfileId);
+
+            modelBuilder.Entity<UserItem>()
+                .Property(e => e.CreationDate)
+                .HasConversion(
+                    v => v.ToString(),
+                    v => new profileCreationDate(v))
+                .HasMaxLength(250);
+
+            modelBuilder.Entity<Folder>()
+                .HasMany(e => e.SubFolders)
+                .WithMany()
+                .UsingEntity(join => join.ToTable("FolderHierarchy"));
+
             modelBuilder.Entity<UserFile>()
                 .HasOne(e => e.Topic)
                 .WithMany(e => e.UserFiles)
@@ -74,5 +94,6 @@ namespace DataAccessLibrary.Data
             base.OnModelCreating(modelBuilder);
 
         }
+
     }
 }

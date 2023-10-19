@@ -125,7 +125,7 @@ namespace VUtor.Areas.Identity.Pages.Account.Manage
                 user.CourseInfo = newCourseInfo;
             }
 
-            var TopicLearn = _context.Topics.Where(p => p.Id == Input.TopicToLearn).First();
+            var TopicLearn = _context.Topics.Where(p => p.Id.Equals(Input.TopicToLearn)).First();
             if (!profile.TopicsToLearn.Contains(TopicLearn))
             {
                 var currentTopic = profile.TopicsToLearn.FirstOrDefault();
@@ -139,7 +139,7 @@ namespace VUtor.Areas.Identity.Pages.Account.Manage
                 }
             }
 
-            var TopicTeach = _context.Topics.Where(p => p.Id == Input.TopicToTeach).First();
+            var TopicTeach = _context.Topics.Where(p => p.Id.Equals(Input.TopicToTeach)).First();
             if (!user.TopicsToTeach.Contains(TopicTeach))
             {
                 var currentTopic = profile.TopicsToTeach.FirstOrDefault();
