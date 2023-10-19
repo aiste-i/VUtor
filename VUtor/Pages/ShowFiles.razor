@@ -6,8 +6,6 @@
 
 @inject IConfiguration config
 @inject ApplicationDbContext context
-<<<<<<< Updated upstream
-=======
 @inject NavigationManager navigationManger
 @inject FileRepository fileManager
 
@@ -56,48 +54,13 @@
         @GoToIndexAsync()
     </NotAuthorized>
 </AuthorizeView>
->>>>>>> Stashed changes
-
-@if(_userFiles is not null)
-{
-    <h2>Uploaded files</h2>
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Topic</th>
-                <th>Title</th>
-                <th>Description</th>
-                <th>Resource</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach(var item in _userFiles)
-            {
-                <tr>
-                    <td>@item.Topic.Title</td>
-                    <td>@item.Title</td>
-                    <td>@item.Description</td>
-                    <td>
-                        @if(string.IsNullOrWhiteSpace(item.FileName) == false)
-                        {
-                            <a href="@CreateFullPath(item.FileName)">@item.Title</a>
-                        }
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
 
     @code {
     private List<TopicEntity> _topics;
     private List<UserFile>? _userFiles;
-<<<<<<< Updated upstream
-=======
+
     private List<string>? dirs;
     //private string? userId { get; set; }
-
->>>>>>> Stashed changes
 
     private void LoadFiles()
     {
@@ -109,8 +72,6 @@
         return Path.Combine(config.GetValue<string>("WebStorageRoot")!, relativePath);
     }
 
-<<<<<<< Updated upstream
-=======
     private async Task GoToIndexAsync()
     {
         var returnUrl = navigationManger.ToBaseRelativePath(navigationManger.Uri);
@@ -123,7 +84,6 @@
         }
     }
 
->>>>>>> Stashed changes
     protected override void OnInitialized()
     {
         dirs = fileManager.GetFoldersInDir(config.GetValue<string>("FileStorage")!);
