@@ -5,10 +5,26 @@
     padding: 20px;
     border-radius: 47%;
 }
+
+.angle_img {
+    height: 20px;
+}
+
+.right {
+    transform: rotate(180deg);
+}
+
+.left {
+    transform: rotate(0deg);
+}
+
+.up {
+    transform: rotate(-90deg);
+}
 /*text boxes*/
 .round_corners { /*used for buttons too*/
     border-radius: 13px;
-    border: 1px solid #000f;
+    border: 1px solid #606061;
     width: 220px;
     height: 30px;
     padding: 0 10px 0 10px;
@@ -65,6 +81,22 @@
     border: #eb7267;
     background: #eb7267;
     color: #ffffff;
+}
+
+.small_arrow {
+    border-radius: 10px;
+    background: #ffffff;
+    width: 40px;
+    height: 30px;
+}
+
+.small_date {
+    border-radius: 10px;
+    background: #ffffff;
+    width: 80px;
+    color: #606061;
+    height: 30px;
+    padding: 0 10px 0 10px;
 }
 /*radio buttons*/
 
@@ -136,6 +168,10 @@ h1 {
 .failure {
     color:darkred;
 }
+
+.gray_text {
+    color:#606061 ;
+}
 /*flex*/
 .login_container {
     display: flex;
@@ -160,6 +196,10 @@ h1 {
     display: flex;
     flex-direction: column;
     justify-content: center;
+}
+
+.sides {
+    align-content: flex-end;
 }
 /*other*/
 html {
