@@ -1,0 +1,62 @@
+﻿@page "/files"
+
+
+<PageTitle>Files</PageTitle>
+<div class="edit_row_container mb-2 sides">
+    <h1>Library</h1>
+    <button type="submit" class="round_corners edit">Create new</button>
+</div>
+
+<div>
+    <div class="edit_row_container form-floating mb-2">
+        <button type="submit" class="round_corners small_arrow">
+            <img src="css/Images/angle-small-right.png" alt="buttonpng" class="angle_img right" />
+        </button>
+        <button type="submit" class="round_corners small_arrow">
+            <img src="css/Images/angle-small-right.png" alt="buttonpng" class="angle_img left" />
+        </button>
+        <button type="submit" class="round_corners small_arrow">
+            <img src="css/Images/angle-small-right.png" alt="buttonpng" class="angle_img up" />
+        </button>
+        <h2 class="congrats_h2">Courses/Software engineering/</h2>
+    </div>
+
+    <div class="edit_row_container">
+        <div class="form-floating mb-2">
+            <input type="text" name="filter" class="round_corners" placeholder="Search" />
+        </div>
+        <div class="form-floating mb-2">
+            <select name="sort" id="sort" class="round_corners gray_text" placeholder="Sort by">
+                <option class="gray_text" value="most_popular">Most popular</option>
+                <option class="gray_text" value="last_updated">Last updated</option>
+                <option class="gray_text" value="high_traffic">High traffic</option>
+                <option class="gray_text" value="low_traffic">Low traffic</option>
+            </select>
+        </div>
+        <div>
+            <label class="specifications" for="nameFilter">Filter by name:</label>
+            <button type="submit" class="round_corners small_date">1 day</button>
+            <button type="submit" class="round_corners small_date">1 week</button>
+            <button type="submit" class="round_corners small_date">1 month</button>
+        </div>
+    </div>
+</div>
+
+<label class="gray_text">Name</label>
+<div class="form-floating">
+    <!-- @foreach (var topic in Model.TopicList)                CIA REIKTU SUDET TUOS FAILUS
+    {
+         <div>
+             <input type="radio"
+                    asp-for="Input.TopicToLearn"
+                    value="@topic.Id"
+                    id="@("learn" + topic.Title)" />
+             <label class="label form-floating mb-2" for="@("learn" + topic.Title)"> @topic.Title </label>
+         </div>
+    }
+     <span asp-validation-for="Input.TopicToLearn"></span>-->
+</div>
+
+@code {
+
+}
