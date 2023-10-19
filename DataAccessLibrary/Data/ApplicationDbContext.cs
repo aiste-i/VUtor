@@ -34,6 +34,13 @@ namespace DataAccessLibrary.Data
                 .WithMany(e => e.UserItems)
                 .HasForeignKey(e => e.ProfileId);
 
+            modelBuilder.Entity<UserItem>()
+                .Property(e => e.CreationDate)
+                .HasConversion(
+                    v => v.ToString(),
+                    v => new profileCreationDate(v))
+                .HasMaxLength(250);
+
             modelBuilder.Entity<Folder>()
                 .HasMany(e => e.SubFolders)
                 .WithMany()

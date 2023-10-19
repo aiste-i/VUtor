@@ -33,8 +33,4 @@
     <ProjectReference Include="..\DataAccessLibrary\DataAccessLibrary.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="wwwroot\Storage\" />
-  </ItemGroup>
-
 </Project>

@@ -3,6 +3,7 @@
 @using DataAccessLibrary.Data
 @using DataAccessLibrary.Models
 @using DataAccessLibrary
+@using Microsoft.AspNetCore.Identity;
 @using Microsoft.EntityFrameworkCore
 
 
@@ -10,7 +11,9 @@
 
 @inject IConfiguration config 
 @inject ApplicationDbContext context
+@inject UserManager<ProfileEntity> userManager
 @inject FileRepository fileManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
 
 
 <h3>UploadFiles</h3>
@@ -57,12 +60,19 @@
     private long maxFileSize = 1024 * 1024 * 5; //3MB
     private List<string> errors = new();
     private UserFile userFile = new UserFile(); 
-    private Folder folder = new Folder();
+    private Folder folder;
     private IBrowserFile? file;
+    private ProfileEntity? profile;
 
-    protected override void OnInitialized()
+    protected override async void OnInitialized()
     {
         TopicList = context.Topics.ToList();
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+        if (user.Identity.IsAuthenticated)
+        {
+            profile = await userManager.GetUserAsync(user);
+        }
     }
 
     private async Task SubmitForm()
@@ -74,15 +84,16 @@
             if(topic != null)
             {
                 userFile.Topic = topic;
+                userFile.Profile = profile;
+                userFile.ProfileId = profile.Id;
+                userFile.CreationDate = new profileCreationDate();
 
-                string relativePath = await CaptureFile();
-                userFile.FileName = relativePath;
+                userFile.FileName = await CaptureFile();
 
                 // adding new items to dbsets and saving changes
                 topic.UserFiles.Add(userFile);
                 context.UserFiles.Add(userFile);
                 folder.Items.Add(userFile);
-                context.Folders.Add(folder);
 
                 context.SaveChanges();
             }
@@ -92,6 +103,7 @@
             }
 
             // clearing everything for a new upload
+            folder = null;
             userFile = new();
             file = null;
             errors.Clear();
@@ -133,9 +145,9 @@
                 // assign folder path and name
                 UpdateFolder();
                 // get path with filename
-                string path = Path.Combine(
-                    Path.GetFullPath(folderPath),
+                string path = Path.Combine(folderPath,
                     newFileName); 
+
                 // paste the uploaded file
                 await using FileStream fs = new(path, FileMode.Create);
                 await file.OpenReadStream(maxFileSize).CopyToAsync(fs);
@@ -155,8 +167,26 @@
 
     private void UpdateFolder()
     {
-        folder.Path = Path.Combine(config.GetValue<string>("FileStorage")!, userFile.Topic.Title);
-        folder.Name = userFile.Topic.Title;
+        var storage = config.GetValue<string>("FileStorage");
+        Folder firstFolder = context.Folders.Where(e => e.Path == storage).Include(e => e.SubFolders).First();
+        var currentPath = Path.Combine(storage, userFile.Topic.Title);
+
+        if (currentPath.StartsWith(firstFolder.Path))
+        {
+            var relativePath = currentPath.Substring(firstFolder.Path.Length + 1);
+            if (!relativePath.Contains("\\") && firstFolder.SubFolders.Where(e => e.Name == userFile.Topic.Title).Count() == 0)
+            {
+                folder = new();
+                folder.Path = currentPath;
+                folder.Name = userFile.Topic.Title;
+                firstFolder.SubFolders.Add(folder);
+                context.SaveChanges();
+            }
+            else
+            {
+                folder = firstFolder.SubFolders.Where(e => e.Name == userFile.Topic.Title).First();
+            }
+        }
     }
 }
 
