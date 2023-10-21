@@ -35,7 +35,7 @@
     </div>
 </div>
 
-<label class="gray_text">Subject name</label>
+<!--<label class="gray_text">Subject name</label>
 <div class="form-floating">
     @foreach(var folder in folder.SubFolders)
     {
@@ -43,7 +43,28 @@
             <h3 @onclick="() => SelectFolder(folder.Id)">@folder.Name</h3>
         </div>
     }
-</div>
+</div>-->
+
+<table class="library_table">
+    <thead>
+        <tr>
+            <th class ="library_th">Subject name</th>
+            <th class="library_th">Subject dificulty</th>
+            <th class="library_th">Credits</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var folder in folder.SubFolders)
+        {
+            <tr class="library_tr" @onclick="() => SelectFolder(folder.Id)">
+                <td class="library_td">@folder.Name</td>
+                <td class="library_td"> Dar nera funkcionalumo</td>
+                <td class="library_td">Dar nera funkcionalumo</td>
+
+            </tr>
+        }
+    </tbody>
+</table>
 
 @code {
     private Folder folder;

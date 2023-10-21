@@ -21,6 +21,7 @@
 .up {
     transform: rotate(-90deg);
 }
+
 /*text boxes*/
 .round_corners { /*used for buttons too*/
     border-radius: 13px;
@@ -276,4 +277,36 @@ full {
     top: 12px;
     left: 22px;
     font-size: 15px;
+}
+
+/*tables*/
+
+.library_table{
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 15px;
+    vertical-align: top;
+    margin-bottom: 1rem;
+}
+
+.library_tr {
+    outline: thin solid;
+    border-radius: 10px;
+    border-color: #606061;
+}
+
+.library_td {
+    padding: 4px 0px 4px 7px;
+    cursor: pointer;
+    color: #606061; 
+    font-size: 16px;
+    font-weight: 600;
+
+}
+
+.library_th {
+    padding: 2px 0px 2px 7px;
+    color: #606061;
+    font-size: 16px;
+    font-weight: 500;
 }
