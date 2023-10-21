@@ -1,7 +1,12 @@
-﻿@page "/files"
+﻿@page "/files/{id}"
+@using DataAccessLibrary.Data;
+@using DataAccessLibrary.Models;
+@using Microsoft.EntityFrameworkCore
 
 @inject IJSRuntime JS;
 
+@inject IConfiguration config
+@inject ApplicationDbContext context
 
 <PageTitle>Files</PageTitle>
 
@@ -103,22 +108,58 @@
 
 <label class="gray_text">Name</label>
 <div class="form-floating">
-    <!-- @foreach (var topic in Model.TopicList)                CIA REIKTU SUDET TUOS FAILUS
+    @if (Folder.Items is not null)
     {
-         <div>
-             <input type="radio"
-                    asp-for="Input.TopicToLearn"
-                    value="@topic.Id"
-                    id="@("learn" + topic.Title)" />
-             <label class="label form-floating mb-2" for="@("learn" + topic.Title)"> @topic.Title </label>
-         </div>
+        <h2>Uploaded files</h2>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Topic</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Resource</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (UserFile item in Folder.Items)
+                {
+                    <tr>
+                        <td>@item.Topic.Title</td>
+                        <td>@item.Title</td>
+                        <td>@item.Description</td>
+                        <td>
+                            @if (string.IsNullOrWhiteSpace(item.FileName) == false)
+                            {
+                                <a href="@CreateFullPath(item.FileName)">@item.Title</a>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     }
-     <span asp-validation-for="Input.TopicToLearn"></span>-->
 </div>
 
 @code {
+    [Parameter]
+    public string Id { get; set; }
+    private Folder Folder;
+
+    protected override async void OnInitialized()
+    {
+        int folderId = int.Parse(Id);
+        context.Topics.ToList();
+        Folder = context.Folders.Where(e => e.Id == folderId).Include(e => e.Items).First();
+    }
+
+    private string CreateFullPath(string relativePath)
+    {
+
+        return Path.Combine(config.GetValue<string>("WebStorageRoot")!, relativePath);
+    }
 
     private IJSObjectReference module;
+
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {

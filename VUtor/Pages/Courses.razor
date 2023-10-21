@@ -1,4 +1,13 @@
 ﻿@page "/courses"
+@using DataAccessLibrary.Data;
+@using DataAccessLibrary.Models;
+@using Microsoft.EntityFrameworkCore
+
+
+@inject ApplicationDbContext context
+@inject IConfiguration config
+@inject NavigationManager navigationManger
+
 
 
 <PageTitle>Courses</PageTitle>
@@ -28,19 +37,25 @@
 
 <label class="gray_text">Subject name</label>
 <div class="form-floating">
-   <!-- @foreach (var topic in Model.TopicList)          CIA REIKTU SUDET SUBJECTS
+    @foreach(var folder in folder.SubFolders)
     {
-        <div>
-            <input type="radio"
-                   asp-for="Input.TopicToLearn"
-                   value="@topic.Id"
-                   id="@("learn" + topic.Title)" />
-            <label class="label form-floating mb-2" for="@("learn" + topic.Title)"> @topic.Title </label>
+        <div class="nav-item px-3">
+            <h3 @onclick="() => SelectFolder(folder.Id)">@folder.Name</h3>
         </div>
     }
-    <span asp-validation-for="Input.TopicToLearn"></span>-->
 </div>
 
 @code {
+    private Folder folder;
+
+    protected override async void OnInitialized()
+    {
+        folder = context.Folders.Where(e => e.Name.Equals("Library")).Include(e => e.SubFolders).First();
+    }
+
+    void SelectFolder(int folder)
+    {
+        navigationManger.NavigateTo($"files/{folder}");
+    }
 
 }
