@@ -21,7 +21,7 @@ namespace DataAccessLibrary.Data
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=tcp:vutor.database.windows.net,1433;Initial Catalog=vutorapp;Encrypt=True;TrustServerCertificate=True;Connection Timeout=30;Authentication=Active Directory Default;Pooling=True;",
+            optionsBuilder.UseSqlServer("Server=tcp:vutor-server.database.windows.net,1433;Initial Catalog=vutor_db;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;Authentication=Active Directory Default;",
                 options => options.EnableRetryOnFailure().MaxBatchSize(100));
             base.OnConfiguring(optionsBuilder);
         }
