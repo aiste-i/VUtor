@@ -1,0 +1,19 @@
+﻿@using DataAccessLibrary.Models;
+
+<h3>@_folder.Name</h3>
+<ul>
+    @foreach(var file in _folder.Items)
+    {
+        <FileNode UserFile="file"/>
+    }
+</ul>
+<ul>
+    @foreach(var folder in _folder.SubFolders)
+    {
+        <FolderNode Folder="folder"/>
+    }
+</ul>
+
+@code {
+    private Folder _folder { get; set; }
+}

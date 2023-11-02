@@ -1,0 +1,82 @@
+﻿@page "/courses"
+@using DataAccessLibrary.Data;
+@using DataAccessLibrary.Models;
+@using Microsoft.EntityFrameworkCore
+
+
+@inject ApplicationDbContext context
+@inject IConfiguration config
+@inject NavigationManager navigationManger
+
+
+
+<PageTitle>Courses</PageTitle>
+
+<h1>Library</h1>
+
+<div>
+    <div class="edit_row_container form-floating mb-2">
+        <button type="submit" class="round_corners small_arrow">
+            <img src="css/Images/angle-small-right.png" alt="buttonpng" class="angle_img right" />
+        </button>
+        <button type="submit" class="round_corners small_arrow"> 
+            <img src="css/Images/angle-small-right.png" alt="buttonpng" class="angle_img left" />
+        </button>
+        <button type="submit" class="round_corners small_arrow">
+            <img src="css/Images/angle-small-right.png" alt="buttonpng" class="angle_img up" />
+        </button>
+        <h2 class="congrats_h2">Courses/Software engineering/</h2>
+    </div>
+
+    <div class="edit_row_container">
+        <div class="form-floating mb-2">
+            <input type="text" name="filter" class="round_corners" placeholder="Search" />
+        </div>
+    </div>
+</div>
+
+<!--<label class="gray_text">Subject name</label>
+<div class="form-floating">
+    @foreach(var folder in folder.SubFolders)
+    {
+        <div class="nav-item px-3">
+            <h3 @onclick="() => SelectFolder(folder.Id)">@folder.Name</h3>
+        </div>
+    }
+</div>-->
+
+<table class="library_table">
+    <thead>
+        <tr>
+            <th class ="library_th">Subject name</th>
+            <th class="library_th">Subject dificulty</th>
+            <th class="library_th">Credits</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var folder in folder.SubFolders)
+        {
+            <tr class="library_tr" @onclick="() => SelectFolder(folder.Id)">
+                <td class="library_td">@folder.Name</td>
+                <td class="library_td"> Dar nera funkcionalumo</td>
+                <td class="library_td">Dar nera funkcionalumo</td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    private Folder folder;
+
+    protected override async void OnInitialized()
+    {
+        folder = context.Folders.Where(e => e.Name.Equals("Library")).Include(e => e.SubFolders).First();
+    }
+
+    void SelectFolder(int folder)
+    {
+        navigationManger.NavigateTo($"files/{folder}");
+    }
+
+}

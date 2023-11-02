@@ -1,0 +1,312 @@
+﻿/*images*/
+.round_img {
+    width: 168px;
+    height: 168px;
+    padding: 20px;
+    border-radius: 47%;
+}
+
+.angle_img {
+    height: 20px;
+}
+
+.right {
+    transform: rotate(180deg);
+}
+
+.left {
+    transform: rotate(0deg);
+}
+
+.up {
+    transform: rotate(-90deg);
+}
+
+/*text boxes*/
+.round_corners { /*used for buttons too*/
+    border-radius: 13px;
+    border: 1px solid #606061;
+    width: 220px;
+    height: 30px;
+    padding: 0 10px 0 10px;
+}
+
+.long { /*use to exted .round_corners*/
+    width: 300px;
+}
+
+.long_tall { /*use to exted .round_corners*/
+    width: 400px;
+    height: 40px;
+    border-radius: 18px;
+}
+
+.register_email {
+    width: 445px;
+}
+
+.register_year {
+    width: 140px;
+}
+
+.description {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    text-align: left;
+}
+/*buttons*/
+.edit {
+    border-radius: 10px;
+    border: #6855c9;
+    background: #6855c9;
+    color: #ffffff;
+}
+
+.delete {
+    border-radius: 10px;
+    border: #eb7267;
+    background: #eb7267;
+    color: #ffffff;
+}
+
+.login {
+    border: #6855c9;
+    background: #6855c9;
+    color: #ffffff;
+}
+
+.student_list {
+    width: 150px;
+    border: #6855c9;
+    background: #6855c9;
+    color: #ffffff;
+}
+
+.student_list_red {
+    width: 150px;
+    border: #eb7267;
+    background: #eb7267;
+    color: #ffffff;
+}
+
+.small_arrow {
+    border-radius: 10px;
+    background: #ffffff;
+    width: 40px;
+    height: 30px;
+}
+
+.small_date {
+    border-radius: 10px;
+    background: #ffffff;
+    width: 80px;
+    color: #606061;
+    height: 30px;
+    padding: 0 10px 0 10px;
+}
+
+/*radio buttons*/
+
+input[type="radio"] {
+    display: none;
+}
+
+.label {
+    background-color: #979699;
+    color: black;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 0 10px 0 10px;
+    float: left;
+    border-radius: 9px;
+    border: 1px solid #979699;
+    height: 20px;
+}
+
+input[type="radio"]:checked + label {
+    background-color: #6855c9;
+    border-color: #6855c9;
+    color: white;
+}
+
+.author {
+    display: visible;
+}
+/*text*/
+h1 {
+    color: #6855c9;
+    font-size: 45px;
+}
+
+.instructions {
+    color: #626063;
+    font-size: 18px;
+}
+
+.welcome_h1 {
+    font-size: 100px;
+    text-align: center;
+    padding: 15%;
+}
+
+.login_welcome_h1 {
+    font-size: 80px;
+    text-align: center;
+}
+
+.congrats_h2 {
+    color: #626063;
+    font-size: 25px;
+    text-align: center;
+}
+
+.specifications {
+    color: #979699;
+    font-size: 12px;
+}
+
+.info_message {
+    font-size: 14px;
+}
+
+.success {
+    color:green;
+}
+
+.failure {
+    color:darkred;
+}
+
+.gray_text {
+    color:#606061 ;
+}
+/*flex*/
+.login_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.edit_container {
+    display: flex;
+    flex-direction: column;
+}
+
+.edit_row_container {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.sides {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+/*other*/
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+}
+
+.mainwrapper {
+    height: 90%;
+}
+
+main {
+    height: 100%;
+}
+
+full {
+    height:100%;
+}
+/*modal*/
+.bg-modal {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    position: absolute;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: none;
+}
+.modal-header-mod {
+    border-bottom: none;
+}
+
+.modal-content {
+
+    width: 900px;
+    max-width: 1200px;
+    height: 550px;
+    border-radius: 10px;
+    background-color: white;
+    text-align: left;
+    padding: 5%;
+    position: relative;
+}
+
+.close{
+    position: absolute;
+    top:0;
+    right: 14px;
+    font-size: 30px;
+    cursor:pointer;
+    border: hidden;
+    background: transparent;
+}
+
+.publication{
+    position: absolute;
+    top: 12px;
+    left: 22px;
+    font-size: 15px;
+}
+
+/*tables*/
+
+.library_table{
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 15px;
+    vertical-align: top;
+    margin-bottom: 1rem;
+}
+
+.library_tr {
+    outline: thin solid;
+    border-radius: 10px;
+    border-color: #606061;
+}
+
+.library_td {
+    padding: 4px 0px 4px 7px;
+    cursor: pointer;
+    color: #606061; 
+    font-size: 16px;
+    font-weight: 600;
+
+}
+
+.library_th {
+    padding: 2px 0px 2px 7px;
+    color: #606061;
+    font-size: 16px;
+    font-weight: 500;
+}

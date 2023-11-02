@@ -1,0 +1,124 @@
+﻿@page
+@using Microsoft.AspNetCore.Mvc.Rendering
+@model RegisterModel
+@{
+    ViewData["Title"] = "Welcome to VUtor";
+}
+
+<h1 class="login_welcome_h1">@ViewData["Title"]</h1>
+<h2 class="congrats_h2">Glad to have you with us!</h2>
+
+
+<div class="row">
+    <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+        <div class="login_container">
+            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+            <div>
+                <label class="specifications">Enter email:</label>
+                <div class="form-floating mb-2">
+                    <input asp-for="Input.Email" class="round_corners register_email" autocomplete="username" aria-required="true" />
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="edit_row_container">
+                <div>
+                    <label class="specifications">Enter name:</label>
+                    <div class="form-floating mb-2">
+                        <input asp-for="Input.Name" class="round_corners" />
+                        <span asp-validation-for="Input.Name" class="text-danger"></span>
+                    </div>
+
+                    <label class="specifications">Enter surname:</label>
+                    <div class="form-floating mb-2">
+                        <input asp-for="Input.Surname" class="round_corners" />
+                        <span asp-validation-for="Input.Surname" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="specifications">Enter password:</label>
+                    <div class="form-floating mb-2">
+                        <input asp-for="Input.Password" class="round_corners" autocomplete="new-password" aria-required="true" />
+                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                    </div>
+
+                    <label class="specifications">Confirm password:</label>
+                    <div class="form-floating mb-2">
+                        <input asp-for="Input.ConfirmPassword" class="round_corners" autocomplete="new-password" aria-required="true" />
+                        <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="edit_row_container">
+                <div>
+                    <label class="specifications" for="Input.CourseName"> Select course name:</label>
+                    <div class="form-floating mb-1">
+                        <select asp-for="Input.CourseName" id="Course_Name" class="round_corners">
+                            @foreach (var value in Enum.GetValues(typeof(CourseName)))
+                            {
+                                <option value="@value">@value.ToString()</option>
+                            }
+                        </select>
+                        <span asp-validation-for="Input.CourseName"></span>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="specifications" for="Input.CourseYear">Select acaddemic year:</label>
+                    <div class="form-floating mb-2">
+                        <select asp-for="Input.CourseYear" id="courseYear" class="round_corners">
+                            @foreach (var value in Enum.GetValues(typeof(CourseYear)))
+                            {
+                                <option value="@value">@value.ToString()</option>
+                            }
+                        </select>
+                        <span asp-validation-for="Input.CourseYear"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="edit_row_container">
+                <div>
+                    <label class="specifications">Select a subject you wish to learn:</label>
+                    <div class="form-floating">
+                        @foreach (var topic in Model.TopicList)
+                        {
+                            <div>
+                                <input type="radio"
+                                       asp-for="Input.TopicToLearn"
+                                       value="@topic.Id"
+                                       id="@("learn" + topic.Title)" />
+                                <label class="label form-floating mb-2" for="@("learn" + topic.Title)"> @topic.Title </label>
+                            </div>
+                        }
+                        <span asp-validation-for="Input.TopicToLearn"></span>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="specifications">Select a subject you want to teach:</label>
+                    <div class="form-floating">
+                        @foreach (var topic in Model.TopicList)
+                        {
+                            <div>
+                                <input type="radio"
+                                       asp-for="Input.TopicToTeach"
+                                       value="@topic.Id"
+                                       id="@("teach" + topic.Title)" />
+                                <label class="label form-floating mb-2" for="@("teach" + topic.Title)"> @topic.Title </label>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="form-floating mb-3"></div>
+            <button id="registerSubmit" type="submit" class=" round_corners login">Register</button>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

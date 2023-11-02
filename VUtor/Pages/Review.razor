@@ -1,0 +1,72 @@
+@page "/review"
+@using System.Collections;
+
+<PageTitle>Review</PageTitle>
+
+<h1>Please rate our website</h1>
+    <div>
+        <div class="edit_container">
+            <label class="specifications">Enter a number from 1 to 5 to rate our website:</label>
+            <input type="number" @bind="currentRating" min="1" max="5" class="round_corners" />
+         </div>
+        
+        <div class="form-floating mb-2"> </div>
+
+        <button @onclick="AddRating" class="round_corners edit">Submit Rating</button>
+        <div class="form-floating mb-2"> </div>
+
+        <button @onclick="CalculateAverage" class="round_corners edit">Calculate Average</button>
+        <div class="form-floating mb-2"> </div>
+            <button @onclick="DisplayLatestRating" class="round_corners edit">Display Latest Rating</button>
+        <div class="form-floating mb-2"> </div>
+
+        <p>@message</p>
+    </div>
+
+@code {
+    private int currentRating = 1;
+    private ArrayList ratings = new ArrayList();
+    private string message = "";
+
+    private void AddRating()
+    {
+        if (currentRating >= 1 && currentRating <= 5)
+        {
+            object boxedRating = currentRating;
+            ratings.Add(boxedRating);
+            message = "Rating added!";
+        }
+        else
+        {
+            message = "Invalid rating!";
+        }
+    }
+
+    private void CalculateAverage()
+    {
+        if (ratings.Count == 0)
+        {
+            message = "No ratings to calculate average!";
+            return;
+        }
+
+        double sum = 0;
+        foreach (object obj in ratings)
+        {
+            int rating = (int)obj;
+            sum += rating;
+        }
+        double average = sum / ratings.Count;
+        message = $"Average rating: {average}";
+    }
+
+    private void DisplayLatestRating()
+    {
+        if (ratings.Count == 0)
+        {
+            message = "No ratings added!";
+            return;
+        }
+        message = $"Latest rating: {ratings[ratings.Count - 1]}";
+    }
+}

@@ -1,0 +1,28 @@
+﻿@page
+@model LoginModel
+
+@{
+    ViewData["Title"] = "Welcome to VUtor";
+}
+<div class="login_container">
+    <h1 class="login_welcome_h1">@ViewData["Title"]</h1>
+    <section>
+        <form id="account" method="post" class="login_container">
+            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+            <div>
+                <label class="specifications">Enter account email</label>
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.Email" class="round_corners long_tall" autocomplete="username" aria-required="true" />
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+            </div>
+            <div>
+                <button id="login-submit" type="submit" class="round_corners login">Log in</button>
+            </div>
+        </form>
+    </section>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

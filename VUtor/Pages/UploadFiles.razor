@@ -1,0 +1,192 @@
+﻿@page "/uploadfiles"
+
+@using DataAccessLibrary.Data
+@using DataAccessLibrary.Models
+@using DataAccessLibrary
+@using Microsoft.AspNetCore.Identity;
+@using Microsoft.EntityFrameworkCore
+
+
+
+
+@inject IConfiguration config 
+@inject ApplicationDbContext context
+@inject UserManager<ProfileEntity> userManager
+@inject FileRepository fileManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+
+<h3>UploadFiles</h3>
+
+<EditForm Model="userFile" OnValidSubmit="SubmitForm">
+    <div>
+        <label for="Title">Enter resource title</label>
+        <InputText id="title" class="form-control" @bind-Value="userFile.Title"></InputText>
+    </div>
+    <div>
+        <label for="Description">Enter a short description</label>
+        <InputText id="description" class="form-control" @bind-Value="userFile.Description"></InputText>
+    </div>
+    <div>
+    <label for="TopicId">Choose topic</label>
+        <InputSelect id="topicId" class="form-control" @bind-Value="userFile.TopicId">
+            @foreach (var value in TopicList)
+            {
+                <option value="@value.Id">@value.Title</option>
+            }
+        </InputSelect>
+    </div>
+    <div>
+        <label for="File">Upload your file</label>
+        <InputFile OnChange="@LoadFiles" class="form-control"/>
+    </div>
+    <button class="btn btn-primary mt-3" type="submit">Upload</button>
+</EditForm>
+
+
+@if(errors.Count() > 0)
+{
+    <h2>Errors</h2>
+    <ul class="text-danger">
+        @foreach(var error in errors)
+        {
+            <li>@error</li>
+        }
+    </ul>
+}
+
+@code {
+    private List<TopicEntity> TopicList;
+    private long maxFileSize = 1024 * 1024 * 5; //3MB
+    private List<string> errors = new();
+    private UserFile userFile = new UserFile(); 
+    private Folder folder;
+    private IBrowserFile? file;
+    private ProfileEntity? profile;
+
+    protected override async void OnInitialized()
+    {
+        TopicList = context.Topics.ToList();
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+        if (user.Identity.IsAuthenticated)
+        {
+            profile = await userManager.GetUserAsync(user);
+        }
+    }
+
+    private async Task SubmitForm()
+    {
+        errors.Clear();
+        try
+        {           
+            var topic = context.Topics.Find(userFile.TopicId);
+            if(topic != null)
+            {
+                userFile.Topic = topic;
+                userFile.Profile = profile;
+                userFile.ProfileId = profile.Id;
+                userFile.CreationDate = new profileCreationDate();
+
+                userFile.FileName = await CaptureFile();
+
+                // adding new items to dbsets and saving changes
+                topic.UserFiles.Add(userFile);
+                context.UserFiles.Add(userFile);
+                folder.Items.Add(userFile);
+
+                context.SaveChanges();
+            }
+            else
+            {
+                errors.Add($"Error: topic was not chosen");
+            }
+
+            // clearing everything for a new upload
+            folder = null;
+            userFile = new();
+            file = null;
+            errors.Clear();
+        }
+        catch (Exception ex)
+        {
+            errors.Add($"Error:{ex.Message}");
+        }
+    }
+
+    private void LoadFiles(InputFileChangeEventArgs e)
+    {
+        file = e.File;
+    }
+
+    private async Task<string> CaptureFile()
+    {
+        TopicList = context.Topics.ToList();
+        if(file == null)
+        {
+            return "";
+        }
+
+        try
+        {
+            //get where wwwroot\\Storage is in your set up
+            string storagePath = Path.GetFullPath(config.GetValue<string>("FileStorage")!);
+
+            string newFileName = Path.ChangeExtension(
+                Path.GetRandomFileName(),
+                Path.GetExtension(file.Name));
+
+            // check and/or create the folders if they're not there
+            // full path
+            string folderPath = fileManager.CreateFolder(storagePath, userFile.Topic.Title);
+            // check if no errors occured
+            if(folderPath != null)
+            {
+                // assign folder path and name
+                UpdateFolder();
+                // get path with filename
+                string path = Path.Combine(folderPath,
+                    newFileName); 
+
+                // paste the uploaded file
+                await using FileStream fs = new(path, FileMode.Create);
+                await file.OpenReadStream(maxFileSize).CopyToAsync(fs);
+
+                return newFileName;
+            }
+            return null;
+
+        }
+        catch (Exception ex)
+        {
+            errors.Add($"File: {file.Name} Error: {ex.Message}");
+            throw;
+        }
+
+    }
+
+    private void UpdateFolder()
+    {
+        var storage = config.GetValue<string>("FileStorage");
+        Folder firstFolder = context.Folders.Where(e => e.Path == storage).Include(e => e.SubFolders).First();
+        var currentPath = Path.Combine(storage, userFile.Topic.Title);
+
+        if (currentPath.StartsWith(firstFolder.Path))
+        {
+            var relativePath = currentPath.Substring(firstFolder.Path.Length + 1);
+            if (!relativePath.Contains("\\") && firstFolder.SubFolders.Where(e => e.Name == userFile.Topic.Title).Count() == 0)
+            {
+                folder = new();
+                folder.Path = currentPath;
+                folder.Name = userFile.Topic.Title;
+                firstFolder.SubFolders.Add(folder);
+                context.SaveChanges();
+            }
+            else
+            {
+                folder = firstFolder.SubFolders.Where(e => e.Name == userFile.Topic.Title).First();
+            }
+        }
+    }
+}
+

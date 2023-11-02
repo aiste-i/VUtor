@@ -1,0 +1,396 @@
+﻿@page "/fetchstudents"
+
+@using DataAccessLibrary.Data
+@using DataAccessLibrary.Models
+@using DataAccessLibrary
+@using Microsoft.EntityFrameworkCore
+
+@inject IGenericRepository<TopicEntity> _dbTopics
+@inject IProfileRepository _db
+@inject ApplicationDbContext _context
+
+<PageTitle>Student List</PageTitle>
+
+<h1>Student List</h1>
+
+<h2 class="instructions">Insert new user:</h2>
+
+<!--    
+        Insert new user form uses NewUserModel to
+        fill out properties for a new ProfileEntity.
+
+        On valid submit creates a new Profile entity and inserts
+        into the database using DbContext
+-->
+<EditForm Model="@NewUser" OnValidSubmit="@InsertUser">
+    <div class="edit_row_container">
+
+        <!--Personal data-->
+        <div>
+            <!-- 1. Name field -->
+            <label class="specifications" for="name"> Name*:</label>
+            <div class="form-floating mb-1">
+                <InputText name="Name" @bind-Value="NewUser.Name" class="round_corners" />
+            </div>
+
+            <!-- 2. Surname field -->
+            <label class="specifications" for="surname">Surname*:</label>
+            <div class="form-floating mb-1">
+                <InputText name="Surname" @bind-Value="NewUser.Surname" class="round_corners" />
+            </div>
+        </div>
+
+        <!--Course info-->
+        <div>
+            <!-- 3. Course name selection -->
+            <label class="specifications" for="courseName"> Select course name: </label>
+            <div class="form-floating mb-1">
+                <InputSelect name="courseName" @bind-Value="NewUser.CourseName" class="round_corners">
+                    <option value="1">PS</option>
+                    <option value="2">ISI</option>
+                    <option value="3">VDA</option>
+                    <option value="4">MMT</option>
+                    <option value="5">IT</option>
+                    <option value="6">FDM</option>
+                    <option value="7">DM</option>
+                </InputSelect>
+            </div>
+
+            <!-- 4. Course year selection -->
+            <label class="specifications" for="courseYear"> Select academic year:</label>
+            <div class="form-floating mb-1">
+                <InputSelect name="courseYear" @bind-Value="NewUser.CourseYear" class="round_corners">
+                    <option value="1">I</option>
+                    <option value="2">II</option>
+                    <option value="3">III</option>
+                    <option value="4">IV</option>
+                </InputSelect>
+            </div>
+        </div>
+
+        <!--Topics-->
+        <div>
+            <!-- 5. Topic to learn selection -->
+            <label class="specifications" for="topicToLearn"> Select topics to learn: </label>
+            <div class="form-floating mb-1">
+                <InputSelect name="topicToLearn" @bind-Value="NewUser.TopicToLearnId" class="round_corners">
+                    @foreach (var topic in _topics)
+                    {
+                        <option value="@topic.Id">@topic.Title</option>
+                    }
+                </InputSelect>
+            </div>
+
+            <!-- 6. Topic to teach selection -->
+            <label class="specifications" for="topicToTeach"> Select topic to teach:</label>
+            <div class="form-floating mb-1">
+                <InputSelect name="topicToTeach" @bind-Value="NewUser.TopicToTeachId" class="round_corners">
+                    @foreach (var topic in _topics)
+                    {
+                        <option value="@topic.Id">@topic.Title</option>
+                    }
+                </InputSelect>
+            </div>
+        </div>
+    </div>
+
+    <button type="submit" class="round_corners student_list">Submit</button>
+</EditForm>
+
+<!--informs user of insert action successfulness and disappears after set amount of time-->
+<label class="info_message @_resultInsert">@_insertUserMessage</label>
+
+<div class="form-floating mb-3"> </div>
+<h2 class="instructions">Filter users:</h2>
+
+<!--    
+    List filtering uses FilterModel
+    to receive filter values.
+
+    On valid submit calls query on DbContext
+    and displays results on screen
+-->
+<EditForm Model="@Filter" OnValidSubmit="@FilterList">
+    <div class="edit_row_container">
+
+        <!--Personal data-->
+        <div>
+            <!-- 1. Name field -->
+            <label class="specifications" for="nameFilter">Filter by name:</label>
+            <div class="form-floating mb-1">
+                    <InputText name="nameFilter" @bind-Value="Filter.Name" class="round_corners" />
+            </div>
+
+            <!-- 2. Surname field -->
+            <label class="specifications" for="surnameFilter">Filter by surname:</label>
+            <div class="form-floating mb-1">
+                <InputText name="surnameFilter" @bind-Value="Filter.Surname" class="round_corners" />
+            </div>
+        </div>
+
+        <!--Course info-->
+        <div>
+            <!-- 3. Course name selection -->
+            <label class="specifications" for="courseName"> Select course name: </label>
+            <div class="form-floating mb-1">
+                <InputSelect name="courseName" @bind-Value="Filter.CourseName" class="round_corners">
+                    <option value="0">None</option>
+                    <option value="1">PS</option>
+                    <option value="2">ISI</option>
+                    <option value="3">VDA</option>
+                    <option value="4">MMT</option>
+                    <option value="5">IT</option>
+                    <option value="6">FDM</option>
+                    <option value="7">DM</option>
+                </InputSelect>
+            </div>
+
+        <label class="specifications" for="courseYear"> Select academic year:</label>
+            <div class="form-floating mb-1">
+                <InputSelect name="courseYear" @bind-Value="Filter.CourseYear" class="round_corners">
+                    <option value="0">None</option>
+                    <option value="1">I</option>
+                    <option value="2">II</option>
+                    <option value="3">III</option>
+                    <option value="4">IV</option>
+                </InputSelect>
+            </div>
+        </div>
+
+        <!--Topics-->
+        <div>
+            <!-- 5. Topic to learn selection -->
+            <label class="specifications" for="topicLearn"> Select topics to learn: </label>
+            <div class="form-floating mb-1">
+                <InputSelect name="topicLearn" @bind-Value="Filter.TopicToLearnId" class="round_corners">
+                    <option value="0">None</option>
+                    @foreach(var topic in _topics)
+                    {
+                        <option value="@topic.Id">@topic.Title</option>
+                    }
+                </InputSelect>
+            </div>
+
+            <!-- 6. Topic to teach selection -->
+            <label class="specifications" for="topicTeach"> Select topic to teach:</label>
+            <div class="form-floating mb-1">
+                <InputSelect name="topicTeach" @bind-Value="Filter.TopicToTeachId" class="round_corners">
+                    <option value="0">None</option>
+                    @foreach (var topic in _topics)
+                    {
+                        <option value="@topic.Id">@topic.Title</option>
+                    }
+                </InputSelect>
+            </div>
+        </div>
+    </div>
+
+    <button type="submit" class="round_corners student_list">Filter</button>
+    <button type="button" class="round_corners student_list_red" onclick="@ClearFilters">Clear filters</button>
+</EditForm>
+
+<!--informs user of filter action successfulness and disappears after set amount of time-->
+<label class="info_message @_resultFilter">@_filterListMessage</label>
+
+<!--
+    Formatted list of ProfileEntites
+-->
+@if (_users == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Surname</th>
+                <th>Course</th>
+                <th>Academic year</th>
+                <th>Topics to learn</th>
+                <th>Topics to teach</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in _usersDisplay)
+            {
+                <tr>
+                    <td>@user.Name</td>
+                    <td>@user.Surname</td>
+                    <td>@user.CourseInfo.GetName()</td>
+                    <td>@user.CourseInfo.GetYear()</td>
+                    
+                    <td>
+                        <ul>
+                            @foreach (var topic in user.TopicsToLearn)
+                            {
+                                <li>@topic.Title</li>
+                            }
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            @foreach (var topic in user.TopicsToTeach)
+                            {
+                                <li>@topic.Title</li>
+                            }
+                        </ul>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+
+    #region Fields
+
+        private List<TopicEntity> _topics = new List<TopicEntity>();
+        private List<ProfileEntity> _topicsDisplay = new List<ProfileEntity>();
+
+        private List<ProfileEntity> _users = new List<ProfileEntity>();
+        private List<ProfileEntity> _usersDisplay = new List<ProfileEntity>();
+
+        private string? _insertUserMessage;
+        private string? _resultInsert;
+        private string? _filterListMessage;
+        private string? _resultFilter;
+
+    #endregion
+
+    # region Models
+
+        // UserModel
+        public class UserModel
+        {
+            // Personal data
+            public string? Name { get; set; }
+            public string? Surname { get; set; }
+
+            // Course info
+            public int CourseName { get; set; }
+            public int CourseYear { get; set; }
+
+            // Topics
+            public int TopicToLearnId { get; set; }
+            public int TopicToTeachId { get; set; }
+        }
+
+        private UserModel? NewUser = new UserModel();
+        private UserModel? Filter = new UserModel();
+
+    #endregion
+
+    #region Tasks
+
+        // Actions executed on page initialization
+        protected override async Task OnInitializedAsync()
+        {
+            _users = await _db.LoadData(); // loads table of type ProfileEntity into _users
+            _usersDisplay = _users; // stores reference to _users for display purposes
+
+            _topics = await _context.Topics.ToListAsync(); // loads table of Topics to choose from
+            _topicsDisplay = _context.Profiles.Include(p => p.TopicsToLearn).Include(p => p.TopicsToTeach).ToList(); // allows topics to be referenced
+                                                                                                                     // when attempting to display
+        }
+
+        private async Task InsertUser()
+        {
+            if(string.IsNullOrEmpty(NewUser.Name) || string.IsNullOrEmpty(NewUser.Surname))
+            {
+                _resultInsert = "failure";
+                _insertUserMessage = "Error! Both fields must be filled.";
+
+                object _insertBoxed = (object)_insertUserMessage;
+                _insertUserMessage = (string)await NullValue<string>(_insertBoxed, 5);
+            }
+            else
+            {
+                var _tTL = new List<TopicEntity>();
+                _tTL.Add(await _dbTopics.GetEntityById<int>(NewUser.TopicToLearnId));
+
+                var _tTT = new List<TopicEntity>();
+                _tTT.Add(await _dbTopics.GetEntityById<int>(NewUser.TopicToTeachId));
+
+                ProfileEntity user = new ProfileEntity
+                        {
+                            Name = NewUser.Name,
+                            Surname = NewUser.Surname,
+                            CourseInfo = new CourseData(NewUser.CourseName, NewUser.CourseYear),
+                            CreationDate = new profileCreationDate(),
+                            TopicsToLearn = _tTL,
+                            TopicsToTeach = _tTT
+                        };
+
+                await _db.Insert(user);
+                await _db.SaveChanges();
+
+                await RefetchData();
+
+                NewUser = new UserModel();
+
+                _resultInsert = "success";
+                _insertUserMessage = "User added successfully!";
+
+                object _insertBoxed = (object)_insertUserMessage;
+                _insertUserMessage = (string)await NullValue<string>(_insertBoxed, 5);
+            }
+        }
+
+        private async Task FilterList()
+        {
+            _usersDisplay = await _db.GetProfilesByFilterAsync(name: Filter.Name,
+                                                               surname: Filter.Surname, 
+                                                               courseName: Filter.CourseName, 
+                                                               courseYear: Filter.CourseYear, 
+                                                               topicsLearn: Filter.TopicToLearnId, 
+                                                               topicsTeach: Filter.TopicToTeachId);
+            if(_usersDisplay != null)
+            {
+                _resultFilter = "success";
+                _filterListMessage = "Data filtered successfully.";
+            }
+            else
+            {
+                _resultFilter = "failure";
+                _filterListMessage = "Error!";
+            }
+                
+
+            object _filterBoxed = (object)_filterListMessage;
+            _filterListMessage = (string)await NullValue<string>(_filterBoxed, 5);
+        }
+
+        private async Task RefetchData()
+        {
+            _users = await _db.LoadData();
+            _usersDisplay = _users;
+        }
+
+        private async Task ClearFilters()
+        {
+            await RefetchData();
+            Filter = new UserModel();
+
+            _resultFilter = "success";
+            _filterListMessage = "Filters cleared.";
+
+            object _filterBoxed = (object)_filterListMessage;
+            _filterListMessage = (string)await NullValue<string>(_filterBoxed, 5);
+        }
+
+        private async Task<object> NullValue<T>(object nullableObj, int delayInSeconds)
+        {
+            await Task.Delay(TimeSpan.FromSeconds(delayInSeconds));
+
+            var value = (T)nullableObj;
+            value = default(T);
+            nullableObj = (object)value;
+
+            return nullableObj;
+        }
+
+    #endregion
+}
